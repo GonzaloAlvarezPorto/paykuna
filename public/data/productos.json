@@ -1,0 +1,30 @@
+[
+  {
+    "id": 2,
+    "nombre": "Gonzalo",
+    "categoria": "Ser humano",
+    "precio": 6000,
+    "imagen": "/oferta1.jpg"
+  },
+  {
+    "id": 3,
+    "nombre": "Gisela",
+    "categoria": "Rapetti",
+    "precio": 1230,
+    "imagen": "/oferta8.jpg"
+  },
+  {
+    "id": 4,
+    "nombre": "Mateo",
+    "categoria": "Alvarez",
+    "precio": 1230,
+    "imagen": "/oferta5.jpg"
+  },
+  {
+    "id": 5,
+    "nombre": "Pirulo",
+    "categoria": "Pirulero",
+    "precio": 1230,
+    "imagen": "/oferta2.jpg"
+  }
+]

@@ -1,0 +1,56 @@
+@use "../dOtros/variables" as var;
+
+.pieDePagina {
+    .pieDePagina__redes {
+        display: flex;
+        justify-content: center;
+        padding: 0.5rem;
+        background-color: var.$verde2;
+
+        .redes__contenedores {
+            margin: 0;
+            padding: 4px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            width: 70%;
+
+            .contenedores__enlace {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+
+                .enlace__texto {
+                    color: var.$dorado1;
+                    margin: 0 10px;
+                    text-decoration: none;
+                }
+
+                .enlace__imagen {
+                    background-color: var.$dorado1;
+                    height: 40px;
+                    border: 1px solid var.$dorado1;
+                    border-radius: 100px;
+                }
+            }
+        }
+    }
+
+    .pieDePagina__derechos {
+        background-color: var.$verde4;
+        margin: 0;
+        color: var.$dorado1;
+        text-align: center;
+        padding: 0.7rem;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+
+        .derechos__imagen {
+            margin: 0 10px;
+            width: 25px;
+        }
+    }
+}
