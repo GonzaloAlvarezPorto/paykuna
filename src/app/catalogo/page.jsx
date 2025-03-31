@@ -1,9 +1,16 @@
 "use client";
 
+import ProductCard from "@/components/ProductCard";
+import Sidebar from "@/components/Sidebar";
+import Tooltip from "@/components/Tooltip";
 import { useState, useEffect } from "react";
 
 const CatalogoPage = () => {
   const [productos, setProductos] = useState([]);
+  const [categorias, setCategorias] = useState([]);
+  const [categoriaSeleccionada, setCategoriaSeleccionada] = useState("Todos los productos");
+  const [tooltip, setTooltip] = useState({ visible: false, text: "", x: 0, y: 0 });
+  const [cantidades, setCantidades] = useState({});
 
   useEffect(() => {
     const fetchProductos = async () => {
@@ -12,6 +19,10 @@ const CatalogoPage = () => {
         if (!res.ok) throw new Error("Error al obtener productos");
         const data = await res.json();
         setProductos(data);
+
+        // Extraer categorías únicas
+        const categoriasUnicas = ["Todos los productos", ...new Set(data.map((producto) => producto.categoria))];
+        setCategorias(categoriasUnicas);
       } catch (error) {
         console.error(error);
       }
@@ -20,35 +31,39 @@ const CatalogoPage = () => {
     fetchProductos();
   }, []);
 
+  const handleCantidadChange = (id, cambio) => {
+    setCantidades(prev => ({
+      ...prev,
+      [id]: Math.max((prev[id] || 0) + cambio, 0)
+    }));
+  };
+
+  const productosFiltrados = categoriaSeleccionada === "Todos los productos"
+    ? productos
+    : productos.filter(producto => producto.categoria === categoriaSeleccionada);
+
   return (
     <div className="catalogo">
-      <div className="lat-menu">
-        menu lateral, ahora te re cagué
-      </div>
+      <Sidebar categorias={categorias} setCategoriaSeleccionada={setCategoriaSeleccionada}></Sidebar>
       <div className="products-container">
-        {/* <h1>Catálogo de Productos</h1> */}
-        {productos.length === 0 ? (
+        {productosFiltrados.length === 0 ? (
           <p>No hay productos disponibles.</p>
         ) : (
           <div className="products">
-            {productos.map((producto) => (
-              <div className="product-card" key={producto.id}>
-                <h2>{producto.nombre}</h2>
-                <div className="product-img-container">
-                  <img className="product-img" src={producto.imagen} alt={producto.nombre} />
-                </div>
-                <p className="product-price">${producto.precio}</p>
-                <div className="product-buttons">
-                  <button className="minus-btn">-</button>
-                  <input type="number" />
-                  <button className="plus-btn">+</button>
-                </div>
-                <button className="product-add">Agregar al carrito</button>
-              </div>
+            {productosFiltrados.map((producto) => (
+              <ProductCard key={producto.id}
+              producto={producto}
+              cantidades={cantidades}
+              setCantidades={setCantidades}
+              handleCantidadChange={handleCantidadChange}
+              setTooltip={setTooltip}></ProductCard>
             ))}
           </div>
         )}
       </div>
+      {tooltip.visible && (
+        <Tooltip tooltip={tooltip}></Tooltip>
+      )}
     </div>
   );
 };

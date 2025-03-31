@@ -15,6 +15,7 @@ html {
 main {
     min-height: 500px;
     background-color: var.$verde3;
+    display: flex;
 }
 
 header {
@@ -27,4 +28,9 @@ header {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    border-bottom: 1px solid var.$dorado1;
+}
+
+footer{
+    border-top: 1px solid var.$dorado1;
 }

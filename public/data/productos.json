@@ -1,30 +1,34 @@
 [
   {
     "id": 2,
-    "nombre": "Gonzalo",
-    "categoria": "Ser humano",
-    "precio": 6000,
-    "imagen": "/oferta1.jpg"
+    "nombre": "Bolsón de Verduras",
+    "categoria": "Oferta",
+    "precio": 15200,
+    "imagen": "/verdura1.jpeg",
+    "descripcion":"Peso aproximado, entre 7 y 8 kg. Variedades 12"
   },
   {
     "id": 3,
-    "nombre": "Gisela",
-    "categoria": "Rapetti",
-    "precio": 1230,
-    "imagen": "/oferta8.jpg"
+    "nombre": "Bolsón de Verduras Mini",
+    "categoria": "Oferta",
+    "precio": 9300,
+    "imagen": "/oferta8.jpg",
+    "descripcion":"Peso Aproximado entre 3,5 y 4,5 kgs de verdura. Variedades 7 "
   },
   {
     "id": 4,
-    "nombre": "Mateo",
-    "categoria": "Alvarez",
-    "precio": 1230,
-    "imagen": "/oferta5.jpg"
+    "nombre": "Combo Frutal Único",
+    "categoria": "Oferta",
+    "precio": 8600,
+    "imagen": "/verdura1.jpeg",
+    "descripcion":"Peso 3 kgs. Variedades 6"
   },
   {
     "id": 5,
     "nombre": "Pirulo",
     "categoria": "Pirulero",
     "precio": 1230,
-    "imagen": "/oferta2.jpg"
+    "imagen": "/verdura1.jpeg",
+    "descripcion":"La concha de tu madre"
   }
 ]
