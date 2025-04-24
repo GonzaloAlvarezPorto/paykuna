@@ -28,9 +28,5 @@ header {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid var.$dorado1;
-}
-
-footer{
-    border-top: 1px solid var.$dorado1;
+    z-index: 1;
 }

@@ -1,6 +1,7 @@
-import React from 'react'
+import React from 'react';
 
-const ProductCard = ({ producto, cantidades, setCantidades, handleCantidadChange, setTooltip }) => {
+const ProductCard = ({ producto, cantidades, setCantidades, handleCantidadChange, setTooltip, handleAgregarAlCarrito }) => {
+
     return (
         <div className="product-card" key={producto.id}>
             <div className="product-title">
@@ -31,9 +32,19 @@ const ProductCard = ({ producto, cantidades, setCantidades, handleCantidadChange
                 />
                 <button className="plus-btn" onClick={() => handleCantidadChange(producto.id, 1)}>+</button>
             </div>
-            <button className="product-add">Agregar al carrito</button>
+            <button
+                className="product-add"
+                onClick={() => {
+                    const cantidad = cantidades[producto.id] || 0;
+                    if (cantidad > 0) {
+                        handleAgregarAlCarrito(producto, cantidad);
+                    }
+                }}
+            >
+                Agregar al carrito
+            </button>
         </div>
-    )
-}
+    );
+};
 
-export default ProductCard
+export default ProductCard;

@@ -1,6 +1,8 @@
 import Header from "@/components/Header";
 import "./globals.scss";
 import { Footer } from "@/components/Footer";
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 export const metadata = {
   title: "Almacén Paykuna | Almacén Orgánico",
@@ -17,6 +19,7 @@ export default function RootLayout({ children }) {
         <Header></Header>
         <main>
           {children}
+          <ToastContainer position="top-right" autoClose={1500} />
         </main>
         <Footer></Footer>
       </body>

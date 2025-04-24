@@ -74,6 +74,12 @@ const NavBar = () => {
                 <li>
                     <Link className="link" href="/catalogo">CATÁLOGO</Link>
                 </li>
+                <li>
+                    <Link className="link" href="/cart">🛒</Link>
+                </li>
+                <li>
+                    <p className="link counter">1</p>
+                </li>
             </ul>
 
             {showGallery && (

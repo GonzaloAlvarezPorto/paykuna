@@ -21,7 +21,8 @@ const NosotrosPage = () => {
     fetchData();
   }, []);
   return (
-    <div>
+    <div className='aboutus'>
+      <h2>¡Hola comunidad Payku!</h2>
       {textos.length > 0 ? (
         textos.map((texto, index) => (
           <p key={index}>

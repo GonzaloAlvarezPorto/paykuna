@@ -1,11 +1,9 @@
 "use client"
 const Home = () => {
 
-
-
     return (
-        <div>
-            <h1>Bienvenidos, sabemos que estás como bocina de tanque así que saludá hijo de yuta 🚨</h1>
+        <div className="home">
+            <h1>Acá deberíamos pensar que mierda poner</h1>
         </div>
     )
 }
