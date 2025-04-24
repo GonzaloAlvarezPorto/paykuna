@@ -36,43 +36,48 @@ const CartPage = () => {
   const modificarCantidad = (id, cambio) => {
     setCarrito((prev) => {
       const nuevoCarrito = JSON.parse(JSON.stringify(prev)); // Copia profunda para evitar problemas de referencia
-  
+
       if (nuevoCarrito[id]) {
         nuevoCarrito[id].cantidad = Math.max(nuevoCarrito[id].cantidad + cambio, 0);
-  
+
         if (nuevoCarrito[id].cantidad === 0) {
           delete nuevoCarrito[id];
         }
       }
-  
+
       localStorage.setItem("carrito", JSON.stringify(nuevoCarrito));
       return nuevoCarrito;
     });
   };
 
   return (
-    <div>
-      <h1>🛒 Carrito de Compras</h1>
-
+    <div className="cart">
       {Object.keys(carrito).length === 0 ? (
         <p>Tu carrito está vacío.</p>
       ) : (
-        <div>
+        <div className="cart_resume">
           <ul>
             {Object.values(carrito).map((producto) => (
               <li key={producto.id}>
                 <img src={producto.imagen} alt={producto.nombre} width="50" />
-                <strong>{producto.nombre}</strong> - {producto.cantidad} x ${producto.precio}
-                <span> = ${producto.precio * producto.cantidad}</span>
-                <button onClick={() => modificarCantidad(producto.id, -1)}>➖</button>
-                <button onClick={() => modificarCantidad(producto.id, 1)}>➕</button>
+                <div className="resume_info">
+                  <div className="info_header">
+                    <strong>{producto.nombre}</strong><p>- Precio unitario: ${producto.precio}</p>
+                  </div>
+                  <div className="resume_btn">
+                    <button onClick={() => modificarCantidad(producto.id, -1)}>➖</button>
+                    <span>Cantidad pedida: </span><p>{producto.cantidad}</p>
+                    <button onClick={() => modificarCantidad(producto.id, 1)}>➕</button>
+                  </div>
+                    <span>Total del producto: ${producto.precio * producto.cantidad}</span>
+                </div>
               </li>
             ))}
           </ul>
 
-          <h3>
+          <div>
             Total: ${calcularTotal()} &nbsp; | &nbsp; Total productos: {calcularTotalProductos()}
-          </h3>
+          </div>
           <button onClick={vaciarCarrito}>🗑 Vaciar Carrito</button>
           <button>✅ Confirmar pedido</button>
         </div>

@@ -18,12 +18,12 @@
     padding: 2rem;
     justify-content: space-around;
 
-    h2{
-        color:white;
+    h2 {
+        color: white;
         text-decoration: underline;
     }
 
-    p{
+    p {
         color: white;
         text-shadow: 0px 0px 15px black;
     }
@@ -167,6 +167,84 @@
                     background-color: var.$verde4;
                     border: 1px solid var.$dorado1;
                     border-radius: 5px;
+                }
+            }
+        }
+    }
+}
+
+.cart {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    .cart_resume {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        ul {
+            display: flex;
+            flex-direction: column;
+
+            li {
+                display: flex;
+                flex-direction: row;
+                background-color: var.$verde2;
+                margin-bottom: 5px;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+                padding: 5px;
+
+                img {
+                    width: 80px;
+                    height: 80px;
+                    margin: 10px;
+                }
+
+                .resume_info{
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-around;
+                    margin: 10px 5px;
+
+                    .info_header{
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: space-between;
+
+                        strong{
+                            color: white;
+                        }
+
+                        p{
+                            margin-left: 5px;
+                            color: var.$dorado1;
+                            font-weight: bold;
+                        }
+                    }
+
+                    .resume_btn{
+                        display: flex;
+                        align-items: center;
+
+                        p{
+                            margin: 0 5px 0 0;
+                            background-color: white;
+                            padding: 3px 10px;
+                        }
+
+                        span{
+                            margin: 0 0 0 5px;
+                            font-weight: bold;
+                            background-color: var.$dorado1;
+                            padding: 3px 10px;
+                        }
+
+                        button{
+                            padding: 4px;
+                            border:none
+                        }
+                    }
                 }
             }
         }
