@@ -1,48 +1,41 @@
 import React from 'react';
 
-const ProductCard = ({ producto, cantidades, setCantidades, handleCantidadChange, setTooltip, handleAgregarAlCarrito }) => {
+const ProductCard = ({ producto, cantidades, setCantidades, handleCantidadChange, handleAgregarAlCarrito }) => {
 
     return (
         <div className="product-card" key={producto.id}>
-            <div className="product-title">
-                <h2>{producto.nombre}</h2>
-                <p
-                    className="product-info"
-                    onMouseEnter={(e) => setTooltip({ visible: true, text: producto.descripcion, x: e.clientX, y: e.clientY })}
-                    onMouseLeave={() => setTooltip({ visible: false, text: "", x: 0, y: 0 })}
-                >
-                    ℹ
-                </p>
+            <div className='product-img'>
+                <img src={producto.imagen} alt={producto.nombre} />
             </div>
-            <div className="product-img-container">
-                <img className="product-img" src={producto.imagen} alt={producto.nombre} />
-            </div>
-            <p className="product-price">${producto.precio}</p>
-            <div className="product-buttons">
-                <button className="minus-btn" onClick={() => handleCantidadChange(producto.id, -1)}>-</button>
-                <input
-                    type="number"
-                    value={cantidades[producto.id] || 0}
-                    min="0"
-                    onChange={(e) => {
-                        const nuevaCantidad = e.target.value === "" ? 0 : Math.max(parseInt(e.target.value), 0);
-                        setCantidades(prev => ({ ...prev, [producto.id]: nuevaCantidad }));
+            <div className='product-info'>
+                <div className='product-title'>
+                    <a href={`/catalogo/${producto.id}`}>{producto.nombre}</a>
+                    <p>-</p>
+                    <p>${producto.precio} p/u</p>
+                </div>
+                <div className='count-btns'>
+                    <button onClick={() => handleCantidadChange(producto.id, -1)}>-</button>
+                    <input
+                        type="number"
+                        value={cantidades[producto.id] || 0}
+                        min="0"
+                        onChange={(e) => {
+                            const nuevaCantidad = e.target.value === "" ? 0 : Math.max(parseInt(e.target.value), 0);
+                            setCantidades(prev => ({ ...prev, [producto.id]: nuevaCantidad }));
+                        }}
+                    />
+                    <button onClick={() => handleCantidadChange(producto.id, 1)}>+</button>
+                    <button className='add-btn' onClick={() => {
+                        const cantidad = cantidades[producto.id] || 0;
+                        if (cantidad > 0) {
+                            handleAgregarAlCarrito(producto, cantidad);
+                        }
                     }}
-                    style={{ textAlign: "center", width: "50px" }}
-                />
-                <button className="plus-btn" onClick={() => handleCantidadChange(producto.id, 1)}>+</button>
+                    >
+                        Agregar al carrito
+                    </button>
+                </div>
             </div>
-            <button
-                className="product-add"
-                onClick={() => {
-                    const cantidad = cantidades[producto.id] || 0;
-                    if (cantidad > 0) {
-                        handleAgregarAlCarrito(producto, cantidad);
-                    }
-                }}
-            >
-                Agregar al carrito
-            </button>
         </div>
     );
 };

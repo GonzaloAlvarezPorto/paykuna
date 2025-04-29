@@ -5,7 +5,7 @@ const Sidebar = ({categorias, setCategoriaSeleccionada}) => {
         <div className="lat-menu">
             <ul>
                 {categorias.map((categoria) => (
-                    <li key={categoria} onClick={() => setCategoriaSeleccionada(categoria)} style={{ cursor: "pointer" }}>
+                    <li key={categoria} onClick={() => setCategoriaSeleccionada(categoria)}>
                         {categoria}
                     </li>
                 ))}

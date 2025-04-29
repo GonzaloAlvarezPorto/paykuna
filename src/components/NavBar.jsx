@@ -78,7 +78,7 @@ const NavBar = () => {
                     <Link className="link" href="/cart">🛒</Link>
                 </li>
                 <li>
-                    <p className="link counter">1</p>
+                    <p className="link counter">0</p>
                 </li>
             </ul>
 

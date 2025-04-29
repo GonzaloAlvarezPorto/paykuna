@@ -2,7 +2,6 @@
 
 import ProductCard from "@/components/ProductCard";
 import Sidebar from "@/components/Sidebar";
-import Tooltip from "@/components/Tooltip";
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 
@@ -10,15 +9,16 @@ const CatalogoPage = () => {
   const [productos, setProductos] = useState([]);
   const [categorias, setCategorias] = useState([]);
   const [categoriaSeleccionada, setCategoriaSeleccionada] = useState("Todos los productos");
-  const [tooltip, setTooltip] = useState({ visible: false, text: "", x: 0, y: 0 });
   const [cantidades, setCantidades] = useState({});
-  const [carrito, setCarrito] = useState(() => {
-    const carritoGuardado = localStorage.getItem("carrito");
-    return carritoGuardado ? JSON.parse(carritoGuardado) : {};
-  });
-
+  const [carrito, setCarrito] = useState({});
 
   useEffect(() => {
+    // Acceder a localStorage solo en el cliente
+    const carritoGuardado = localStorage.getItem("carrito");
+    if (carritoGuardado) {
+      setCarrito(JSON.parse(carritoGuardado));
+    }
+
     const fetchProductos = async () => {
       try {
         const res = await fetch("/api/products");
@@ -64,12 +64,11 @@ const CatalogoPage = () => {
         <br /><br />
         Se suman <strong>${cantidad * producto.precio}</strong> al total final.
       </div>,
-      { type: "success" } // Esto reemplaza a toast.success
+      { type: "success" }
     );
 
     setCantidades(prev => ({ ...prev, [producto.id]: 0 }));
   };
-
 
   const productosFiltrados = categoriaSeleccionada === "Todos los productos"
     ? productos
@@ -89,7 +88,6 @@ const CatalogoPage = () => {
                 cantidades={cantidades}
                 setCantidades={setCantidades}
                 handleCantidadChange={handleCantidadChange}
-                setTooltip={setTooltip}
                 handleAgregarAlCarrito={handleAgregarAlCarrito}
               >
               </ProductCard>
@@ -97,9 +95,6 @@ const CatalogoPage = () => {
           </div>
         )}
       </div>
-      {tooltip.visible && (
-        <Tooltip tooltip={tooltip}></Tooltip>
-      )}
     </div>
   );
 };
