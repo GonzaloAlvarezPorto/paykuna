@@ -5,7 +5,7 @@
     "categoria": "Oferta",
     "precio": 15200,
     "imagen": "/verdura1.jpeg",
-    "descripcion":"Peso aproximado, entre 7 y 8 kg. Variedades 12"
+    "descripcion": "Peso aproximado, entre 7 y 8 kg. Variedades 12"
   },
   {
     "id": 3,
@@ -13,7 +13,7 @@
     "categoria": "Oferta",
     "precio": 9300,
     "imagen": "/oferta8.jpg",
-    "descripcion":"Peso Aproximado entre 3,5 y 4,5 kgs de verdura. Variedades 7 "
+    "descripcion": "Peso Aproximado entre 3,5 y 4,5 kgs de verdura. Variedades 7"
   },
   {
     "id": 4,
@@ -21,14 +21,228 @@
     "categoria": "Oferta",
     "precio": 8600,
     "imagen": "/verdura1.jpeg",
-    "descripcion":"Peso 3 kgs. Variedades 6"
+    "descripcion": "Peso 3 kgs. Variedades 6"
   },
   {
-    "id": 5,
-    "nombre": "Pirulo",
-    "categoria": "Pirulero",
-    "precio": 1230,
+    "id": 6,
+    "nombre": "Banana Ecuador",
+    "categoria": "Frutas",
+    "precio": 1200,
     "imagen": "/verdura1.jpeg",
-    "descripcion":"La concha de tu madre"
+    "descripcion": "Bananas. Aproximadamente 1 kg",
+    "origen": {
+      "provincia": "Río Negro",
+      "localidad": "General Roca"
+    }
+  },
+  {
+    "id": 7,
+    "nombre": "Tomate Redondo",
+    "categoria": "Verduras",
+    "precio": 850,
+    "imagen": "/verdura1.jpeg",
+    "descripcion": "Tomates frescos por 1 kg",
+    "origen": {
+      "provincia": "Santa Fe",
+      "localidad": "Reconquista"
+    }
+  },
+  {
+    "id": 8,
+    "nombre": "Papel Higiénico x4",
+    "categoria": "Productos de Almacén",
+    "precio": 1700,
+    "imagen": "/verdura1.jpeg",
+    "descripcion": "Pack de 4 unidades, doble hoja",
+    "origen": {
+      "cooperativa": "Cooperativa Orgánica Patagónica"
+    }
+  },
+  {
+    "id": 9,
+    "nombre": "Yerba Mate Cooperativa",
+    "categoria": "Productos de Almacén",
+    "precio": 2400,
+    "imagen": "/verdura1.jpeg",
+    "descripcion": "Yerba mate agroecológica - 1 kg",
+    "origen": {
+      "cooperativa": "Cooperativa Orgánica Patagónica"
+    }
+  },
+  {
+    "id": 10,
+    "nombre": "Zanahoria",
+    "categoria": "Verduras",
+    "precio": 600,
+    "imagen": "/verdura1.jpeg",
+    "descripcion": "Zanahorias por 1 kg",
+    "origen": {
+      "provincia": "Mendoza",
+      "localidad": "Maipú"
+    }
+  },
+  {
+    "id": 11,
+    "nombre": "Manzana Roja",
+    "categoria": "Frutas",
+    "precio": 950,
+    "imagen": "/verdura1.jpeg",
+    "descripcion": "Manzanas frescas x kg",
+    "origen": {
+      "provincia": "Formosa",
+      "localidad": "Laguna Naineck"
+    }
+  },
+  {
+    "id": 12,
+    "nombre": "Cebolla",
+    "categoria": "Verduras",
+    "precio": 700,
+    "imagen": "/verdura1.jpeg",
+    "descripcion": "Cebolla blanca x kg",
+    "origen": {
+      "provincia": "Santa Fe",
+      "localidad": "Reconquista"
+    }
+  },
+  {
+    "id": 13,
+    "nombre": "Acelga",
+    "categoria": "Verduras",
+    "precio": 500,
+    "imagen": "/verdura1.jpeg",
+    "descripcion": "Atado de acelga fresca",
+    "origen": {
+      "provincia": "Santa Fe",
+      "localidad": "Reconquista"
+    }
+  },
+  {
+    "id": 14,
+    "nombre": "Aceite de Girasol",
+    "categoria": "Productos de Almacén",
+    "precio": 3200,
+    "imagen": "/verdura1.jpeg",
+    "descripcion": "Botella de 1 litro",
+    "origen": {
+      "cooperativa": "Cooperativa del Oeste"
+    }
+  },
+  {
+    "id": 15,
+    "nombre": "Pan Integral",
+    "categoria": "Productos de Almacén",
+    "precio": 850,
+    "imagen": "/verdura1.jpeg",
+    "descripcion": "Pan artesanal 600g",
+    "origen": {
+      "cooperativa": "Cooperativa Alimentaria del Sur"
+    }
+  },
+  {
+    "id": 16,
+    "nombre": "Papa",
+    "categoria": "Verduras",
+    "precio": 650,
+    "imagen": "/verdura1.jpeg",
+    "descripcion": "Papas por 1 kg",
+    "origen": {
+      "provincia": "Santa Fe",
+      "localidad": "Reconquista"
+    }
+  },
+  {
+    "id": 17,
+    "nombre": "Pera",
+    "categoria": "Frutas",
+    "precio": 980,
+    "imagen": "/verdura1.jpeg",
+    "descripcion": "Peras frescas x kg",
+    "origen": {
+      "provincia": "Formosa",
+      "localidad": "Laguna Naineck"
+    }
+  },
+  {
+    "id": 18,
+    "nombre": "Lechuga",
+    "categoria": "Verduras",
+    "precio": 550,
+    "imagen": "/verdura1.jpeg",
+    "descripcion": "Atado de lechuga criolla",
+    "origen": {
+      "provincia": "Santa Fe",
+      "localidad": "Reconquista"
+    }
+  },
+  {
+    "id": 19,
+    "nombre": "Harina Integral",
+    "categoria": "Productos de Almacén",
+    "precio": 1200,
+    "imagen": "/verdura1.jpeg",
+    "descripcion": "Paquete de 1 kg",
+    "origen": {
+      "cooperativa": "Cooperativa Alimentaria del Sur"
+    }
+  },
+  {
+    "id": 20,
+    "nombre": "Zapallo Anco",
+    "categoria": "Verduras",
+    "precio": 720,
+    "imagen": "/verdura1.jpeg",
+    "descripcion": "Por kg",
+    "origen": {
+      "provincia": "Buenos Aires",
+      "localidad": "Florencio Varela"
+    }
+  },
+  {
+    "id": 21,
+    "nombre": "Naranja",
+    "categoria": "Frutas",
+    "precio": 1100,
+    "imagen": "/verdura1.jpeg",
+    "descripcion": "Naranjas jugosas por kg",
+    "origen": {
+      "provincia": "Río Negro",
+      "localidad": "General Roca"
+    }
+  },
+  {
+    "id": 22,
+    "nombre": "Arroz Integral",
+    "categoria": "Productos de Almacén",
+    "precio": 1450,
+    "imagen": "/verdura1.jpeg",
+    "descripcion": "Paquete de 1 kg",
+    "origen": {
+      "cooperativa": "Cooperativa del Oeste"
+    }
+  },
+  {
+    "id": 23,
+    "nombre": "Repollo",
+    "categoria": "Verduras",
+    "precio": 900,
+    "imagen": "/verdura1.jpeg",
+    "descripcion": "Repollo blanco por unidad",
+    "origen": {
+      "provincia": "Buenos Aires",
+      "localidad": "La Plata"
+    }
+  },
+  {
+    "id": 24,
+    "nombre": "Ciruela",
+    "categoria": "Frutas",
+    "precio": 1150,
+    "imagen": "/verdura1.jpeg",
+    "descripcion": "Ciruelas frescas x kg",
+    "origen": {
+      "provincia": "Salta",
+      "localidad": "Metán"
+    }
   }
 ]

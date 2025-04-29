@@ -39,15 +39,31 @@ const ProductoPage = () => {
     if (error) return <div>{error}</div>;
     if (!producto) return <div>No se encontró el producto.</div>;
 
+    // Solo mostrar el origen si existe y tiene datos
+    const mostrarOrigen = producto.origen && producto.origen.localidad && producto.origen.provincia;
+
     return (
         <div className="producto-detail">
-            <p>{producto.nombre}</p>
-            <img src={producto.imagen} alt={producto.nombre} />
-            <p>{producto.descripcion}</p>
-            <p>Precio: ${producto.precio}</p>
-            <button onClick={() => toast.success("Producto agregado al carrito")}>
-                Agregar al carrito
-            </button>
+            <div className="img_container">
+                <img src={producto.imagen} alt={producto.nombre} />
+            </div>
+            <div className="info_container">
+                <div>
+                    <p>{producto.nombre} - {producto.descripcion}</p>
+                </div>
+                <p>📋 <strong>Donde encontrarlo: </strong>{producto.categoria}</p>
+                <p>💸 <strong>Precio: </strong>${producto.precio}</p>
+
+                {mostrarOrigen && (
+                    <p>🚩 <strong>Origen: </strong>{producto.origen.localidad}, {producto.origen.provincia}</p>
+                )}
+                <p>📦 <strong>Stock: </strong>disponible</p>
+                <a href="/catalogo">Volver al catálogo</a>
+
+                <button onClick={() => toast.success("Producto agregado al carrito")}>
+                    <strong>Agregar al carrito</strong>
+                </button>
+            </div>
         </div>
     );
 };
