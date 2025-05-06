@@ -58,11 +58,18 @@ const ProductoPage = () => {
                     <p>🚩 <strong>Origen: </strong>{producto.origen.localidad}, {producto.origen.provincia}</p>
                 )}
                 <p>📦 <strong>Stock: </strong>disponible</p>
-                <a href="/catalogo">Volver al catálogo</a>
-
-                <button onClick={() => toast.success("Producto agregado al carrito")}>
-                    <strong>Agregar al carrito</strong>
-                </button>
+                <div className='count-btns'>
+                    <button>-</button>
+                    <input
+                        type="number"
+                        // value={cantidades[producto.id] || 0}
+                        min="0"></input>
+                    <button>+</button>
+                </div>
+                    <button className='add-btn' onClick={() => toast.success("Producto agregado al carrito")}>
+                        <strong>Agregar al carrito</strong>
+                    </button>
+                <a href="/catalogo">⬅ Volver al catálogo</a>
             </div>
         </div>
     );

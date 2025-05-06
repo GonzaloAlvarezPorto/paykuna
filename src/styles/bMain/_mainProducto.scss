@@ -8,6 +8,7 @@
     width: 100%;
     justify-content: space-between;
     border-radius: 3px;
+    box-shadow: 0 0px 1px 1px rgba(0,0,0,.5);
 
     .img_container {
         display: flex;
@@ -46,22 +47,58 @@
             margin-bottom: 1rem;
         }
 
-        a{
+        a {
             text-decoration: none;
             color: var.$dorado1;
+            margin-top: 1rem;
         }
 
-        button {
-            margin-top: 2rem;
+        .count-btns {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            margin: 1rem;
+            margin-top: 0;
+
+            input {
+                width: 20px;
+                text-align: center;
+                margin: 0 10px;
+                padding: 15px;
+                border: none;
+                border: 1px solid black;
+            }
+
+            input[type=number]::-webkit-outer-spin-button,
+            input[type=number]::-webkit-inner-spin-button {
+                -webkit-appearance: none;
+                margin: 0;
+            }
+
+            button {
+                width: 20px;
+                height: 20px;
+                background-color: var.$verde4;
+                border: 1px solid var.$dorado1;
+                cursor: pointer;
+                padding: 15px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: var.$dorado1;
+            }
+
+        }
+
+        .add-btn {
             width: 100%;
-            padding: 10px;
-            border-radius: 3px;
-            border: none;
-            cursor: pointer;
+            align-self: center;
             background-color: var.$verde4;
             border: 1px solid var.$dorado1;
-            color: var.$dorado3;
-            align-self: center;
+            cursor: pointer;
+            padding: 10px;
+            color: var.$dorado1;
         }
     }
 }

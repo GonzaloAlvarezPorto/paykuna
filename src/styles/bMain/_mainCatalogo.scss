@@ -34,16 +34,17 @@
             display: flex;
             flex-direction: row;
             padding: 0.5rem;
-            background-color: var.$verde2;
+            background-color: var.$verde1;
             justify-content: space-around;
             border-radius: 2px;
             min-width: 320px;
             margin-bottom: 10px;
             margin-right: 10px;
+            box-shadow: 0 0px 1px 1px rgba(0,0,0,.5);
 
             &:hover {
                 .product-info .product-title a, p {
-                    color: white;
+                    color: var.$verde5;
                     cursor: pointer;
                 }
             }
@@ -76,7 +77,7 @@
                     overflow: hidden;
                     width: 100%;
                     color: var.$dorado1;
-
+                    
                     a {
                         color: var.$dorado1;
                         text-decoration: none;
@@ -121,6 +122,7 @@
                         background-color: var.$verde4;
                         border: 1px solid var.$dorado1;
                         cursor: pointer;
+                        color: var.$dorado1;
                     }
 
                     .add-btn {

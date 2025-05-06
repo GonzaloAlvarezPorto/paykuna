@@ -64,8 +64,8 @@ const NavBar = () => {
             <ul>
                 <li>
                     <button className="link news" onClick={toggleGallery}>
-                        <p>NOVEDADES</p>
-                        <p className="news__btn">CLICK PARA VER</p>
+                        <span>NOVEDADES</span>
+                        <span className="news__btn">CLICK PARA VER</span>
                     </button>
                 </li>
                 <li>
@@ -74,11 +74,11 @@ const NavBar = () => {
                 <li>
                     <Link className="link" href="/catalogo">CATÁLOGO</Link>
                 </li>
-                <li>
-                    <Link className="link" href="/cart">🛒</Link>
-                </li>
-                <li>
-                    <p className="link counter">0</p>
+                <li className="cart">
+                    <Link className="cart_link" href="/cart">
+                        <span>🛒</span>
+                        <span className="counter">0</span>
+                    </Link>
                 </li>
             </ul>
 
