@@ -2,6 +2,7 @@
 
 import ProductCard from "@/components/ProductCard";
 import Sidebar from "@/components/Sidebar";
+import { useCart } from "@/context/CartContext";
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 
@@ -11,6 +12,8 @@ const CatalogoPage = () => {
   const [categoriaSeleccionada, setCategoriaSeleccionada] = useState("Todos los productos");
   const [cantidades, setCantidades] = useState({});
   const [carrito, setCarrito] = useState({});
+
+  const { actualizarCarrito } = useCart();
 
   useEffect(() => {
     // Acceder a localStorage solo en el cliente
@@ -45,17 +48,16 @@ const CatalogoPage = () => {
   };
 
   const handleAgregarAlCarrito = (producto, cantidad) => {
-    let nuevoCarrito;
+    actualizarCarrito(prev => {
+        const actualizado = { ...prev };
+        const cantidadActual = actualizado[producto.id]?.cantidad || 0;
 
-    setCarrito(prev => {
-      const actualizado = { ...prev };
-      const cantidadActual = actualizado[producto.id]?.cantidad || 0;
+        actualizado[producto.id] = {
+            ...producto,
+            cantidad: cantidadActual + cantidad
+        };
 
-      actualizado[producto.id] = { ...producto, cantidad: cantidadActual + cantidad };
-      localStorage.setItem("carrito", JSON.stringify(actualizado));
-
-      nuevoCarrito = actualizado;
-      return actualizado;
+        return actualizado;
     });
 
     toast(

@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import novedades from "../../public/data/novedades.json";
+import { useCart } from "@/context/CartContext";
 
 const EXPIRATION_TIME = 1 * 60 * 60 * 1000; // 1 hora en milisegundos
 
@@ -9,6 +10,8 @@ const NavBar = () => {
     const [showGallery, setShowGallery] = useState(false);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isPlaying, setIsPlaying] = useState(true);
+
+    const { calcularTotalProductos } = useCart();
 
     useEffect(() => {
         const galleryClosed = localStorage.getItem("galleryClosed");
@@ -77,7 +80,7 @@ const NavBar = () => {
                 <li className="cart">
                     <Link className="cart_link" href="/cart">
                         <span>🛒</span>
-                        <span className="counter">0</span>
+                        <span className="counter">{calcularTotalProductos()}</span>
                     </Link>
                 </li>
             </ul>
