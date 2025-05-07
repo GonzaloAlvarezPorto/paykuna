@@ -1,5 +1,5 @@
 export const metadata = {
-    title: "Catálogo | Almacén Orgánico",
+    title: "Catálogo | Paykuna Almacén Orgánico",
 };
 
 export default function CatalogoPage({ children }) {

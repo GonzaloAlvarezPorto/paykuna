@@ -1,5 +1,6 @@
 "use client";
 
+import { useCart } from "@/context/CartContext";
 import { useParams } from "next/navigation";
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
@@ -9,6 +10,10 @@ const ProductoPage = () => {
     const [producto, setProducto] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+
+    const [cantidades, setCantidades] = useState(0);
+
+    const { actualizarCarrito } = useCart();
 
     useEffect(() => {
         if (catalogoId) {
@@ -42,6 +47,38 @@ const ProductoPage = () => {
     // Solo mostrar el origen si existe y tiene datos
     const mostrarOrigen = producto.origen && producto.origen.localidad && producto.origen.provincia;
 
+    const handleCantidadChange = (id, cambio) => {
+        setCantidades(prev => ({
+            ...prev,
+            [id]: Math.max((prev[id] || 0) + cambio, 0)
+        }));
+    };
+
+    const handleAgregarAlCarrito = (producto, cantidad) => {
+        actualizarCarrito(prev => {
+            const actualizado = { ...prev };
+            const cantidadActual = actualizado[producto.id]?.cantidad || 0;
+
+            actualizado[producto.id] = {
+                ...producto,
+                cantidad: cantidadActual + cantidad
+            };
+
+            return actualizado;
+        });
+
+        toast(
+            <div>
+                {cantidad} {cantidad > 1 ? "unidades" : "unidad"} de <strong>{producto.nombre}</strong> agregado{cantidad > 1 ? "s" : ""} al carrito.
+                <br /><br />
+                Se suman <strong>${cantidad * producto.precio}</strong> al total final.
+            </div>,
+            { type: "success" }
+        );
+
+        setCantidades(prev => ({ ...prev, [producto.id]: 0 }));
+    };
+
     return (
         <div className="producto-detail">
             <div className="img_container">
@@ -59,14 +96,24 @@ const ProductoPage = () => {
                 )}
                 <p>📦 <strong>Stock: </strong>disponible</p>
                 <div className='count-btns'>
-                    <button>-</button>
+                    <button onClick={() => handleCantidadChange(producto.id, -1)}>-</button>
                     <input
                         type="number"
-                        // value={cantidades[producto.id] || 0}
-                        min="0"></input>
-                    <button>+</button>
+                        value={cantidades[producto.id] || 0}
+                        min="0"
+                        onChange={(e) => {
+                            const nuevaCantidad = e.target.value === "" ? 0 : Math.max(parseInt(e.target.value), 0);
+                            setCantidades(prev => ({ ...prev, [producto.id]: nuevaCantidad }));
+                        }} />
+                    <button onClick={() => handleCantidadChange(producto.id, 1)}>+</button>
                 </div>
-                    <button className='add-btn' onClick={() => toast.success("Producto agregado al carrito")}>
+                <button className='add-btn' onClick={() => {
+                        const cantidad = cantidades[producto.id] || 0;
+                        if (cantidad > 0) {
+                            handleAgregarAlCarrito(producto, cantidad);
+                        }
+                    }}
+                    >
                         <strong>Agregar al carrito</strong>
                     </button>
                 <a href="/catalogo">⬅ Volver al catálogo</a>

@@ -1,5 +1,5 @@
 export const metadata = {
-    title: "Tu compra | Almacén Orgánico",
+    title: "Tu compra | Paykuna Almacén Orgánico",
 };
 
 export default function CartPage({ children }) {
