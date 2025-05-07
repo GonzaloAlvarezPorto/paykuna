@@ -10,10 +10,12 @@ const NavBar = () => {
     const [showGallery, setShowGallery] = useState(false);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isPlaying, setIsPlaying] = useState(true);
+    const [mounted, setMounted] = useState(false); // ← NUEVO
 
     const { calcularTotalProductos } = useCart();
 
     useEffect(() => {
+        setMounted(true); // ← SE MONTA SOLO EN CLIENTE
         const galleryClosed = localStorage.getItem("galleryClosed");
         const closedTime = localStorage.getItem("galleryClosedTime");
 
@@ -80,7 +82,9 @@ const NavBar = () => {
                 <li className="cart">
                     <Link className="cart_link" href="/cart">
                         <span>🛒</span>
-                        <span className="counter">{calcularTotalProductos()}</span>
+                        <span className="counter">
+                            {mounted ? calcularTotalProductos() : null}
+                        </span>
                     </Link>
                 </li>
             </ul>

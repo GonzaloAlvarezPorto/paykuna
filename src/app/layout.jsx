@@ -21,7 +21,7 @@ export default function RootLayout({ children }) {
           <Header></Header>
           <main>
             {children}
-            <ToastContainer position="top-right" autoClose={1500} />
+            <ToastContainer position="top-center" autoClose={1500} />
           </main>
           <Footer></Footer>
         </CartProvider>

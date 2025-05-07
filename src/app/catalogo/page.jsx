@@ -62,7 +62,7 @@ const CatalogoPage = () => {
 
     toast(
       <div>
-        {cantidad} {cantidad > 1 ? "unidades" : "unidad"} de <strong>{producto.nombre}</strong> agregado{cantidad > 1 ? "s" : ""} al carrito.
+        {cantidad} {cantidad < 1 ? "unidades" : "unidad"} de <strong>{producto.nombre}</strong> agregado{cantidad > 1 ? "s" : ""} al carrito.
         <br /><br />
         Se suman <strong>${cantidad * producto.precio}</strong> al total final.
       </div>,
