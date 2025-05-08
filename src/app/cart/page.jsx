@@ -54,9 +54,11 @@ const CartPage = () => {
   return (
     <div className="cart">
       {Object.keys(carrito).length === 0 ? (
-        <div>
-          <p>No compraste nada todavía.</p>
-          <a href="/catalogo">Catálogo</a>
+        <div className="cart_message">
+          <span>
+            <p>Tu carrito está vacío volvé a nuestro catálogo para ver nuestros productos y precios.</p>
+            <a href="/catalogo"><strong>⬅ Ir al catálogo</strong></a>
+          </span>
         </div>
       ) : (
         <div className="cart_resume">
@@ -81,11 +83,20 @@ const CartPage = () => {
             ))}
           </ul>
 
-          <div>
-            Total: ${calcularTotal()} &nbsp; | &nbsp; Total productos: {calcularTotalProductos()}
+          <div className="btns_resume">
+            <div>
+              <span>
+                <p>Total a pagar por la compra:</p>
+                <p className="mount">${calcularTotal()}</p>
+              </span>
+              <span>
+                <p>Total de productos comprados:</p>
+                <p className="mount">{calcularTotalProductos()}</p>
+              </span>
+              <button onClick={vaciarCarrito}>🗑 Vaciar Carrito</button>
+              <button>✅ Confirmar pedido</button>
+            </div>
           </div>
-          <button onClick={vaciarCarrito}>🗑 Vaciar Carrito</button>
-          <button>✅ Confirmar pedido</button>
         </div>
       )}
     </div>
