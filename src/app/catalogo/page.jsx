@@ -13,7 +13,7 @@ const CatalogoPage = () => {
   const [cantidades, setCantidades] = useState({});
   const [carrito, setCarrito] = useState({});
 
-  const { actualizarCarrito } = useCart();
+  const { actualizarCarrito, calcularCantidadPorId } = useCart();
 
   useEffect(() => {
     // Acceder a localStorage solo en el cliente
@@ -49,15 +49,15 @@ const CatalogoPage = () => {
 
   const handleAgregarAlCarrito = (producto, cantidad) => {
     actualizarCarrito(prev => {
-        const actualizado = { ...prev };
-        const cantidadActual = actualizado[producto.id]?.cantidad || 0;
+      const actualizado = { ...prev };
+      const cantidadActual = actualizado[producto.id]?.cantidad || 0;
 
-        actualizado[producto.id] = {
-            ...producto,
-            cantidad: cantidadActual + cantidad
-        };
+      actualizado[producto.id] = {
+        ...producto,
+        cantidad: cantidadActual + cantidad
+      };
 
-        return actualizado;
+      return actualizado;
     });
 
     toast(
@@ -91,6 +91,7 @@ const CatalogoPage = () => {
                 setCantidades={setCantidades}
                 handleCantidadChange={handleCantidadChange}
                 handleAgregarAlCarrito={handleAgregarAlCarrito}
+                calcularCantidadPorId={calcularCantidadPorId}
               >
               </ProductCard>
             ))}

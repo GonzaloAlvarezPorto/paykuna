@@ -13,7 +13,7 @@ const ProductoPage = () => {
 
     const [cantidades, setCantidades] = useState(0);
 
-    const { actualizarCarrito } = useCart();
+    const { actualizarCarrito, calcularCantidadPorId } = useCart();
 
     useEffect(() => {
         if (catalogoId) {
@@ -39,6 +39,9 @@ const ProductoPage = () => {
             fetchProducto();
         }
     }, [catalogoId]);
+
+    // Obtener la cantidad del producto en el carrito al cargar la página
+    const cantidadEnCarrito = calcularCantidadPorId(Number(catalogoId));
 
     if (loading) return <div>Cargando...</div>;
     if (error) return <div>{error}</div>;
@@ -95,6 +98,10 @@ const ProductoPage = () => {
                     <p>🚩 <strong>Origen: </strong>{producto.origen.localidad}, {producto.origen.provincia}</p>
                 )}
                 <p>📦 <strong>Stock: </strong>disponible</p>
+
+                {/* Mostrar la cantidad de productos en el carrito con ese ID */}
+                <p>🛒 <strong>Cantidad en el carrito:</strong> {cantidadEnCarrito}</p>
+
                 <div className='count-btns'>
                     <button onClick={() => handleCantidadChange(producto.id, -1)}>-</button>
                     <input
@@ -108,14 +115,13 @@ const ProductoPage = () => {
                     <button onClick={() => handleCantidadChange(producto.id, 1)}>+</button>
                 </div>
                 <button className='add-btn' onClick={() => {
-                        const cantidad = cantidades[producto.id] || 0;
-                        if (cantidad > 0) {
-                            handleAgregarAlCarrito(producto, cantidad);
-                        }
-                    }}
-                    >
-                        <strong>Agregar al carrito</strong>
-                    </button>
+                    const cantidad = cantidades[producto.id] || 0;
+                    if (cantidad > 0) {
+                        handleAgregarAlCarrito(producto, cantidad);
+                    }
+                }}>
+                    <strong>Agregar al carrito</strong>
+                </button>
                 <a href="/catalogo">⬅ Volver al catálogo</a>
             </div>
         </div>

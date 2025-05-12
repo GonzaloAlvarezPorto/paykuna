@@ -1,21 +1,18 @@
 "use client";
 import { useCart } from "@/context/CartContext";
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 const CartPage = () => {
-  const { carrito, actualizarCarrito, calcularTotalProductos } = useCart();
+  const { carrito, actualizarCarrito, calcularTotalProductos, calcularTotal } = useCart();
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
     setIsClient(true);
   }, []);
 
-  const calcularTotal = () => {
-    return Object.values(carrito).reduce((total, producto) => {
-      return total + producto.precio * producto.cantidad;
-    }, 0);
-  };
+  
 
   const vaciarCarrito = () => {
     actualizarCarrito(() => ({}));
@@ -56,7 +53,7 @@ const CartPage = () => {
       {Object.keys(carrito).length === 0 ? (
         <div className="cart_message">
           <span>
-            <p>Tu carrito está vacío volvé a nuestro catálogo para ver nuestros productos y precios.</p>
+            <p>Tu carrito está vacío, volvé a nuestro catálogo para ver nuestros productos y precios.</p>
             <a href="/catalogo"><strong>⬅ Ir al catálogo</strong></a>
           </span>
         </div>
@@ -65,7 +62,9 @@ const CartPage = () => {
           <ul>
             {Object.values(carrito).map((producto) => (
               <li key={producto.id}>
-                <img src={producto.imagen} alt={producto.nombre} width="50" />
+                <div className="img_container">
+                <img src={producto.imagen} alt={producto.nombre}/>
+                </div>
                 <div className="resume_info">
                   <div className="info_header">
                     <strong>{producto.nombre}</strong>
@@ -77,7 +76,7 @@ const CartPage = () => {
                     <p>{producto.cantidad}</p>
                     <button onClick={() => handleCambiar(producto.id, 1)}>➕</button>
                   </div>
-                  <span>Total del producto: ${producto.precio * producto.cantidad}</span>
+                  <span className="info_total"><strong>Total del producto: </strong>${producto.precio * producto.cantidad}</span>
                 </div>
               </li>
             ))}
@@ -94,7 +93,7 @@ const CartPage = () => {
                 <p className="mount">{calcularTotalProductos()}</p>
               </span>
               <button onClick={vaciarCarrito}>🗑 Vaciar Carrito</button>
-              <button>✅ Confirmar pedido</button>
+              <Link className="cerrar_link" href="/cart/checkout"><button>✅ Confirmar pedido</button></Link>
             </div>
           </div>
         </div>

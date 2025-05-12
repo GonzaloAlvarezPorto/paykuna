@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ProductCard = ({ producto, cantidades, setCantidades, handleCantidadChange, handleAgregarAlCarrito }) => {
+const ProductCard = ({ producto, cantidades, setCantidades, handleCantidadChange, handleAgregarAlCarrito,calcularCantidadPorId }) => {
 
     return (
         <div className="product-card" key={producto.id}>
@@ -10,8 +10,8 @@ const ProductCard = ({ producto, cantidades, setCantidades, handleCantidadChange
             <div className='product-info'>
                 <div className='product-title'>
                     <a href={`/catalogo/${producto.id}`}>{producto.nombre}</a>
-                    <p>-</p>
-                    <p>${producto.precio} p/u</p>
+                    <p className='precio'>-</p>
+                    <p className='precio'>${producto.precio} p/u</p>
                 </div>
                 <div className='count-btns'>
                     <button onClick={() => handleCantidadChange(producto.id, -1)}>-</button>
@@ -35,6 +35,7 @@ const ProductCard = ({ producto, cantidades, setCantidades, handleCantidadChange
                         Agregar al carrito
                     </button>
                 </div>
+                <p>🛒 <strong>Cantidad en el carrito:</strong> {calcularCantidadPorId(producto.id)}</p>
             </div>
         </div>
     );

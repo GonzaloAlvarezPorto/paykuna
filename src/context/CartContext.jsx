@@ -35,10 +35,25 @@ export const CartProvider = ({ children }) => {
         return Object.values(carrito).reduce((total, producto) => total + producto.cantidad, 0);
     };
 
+    const calcularTotal = () => {
+        return Object.values(carrito).reduce((total, producto) => {
+            return total + producto.precio * producto.cantidad;
+        }, 0);
+    };
+
+    const calcularCantidadPorId = (id) => {
+        // Filtra los productos que coinciden con el id y suma las cantidades
+        return Object.values(carrito).reduce((total, producto) => {
+            if (producto.id === id) {
+                return total + producto.cantidad;
+            }
+            return total;
+        }, 0);
+    };
 
 
     return (
-        <CartContext.Provider value={{ carrito, calcularTotalProductos, actualizarCarrito }}>
+        <CartContext.Provider value={{ carrito, calcularTotalProductos, actualizarCarrito, calcularTotal, calcularCantidadPorId }}>
             {children}
         </CartContext.Provider>
     );
