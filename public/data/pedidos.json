@@ -1,23 +1,43 @@
 [
   {
-    "id": 1,
+    "id": 3,
     "email": "gonzaalvarezporto@gmail.com",
+    "telefono": "0111535880974",
+    "nombre": "Gonzalo",
+    "apellido": "Alvarez Porto",
+    "retiro": "envio",
+    "tipoPago": "efectivo",
     "carrito": {
-      "2": {
-        "id": 2,
-        "nombre": "Bolsón de Verduras",
-        "categoria": "Oferta",
-        "precio": 15200,
+      "6": {
+        "id": 6,
+        "nombre": "Banana Ecuador",
+        "categoria": "Frutas",
+        "precio": 1200,
         "imagen": "/verdura1.jpeg",
-        "descripcion": "Peso aproximado, entre 7 y 8 kg. Variedades 12",
-        "cantidad": 3
+        "descripcion": "Bananas. Aproximadamente 1 kg",
+        "origen": {
+          "provincia": "Río Negro",
+          "localidad": "General Roca"
+        },
+        "cantidad": 4
       }
     },
-    "fecha": "2025-05-12T15:12:58.479Z"
+    "direccionCliente": "Las flores 1600 T 32 10 C",
+    "localidadCliente": "Avellaneda",
+    "costoEnvio": 700,
+    "total": 5500,
+    "pagado": 0,
+    "deuda": 5500,
+    "fecha": "2025-05-14T16:17:02.655Z"
   },
   {
-    "id": 2,
+    "id": 4,
     "email": "gonzaalvarezporto@gmail.com",
+    "telefono": "11535880974",
+    "nombre": "Gonzalo",
+    "apellido": "Alvarez Porto",
+    "retiro": "retiro",
+    "tipoPago": "efectivo",
     "carrito": {
       "3": {
         "id": 3,
@@ -27,78 +47,27 @@
         "imagen": "/oferta8.jpg",
         "descripcion": "Peso Aproximado entre 3,5 y 4,5 kgs de verdura. Variedades 7",
         "cantidad": 5
-      }
-    },
-    "fecha": "2025-05-12T15:13:19.238Z"
-  },
-  {
-    "id": 3,
-    "email": "gonzaalvarezporto@gmail.com",
-    "carrito": {
-      "10": {
-        "id": 10,
-        "nombre": "Zanahoria",
-        "categoria": "Verduras",
-        "precio": 600,
+      },
+      "6": {
+        "id": 6,
+        "nombre": "Banana Ecuador",
+        "categoria": "Frutas",
+        "precio": 1200,
         "imagen": "/verdura1.jpeg",
-        "descripcion": "Zanahorias por 1 kg",
+        "descripcion": "Bananas. Aproximadamente 1 kg",
         "origen": {
-          "provincia": "Mendoza",
-          "localidad": "Maipú"
+          "provincia": "Río Negro",
+          "localidad": "General Roca"
         },
         "cantidad": 4
       }
     },
-    "fecha": "2025-05-12T15:16:23.280Z"
-  },
-  {
-    "id": 4,
-    "email": "gonzaalvarezporto@gmail.com",
-    "carrito": {
-      "2": {
-        "id": 2,
-        "nombre": "Bolsón de Verduras",
-        "categoria": "Oferta",
-        "precio": 15200,
-        "imagen": "/verdura1.jpeg",
-        "descripcion": "Peso aproximado, entre 7 y 8 kg. Variedades 12",
-        "cantidad": 1
-      },
-      "3": {
-        "id": 3,
-        "nombre": "Bolsón de Verduras Mini",
-        "categoria": "Oferta",
-        "precio": 9300,
-        "imagen": "/oferta8.jpg",
-        "descripcion": "Peso Aproximado entre 3,5 y 4,5 kgs de verdura. Variedades 7",
-        "cantidad": 1
-      },
-      "7": {
-        "id": 7,
-        "nombre": "Tomate Redondo",
-        "categoria": "Verduras",
-        "precio": 850,
-        "imagen": "/verdura1.jpeg",
-        "descripcion": "Tomates frescos por 1 kg",
-        "origen": {
-          "provincia": "Santa Fe",
-          "localidad": "Reconquista"
-        },
-        "cantidad": 3
-      },
-      "8": {
-        "id": 8,
-        "nombre": "Papel Higiénico x4",
-        "categoria": "Productos de Almacén",
-        "precio": 1700,
-        "imagen": "/verdura1.jpeg",
-        "descripcion": "Pack de 4 unidades, doble hoja",
-        "origen": {
-          "cooperativa": "Cooperativa Orgánica Patagónica"
-        },
-        "cantidad": 3
-      }
-    },
-    "fecha": "2025-05-12T15:17:25.418Z"
+    "direccionCliente": "",
+    "localidadCliente": "",
+    "costoEnvio": 0,
+    "total": 51300,
+    "pagado": 0,
+    "deuda": 51300,
+    "fecha": "2025-05-14T16:20:55.070Z"
   }
 ]

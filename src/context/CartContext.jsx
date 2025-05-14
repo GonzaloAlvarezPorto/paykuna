@@ -1,5 +1,3 @@
-//danimendezrighi dejar de seguir si no me lo devuelve y a belen.varcasia lo mismo
-
 "use client"
 import { createContext, useContext, useEffect, useState } from "react";
 

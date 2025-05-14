@@ -40,10 +40,12 @@
             min-width: 320px;
             margin-bottom: 10px;
             margin-right: 10px;
-            box-shadow: 0 0px 1px 1px rgba(0,0,0,.5);
+            box-shadow: 0 0px 1px 1px rgba(0, 0, 0, .5);
 
             &:hover {
-                .product-info .product-title a, .precio {
+
+                .product-info .product-title a,
+                .precio {
                     color: var.$verde5;
                     cursor: pointer;
                 }
@@ -77,7 +79,7 @@
                     overflow: hidden;
                     width: 100%;
                     color: var.$dorado1;
-                    
+
                     a {
                         color: var.$dorado1;
                         text-decoration: none;
@@ -129,6 +131,14 @@
                         width: 150px;
                         margin-left: 10px;
                     }
+                }
+
+                p{
+                    a {
+                            text-decoration: none;
+                            color: var.$dorado1;
+                            margin-top: 1rem;
+                        }
                 }
             }
         }

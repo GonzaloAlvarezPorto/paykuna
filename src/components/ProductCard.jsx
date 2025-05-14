@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import React from 'react';
 
 const ProductCard = ({ producto, cantidades, setCantidades, handleCantidadChange, handleAgregarAlCarrito,calcularCantidadPorId }) => {
@@ -35,7 +36,7 @@ const ProductCard = ({ producto, cantidades, setCantidades, handleCantidadChange
                         Agregar al carrito
                     </button>
                 </div>
-                <p>🛒 <strong>Cantidad en el carrito:</strong> {calcularCantidadPorId(producto.id)}</p>
+                <p>🛒 <strong>Cantidad en el <Link href="/cart">carrito</Link>:</strong> {calcularCantidadPorId(producto.id)}</p>
             </div>
         </div>
     );

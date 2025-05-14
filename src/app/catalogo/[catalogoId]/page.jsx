@@ -1,6 +1,7 @@
 "use client";
 
 import { useCart } from "@/context/CartContext";
+import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
@@ -100,7 +101,7 @@ const ProductoPage = () => {
                 <p>📦 <strong>Stock: </strong>disponible</p>
 
                 {/* Mostrar la cantidad de productos en el carrito con ese ID */}
-                <p>🛒 <strong>Cantidad en el carrito:</strong> {cantidadEnCarrito}</p>
+                <p>🛒 <strong>Cantidad en el <Link href="/cart">carrito</Link>:</strong> {cantidadEnCarrito}</p>
 
                 <div className='count-btns'>
                     <button onClick={() => handleCantidadChange(producto.id, -1)}>-</button>

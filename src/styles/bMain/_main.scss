@@ -3,6 +3,8 @@
 @use "../bMain/mainAboutUs";
 @use "../bMain/mainCart";
 @use "../bMain/mainProducto";
+@use "../bMain/mainCheckOut";
+@use "../bMain/mainAdmin";
 
 .home {
     display: flex;

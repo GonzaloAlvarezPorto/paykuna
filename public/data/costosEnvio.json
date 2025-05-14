@@ -1,0 +1,6 @@
+[
+  { "nombre": "Wilde", "costo": 500 },
+  { "nombre": "Avellaneda", "costo": 700 },
+  { "nombre": "Lanús", "costo": 800 },
+  { "nombre": "Quilmes", "costo": 1000 }
+]

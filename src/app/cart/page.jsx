@@ -12,8 +12,6 @@ const CartPage = () => {
     setIsClient(true);
   }, []);
 
-  
-
   const vaciarCarrito = () => {
     actualizarCarrito(() => ({}));
 
@@ -63,7 +61,7 @@ const CartPage = () => {
             {Object.values(carrito).map((producto) => (
               <li key={producto.id}>
                 <div className="img_container">
-                <img src={producto.imagen} alt={producto.nombre}/>
+                  <img src={producto.imagen} alt={producto.nombre} />
                 </div>
                 <div className="resume_info">
                   <div className="info_header">
