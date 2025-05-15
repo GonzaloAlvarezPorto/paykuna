@@ -26,12 +26,12 @@ function generarResumenHTML(pedido) {
     .join("");
 
   let costoEnvio = 0;
-if (retiro === "envio" && localidadCliente) {
-  const localidad = costosEnvio.find((localidadObj) => localidadObj.nombre === localidadCliente);
-  if (localidad) {
-    costoEnvio = localidad.costo;
+  if (retiro === "envio" && localidadCliente) {
+    const localidad = costosEnvio.find((localidadObj) => localidadObj.nombre === localidadCliente);
+    if (localidad) {
+      costoEnvio = localidad.costo;
+    }
   }
-}
 
   return `
     <h2>Resumen de tu pedido</h2>
@@ -141,6 +141,7 @@ export async function POST(req) {
       pagado, // Monto pagado (inicialmente vacío)
       deuda,  // Monto pendiente
       fecha: new Date().toISOString(),
+      estado: "Por preparar"
     };
 
     carritos.push(nuevoPedido);

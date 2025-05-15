@@ -6,6 +6,7 @@ import Link from 'next/link';
 export default function AdminPage() {
   const [pedidos, setPedidos] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [cantidadVisible, setCantidadVisible] = useState(3);
 
   useEffect(() => {
     const fetchPedidos = async () => {
@@ -14,17 +15,23 @@ export default function AdminPage() {
         if (!response.ok) throw new Error('Error al obtener los pedidos');
         const data = await response.json();
 
-        const pedidosOrdenados = data.sort((a, b) => b.pedidoId - a.pedidoId)
+        const pedidosOrdenados = data.sort((a, b) => b.pedidoId - a.pedidoId);
         setPedidos(pedidosOrdenados);
-        setLoading(false);
       } catch (error) {
         console.error('Error al obtener los pedidos:', error);
+      } finally {
         setLoading(false);
       }
     };
 
     fetchPedidos();
   }, []);
+
+  const verMas = () => {
+    setCantidadVisible((prev) => prev + 3);
+  };
+
+  const hayMas = pedidos.length > cantidadVisible;
 
   return (
     <div className='admin_dashboard'>
@@ -33,19 +40,44 @@ export default function AdminPage() {
       {loading ? (
         <p>Cargando pedidos...</p>
       ) : (
-        <ul>
-          {pedidos.map((pedido) => (
-            <li key={pedido.pedidoId}>
-              <Link href={`/admin/${pedido.pedidoId}`}>
-                <p><strong>ID Pedido:</strong> {pedido.pedidoId}</p>
-                <p><strong>Fecha:</strong> {new Date(pedido.fecha).toLocaleString()}</p>
-                <p><strong>Email:</strong> {pedido.email}</p>
-                <p><strong>Estado:</strong> ""</p>
-                <p><strong>Deuda:</strong> ${pedido.deuda}</p>
-              </Link>
-            </li>
-          ))}
-        </ul>
+        <>
+          <table>
+            <thead>
+              <tr>
+                <th>ID Pedido</th>
+                <th>Fecha</th>
+                <th>Email</th>
+                <th>Estado</th>
+                <th>Monto total</th>
+                <th>Monto pagado</th>
+                <th>Deuda</th>
+              </tr>
+            </thead>
+            <tbody>
+              {pedidos.slice(0, cantidadVisible).map((pedido) => (
+                <tr key={pedido.pedidoId}>
+                  <td className='id_pedido'>
+                    <Link href={`/admin/${pedido.pedidoId}`}>
+                      {pedido.pedidoId}
+                    </Link>
+                  </td>
+                  <td>{new Date(pedido.fecha).toLocaleString()}</td>
+                  <td>{pedido.email}</td>
+                  <td>{pedido.estado}</td>
+                  <td>${pedido.total}</td>
+                  <td>${pedido.pagado}</td>
+                  <td>${pedido.deuda}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+
+          {hayMas && (
+            <div className='ver-mas-container'>
+              <button onClick={verMas} className='ver-mas-btn'>Ver más</button>
+            </div>
+          )}
+        </>
       )}
     </div>
   );

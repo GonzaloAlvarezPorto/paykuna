@@ -69,44 +69,68 @@
         margin-bottom: 0.5rem;
     }
 
-    ul li {
-        list-style: none;
+    table {
 
-        a {
-            display: flex;
-            flex-direction: row;
-            text-decoration: none;
-            justify-content: flex-start;
-            color: var.$dorado1;
-            border-bottom: 1px solid white;
 
-            p {
-                padding: 0.5rem;
+        thead {
+            tr {
+                th {
+                    border: 1px solid var.$dorado1;
+                    padding: 0.5rem;
 
-                &:nth-child(1) {
-                    min-width: 100px;
-                }
+                    &:not(:last-child) {
+                        border-right: none;
+                    }
 
-                &:nth-child(2) {
-                    min-width: 200px;
-                }
+                    &:not(:first-child) {
+                        border-left: none;
+                    }
 
-                &:nth-child(3) {
-                    min-width: 250px;
-                }
-
-                &:nth-child(4) {
-                    min-width: 100px;
-                }
-
-                &:nth-child(5) {
-                    min-width: 100px;
                 }
             }
+        }
 
-            p:not(:last-child) {
-                margin-right: 1rem;
+        tbody {
+            tr {
+                td {
+                    border-bottom: 1px solid var.$dorado1;
+                    padding: 1rem;
+
+                    &:first-child {
+                        border-left: 1px solid var.$dorado1;
+                    }
+
+                    &:last-child {
+                        border-right: 1px solid var.$dorado1;
+                    }
+
+                }
+
+                .id_pedido {
+                    text-align: center;
+
+                    a {
+                        color: var.$dorado1;
+                        text-decoration: none;
+                        font-size: 24px;
+                        font-weight: bold;
+                    }
+                }
             }
+        }
+    }
+
+    .ver-mas-container {
+        margin-top: 1rem;
+        text-align: center;
+        border: 1px solid var.$dorado1;
+
+        .ver-mas-btn {
+            background-color: var.$verde2;
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            cursor: pointer;
         }
     }
 }

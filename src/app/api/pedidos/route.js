@@ -17,7 +17,10 @@ export async function GET() {
       email: pedido.email,
       fecha: pedido.fecha,
       pedidoId: pedido.id,
-      deuda: pedido.deuda
+      deuda: pedido.deuda,
+      estado: pedido.estado,
+      pagado: pedido.pagado,
+      total: pedido.total
     }));
 
     // Devolver los pedidos filtrados
