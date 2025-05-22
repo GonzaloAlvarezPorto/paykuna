@@ -24,7 +24,6 @@ const CheckOutPage = () => {
     fetch("/data/costosEnvio.json")
       .then((res) => res.json())
       .then((data) => {
-        console.log("Localidades cargadas:", data); // Verifica que es un array de objetos
         setLocalidadesDisponibles(data); // Directamente setea el array de objetos
       })
       .catch((error) => console.error("Error al cargar las localidades:", error));
@@ -52,7 +51,7 @@ const CheckOutPage = () => {
           apellidoCliente: apellido,
           retiro,
           tipoPago,
-          ...(retiro === "envio" && {
+          ...(retiro === "envío" && {
             direccionCliente: direccion,
             localidadCliente: localidad,
             costoEnvio,

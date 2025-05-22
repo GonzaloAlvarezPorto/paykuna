@@ -20,14 +20,12 @@ const ProductoPage = () => {
         if (catalogoId) {
             const fetchProducto = async () => {
                 try {
-                    console.log("Fetching producto con ID:", catalogoId);
                     setLoading(true);
                     const res = await fetch(`/api/products/${catalogoId}`);
 
                     if (!res.ok) throw new Error("Producto no encontrado");
 
                     const data = await res.json();
-                    console.log("Producto recibido:", data);
                     setProducto(data);
                 } catch (error) {
                     console.error("Error al obtener el producto:", error);

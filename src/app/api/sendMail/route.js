@@ -21,7 +21,7 @@ function generarResumenHTML(carrito) {
         .join('');
 
     return `
-    <h2>Resumen de tu pedido</h2>
+    <p>Resumen de tu pedido</p>
     <table border="1" cellpadding="5" cellspacing="0">
       <thead>
         <tr>

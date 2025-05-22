@@ -1,24 +1,33 @@
-import fs from "fs";
+import fs from "fs/promises";
 import path from "path";
 
-// Ruta al archivo JSON
 const filePath = path.join(process.cwd(), "public", "data", "productos.json");
 
-// Leer productos
-const leerProductos = () => {
-  const data = fs.readFileSync(filePath, "utf-8");
+// Leer productos (async)
+const leerProductos = async () => {
+  const data = await fs.readFile(filePath, "utf-8");
   return JSON.parse(data);
 };
 
-// Escribir productos
-const escribirProductos = (productos) => {
-  fs.writeFileSync(filePath, JSON.stringify(productos, null, 2));
+// Escribir productos (async)
+const escribirProductos = async (productos) => {
+  await fs.writeFile(filePath, JSON.stringify(productos, null, 2));
 };
 
 // ✅ Método GET: Obtener productos
 export async function GET() {
-  const productos = leerProductos();
-  return Response.json(productos);
+  try {
+    const productos = await leerProductos();
+    return new Response(JSON.stringify(productos), {
+      status: 200,
+      headers: { "Content-Type": "application/json" },
+    });
+  } catch (error) {
+    return new Response(JSON.stringify({ error: "Error al obtener productos" }), {
+      status: 500,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
 }
 
 // ✅ Método POST: Agregar producto
@@ -28,18 +37,27 @@ export async function POST(req) {
     const { nombre, categoria, precio, imagen } = body;
 
     if (!nombre || !categoria || !precio || !imagen) {
-      return new Response(JSON.stringify({ error: "Todos los campos son obligatorios" }), { status: 400 });
+      return new Response(
+        JSON.stringify({ error: "Todos los campos son obligatorios" }),
+        { status: 400, headers: { "Content-Type": "application/json" } }
+      );
     }
 
-    let productos = leerProductos();
+    const productos = await leerProductos();
     const nuevoId = productos.length > 0 ? productos[productos.length - 1].id + 1 : 1;
     const nuevoProducto = { id: nuevoId, nombre, categoria, precio, imagen };
 
     productos.push(nuevoProducto);
-    escribirProductos(productos);
+    await escribirProductos(productos);
 
-    return new Response(JSON.stringify(nuevoProducto), { status: 201 });
+    return new Response(JSON.stringify(nuevoProducto), {
+      status: 201,
+      headers: { "Content-Type": "application/json" },
+    });
   } catch (error) {
-    return new Response(JSON.stringify({ error: "Error procesando la solicitud" }), { status: 500 });
+    return new Response(
+      JSON.stringify({ error: "Error procesando la solicitud" }),
+      { status: 500, headers: { "Content-Type": "application/json" } }
+    );
   }
 }

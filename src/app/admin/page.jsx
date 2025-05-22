@@ -15,7 +15,7 @@ export default function AdminPage() {
         if (!response.ok) throw new Error('Error al obtener los pedidos');
         const data = await response.json();
 
-        const pedidosOrdenados = data.sort((a, b) => b.pedidoId - a.pedidoId);
+        const pedidosOrdenados = data.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
         setPedidos(pedidosOrdenados);
       } catch (error) {
         console.error('Error al obtener los pedidos:', error);
@@ -35,10 +35,12 @@ export default function AdminPage() {
 
   return (
     <div className='admin_dashboard'>
-      <strong><p className='dashboard_title'>Panel de administración</p></strong>
+      <span className='title'>PANEL DE ADMINISTRACIÓN</span>
 
       {loading ? (
         <p>Cargando pedidos...</p>
+      ) : pedidos.length === 0 ? (
+        <p>No hay pedidos registrados.</p>
       ) : (
         <>
           <table>
@@ -46,24 +48,32 @@ export default function AdminPage() {
               <tr>
                 <th>ID Pedido</th>
                 <th>Fecha</th>
+                <th>Nombre</th>
                 <th>Email</th>
                 <th>Estado</th>
-                <th>Monto total</th>
-                <th>Monto pagado</th>
+                <th>Tipo</th>
+                <th>Total</th>
+                <th>Pagado</th>
                 <th>Deuda</th>
               </tr>
             </thead>
             <tbody>
               {pedidos.slice(0, cantidadVisible).map((pedido) => (
                 <tr key={pedido.pedidoId}>
-                  <td className='id_pedido'>
-                    <Link href={`/admin/${pedido.pedidoId}`}>
-                      {pedido.pedidoId}
-                    </Link>
+                  <td>
+                    <strong><Link href={`/admin/pedidos/${pedido.pedidoId}`}>
+                      <span title='Ver pedido'>{pedido.pedidoId}</span>
+                    </Link></strong>
                   </td>
                   <td>{new Date(pedido.fecha).toLocaleString()}</td>
-                  <td>{pedido.email}</td>
+                  <td>{pedido.nombreCompleto}</td>
+                  <td>
+                    <Link href={`/admin/clients/${pedido.clienteId}`}>
+                      <span title="Ver ficha de cliente">{pedido.email}</span>
+                    </Link>
+                  </td>
                   <td>{pedido.estado}</td>
+                  <td>{pedido.retiro.charAt(0).toUpperCase() + pedido.retiro.slice(1)}</td>
                   <td>${pedido.total}</td>
                   <td>${pedido.pagado}</td>
                   <td>${pedido.deuda}</td>

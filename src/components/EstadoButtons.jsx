@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 const estados = ['Por preparar', 'Preparando', 'Entregado', 'Pagado'];
 
-export default function EstadoButtons({ estadoActual, pedidoId }) {
+export default function EstadoButtons({ estadoActual, pedidoId, totalPedido }) {
   const [estado, setEstado] = useState(estadoActual);
   const [loading, setLoading] = useState(false);
 
@@ -13,7 +13,10 @@ export default function EstadoButtons({ estadoActual, pedidoId }) {
     const res = await fetch(`/api/pedidos/${pedidoId}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ estado: nuevoEstado }),
+      body: JSON.stringify({
+        estado: nuevoEstado,
+        ...(nuevoEstado === 'Pagado' && { pagado: totalPedido }), // señal al backend
+      }),
     });
 
     if (res.ok) {

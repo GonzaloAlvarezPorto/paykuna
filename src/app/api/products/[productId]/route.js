@@ -1,33 +1,38 @@
-import fs from "fs";
+import fs from "fs/promises";
 import path from "path";
 
 const filePath = path.join(process.cwd(), "public", "data", "productos.json");
 
-// Leer productos
-const leerProductos = () => {
-    const data = fs.readFileSync(filePath, "utf-8");
-    return JSON.parse(data);
+// Leer productos (ahora async)
+const leerProductos = async () => {
+  const data = await fs.readFile(filePath, "utf-8");
+  return JSON.parse(data);
 };
 
 // ✅ GET: Obtener un producto por ID
 export async function GET(request, { params }) {
-    // Esperar a que params esté disponible
-    const { productId } = await params; // El parámetro dinámico [productId]
+  const { productId } = params; // params no es promesa, llega directo
 
-    if (!productId) {
-        return new Response(JSON.stringify({ error: "ID de producto no proporcionado" }), { status: 400 });
-    }
+  if (!productId) {
+    return new Response(JSON.stringify({ error: "ID de producto no proporcionado" }), {
+      status: 400,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
 
-    // Leer los productos desde el archivo
-    const productos = leerProductos();
+  const productos = await leerProductos();
 
-    // Buscar el producto por ID
-    const producto = productos.find(p => p.id === parseInt(productId));
+  const producto = productos.find(p => p.id === parseInt(productId));
 
-    if (!producto) {
-        return new Response(JSON.stringify({ error: "Producto no encontrado" }), { status: 404 });
-    }
+  if (!producto) {
+    return new Response(JSON.stringify({ error: "Producto no encontrado" }), {
+      status: 404,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
 
-    // Devolver el producto encontrado
-    return new Response(JSON.stringify(producto), { status: 200 });
+  return new Response(JSON.stringify(producto), {
+    status: 200,
+    headers: { "Content-Type": "application/json" },
+  });
 }

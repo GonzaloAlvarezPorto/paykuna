@@ -1,5 +1,11 @@
 @use "../dOtros/variables" as var;
 
+.title {
+    margin-bottom: 0.5rem;
+    color: white;
+    font-weight: bold;
+}
+
 .login {
     display: flex;
     flex-direction: column;
@@ -56,36 +62,24 @@
 .admin_dashboard {
     display: flex;
     flex-direction: column;
-    align-self: center;
     align-items: center;
-    background-color: var.$verde5;
-    margin: 0 auto;
-    padding: 2rem;
+    margin: 1rem auto;
+    padding: 15px;
     color: var.$dorado1;
-
-    .dashboard_title {
-        font-size: 22px;
-        text-decoration: underline;
-        margin-bottom: 0.5rem;
-    }
+    border: 1px solid var.$dorado1;
+    border-radius: 5px;
 
     table {
-
-
         thead {
             tr {
                 th {
-                    border: 1px solid var.$dorado1;
+                    border-bottom: 1px solid var.$dorado1;
                     padding: 0.5rem;
+                    color: white;
 
-                    &:not(:last-child) {
-                        border-right: none;
+                    &:first-child{
+                        text-align: left;
                     }
-
-                    &:not(:first-child) {
-                        border-left: none;
-                    }
-
                 }
             }
         }
@@ -93,27 +87,26 @@
         tbody {
             tr {
                 td {
-                    border-bottom: 1px solid var.$dorado1;
-                    padding: 1rem;
-
-                    &:first-child {
-                        border-left: 1px solid var.$dorado1;
-                    }
-
-                    &:last-child {
-                        border-right: 1px solid var.$dorado1;
-                    }
-
-                }
-
-                .id_pedido {
-                    text-align: center;
+                    padding: 0.5rem;
+                    vertical-align: top;
+                    color: white;
 
                     a {
+                        text-decoration: none;
+
+                        span {
+                            color: var.$dorado1;
+                            font-weight: bold;
+
+                            &:hover {
+                                color: var.$verde5;
+                            }
+                        }
+                    }
+
+                    strong a {
                         color: var.$dorado1;
                         text-decoration: none;
-                        font-size: 24px;
-                        font-weight: bold;
                     }
                 }
             }
@@ -131,6 +124,340 @@
             padding: 0.5rem 1rem;
             border: none;
             cursor: pointer;
+        }
+    }
+}
+
+.order_form {
+    display: flex;
+    flex-direction: column;
+    margin: 1rem auto;
+    border: 1px solid var.$dorado1;
+    border-radius: 5px;
+    padding: 1rem;
+
+    .form_header {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        border: 1px solid var.$dorado1;
+        border-radius: 5px;
+        color: var.$dorado1;
+
+        p {
+            margin-bottom: 3px;
+        }
+
+        .shop_data {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border-left: 1px solid var.$dorado1;
+            border-right: 1px solid var.$dorado1;
+            padding: 0 10px;
+            margin-left: 0;
+            margin-right: 0;
+            color: var.$dorado1;
+
+            a {
+                color: var.$dorado1;
+            }
+        }
+
+        .order_data {
+            display: flex;
+            flex-direction: column;
+
+            .state {
+                margin-top: 20px;
+            }
+
+        }
+
+        div {
+            margin: 15px;
+
+            img {
+                width: 50px;
+            }
+        }
+    }
+
+    .form_client {
+        display: flex;
+        flex-direction: column;
+        margin-top: 10px;
+        border: 1px solid var.$dorado1;
+        border-radius: 5px;
+        color: var.$dorado1;
+        padding: 15px;
+
+        h3 {
+            color: white;
+            margin-bottom: 8px;
+        }
+
+        p {
+            margin-bottom: 3px;
+
+            a {
+                border: none;
+                padding: 0;
+
+                &:hover {
+                    color: white;
+                }
+            }
+        }
+
+    }
+
+    table {
+        border: 1px solid var.$dorado1;
+        border-radius: 5px;
+        padding: 15px;
+        margin-top: 10px;
+
+        thead tr th {
+            border-bottom: 1px solid var.$dorado1;
+            padding-bottom: 5px;
+            color: white;
+
+            &:first-child {
+                text-align: left;
+            }
+        }
+
+        tbody {
+            .envio {
+                background-color: var.$verde1;
+            }
+
+            tr {
+                td {
+                    padding: 10px 0;
+                    color: white;
+                    text-align: center;
+
+                    &:first-child {
+                        text-align: left;
+                    }
+
+                    &:last-child {
+                        border-bottom: none; // evitar doble borde en la última fila
+                    }
+                }
+            }
+        }
+
+        tfoot {
+            background-color: var.$verde5;
+            color: white;
+
+            .deuda-row {
+                background-color: orange;
+            }
+
+            tr td {
+                text-align: center;
+                padding: 10px;
+                font-weight: bold;
+
+                &:first-child {
+                    text-align: left;
+                }
+            }
+        }
+    }
+
+    .form_btns {
+        display: flex;
+        flex-direction: column;
+        margin-top: 10px;
+        border: 1px solid var.$dorado1;
+        border-radius: 5px;
+        color: var.$dorado1;
+        padding: 15px;
+
+        .btns_update,
+        .btns_state {
+            display: flex;
+            flex-direction: row;
+            margin-top: 10px;
+            color: var.$dorado1;
+            padding: 5px;
+            justify-content: space-between;
+            align-items: center;
+
+            input {
+                padding: 0.5rem;
+                margin-right: 10px;
+                text-align: center;
+            }
+
+            input[type='number'] {
+                appearance: textfield; // Propiedad estándar
+
+                // Chrome, Safari, Edge
+                &::-webkit-inner-spin-button,
+                &::-webkit-outer-spin-button {
+                    -webkit-appearance: none;
+                    margin: 0;
+                }
+
+                // Firefox
+                -moz-appearance: textfield;
+            }
+
+            button {
+                padding: 0.5rem;
+                background-color: var.$verde4;
+                border: 1px solid var.$dorado1;
+                cursor: pointer;
+                color: var.$dorado1;
+                font-weight: bold;
+                margin: 3px;
+
+                &:disabled {
+                    opacity: 0.5;
+                    cursor: not-allowed;
+                    background-color: gray; // opcional, si querés un color diferente
+                    color: var.$dorado1; // podés mantener el color o bajarle la saturación
+                }
+            }
+        }
+    }
+
+    a {
+        margin-top: 10px;
+        border: 1px solid var.$dorado1;
+        border-radius: 5px;
+        color: var.$dorado1;
+        padding: 15px;
+        text-align: center;
+        text-decoration: none;
+
+        &:hover{
+            color: white;
+        }
+    }
+}
+
+.client_form {
+    display: flex;
+    flex-direction: column;
+    margin: 1rem auto;
+    border: 1px solid var.$dorado1;
+    border-radius: 5px;
+    padding: 1rem;
+    justify-content: space-between;
+
+    .client_header {
+        display: flex;
+        flex-direction: column;
+        border: 1px solid var.$dorado1;
+        border-radius: 5px;
+        padding: 15px;
+        justify-content: center;
+
+        p {
+            color: white;
+            margin-bottom: 8px;
+        }
+
+        div p {
+            color: var.$dorado1;
+            margin: 0;
+
+            &:not(:last-child) {
+                margin-bottom: 3px;
+
+            }
+        }
+    }
+
+    .client_pedidos {
+        display: flex;
+        flex-direction: column;
+        border: 1px solid var.$dorado1;
+        border-radius: 5px;
+        padding: 15px;
+        margin-top: 10px;
+
+        p {
+            color: white;
+            margin-bottom: 8px;
+        }
+
+        table {
+
+            thead tr th {
+                border-bottom: 1px solid var.$dorado1;
+                padding-bottom: 5px;
+                color: white;
+
+                &:first-child {
+                    text-align: left;
+                }
+            }
+
+            tbody {
+                tr {
+                    td {
+                        padding: 10px 0;
+                        color: white;
+                        text-align: center;
+                        min-width: 150px;
+
+                        &:first-child {
+                            text-align: left;
+                        }
+
+                        a {
+                            text-decoration: none;
+                            color: var.$dorado1;
+                            font-weight: bold;
+                            border: none;
+                            padding: 0;
+
+                            &:hover {
+                                color: var.$verde5;
+                            }
+                        }
+
+                    }
+                }
+            }
+
+            tfoot {
+                background-color: var.$verde5;
+                color: white;
+
+                tr td {
+                    text-align: center;
+                    padding: 10px;
+                    font-weight: bold;
+
+                    &:first-child {
+                        text-align: left;
+                    }
+                }
+            }
+        }
+
+    }
+
+    a {
+        margin-top: 10px;
+        border: 1px solid var.$dorado1;
+        border-radius: 5px;
+        color: var.$dorado1;
+        padding: 15px;
+        text-align: center;
+        text-decoration: none;
+
+        &:hover{
+            color: white;
         }
     }
 }

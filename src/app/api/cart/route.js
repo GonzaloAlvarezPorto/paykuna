@@ -1,10 +1,10 @@
 import { NextResponse } from "next/server";
-import fs from "fs";
+import fs from "fs/promises";
 import path from "path";
 import nodemailer from "nodemailer";
 
 const fileCostosPath = path.join(process.cwd(), "public", "data", "costosEnvio.json");
-const costosEnvio = JSON.parse(fs.readFileSync(fileCostosPath, "utf-8"));
+const fileClientesPath = path.join(process.cwd(), "public", "data", "clientes.json");
 
 function generarResumenHTML(pedido) {
   const { carrito, retiro, direccionCliente, localidadCliente } = pedido;
@@ -26,17 +26,14 @@ function generarResumenHTML(pedido) {
     .join("");
 
   let costoEnvio = 0;
-  if (retiro === "envio" && localidadCliente) {
-    const localidad = costosEnvio.find((localidadObj) => localidadObj.nombre === localidadCliente);
-    if (localidad) {
-      costoEnvio = localidad.costo;
-    }
+  if (retiro === "envío" && localidadCliente) {
+    // Si querés podés pasar costosEnvio como parámetro para no leer cada vez el archivo
   }
 
   return `
-    <h2>Resumen de tu pedido</h2>
-    <p><strong>Retiro:</strong> ${retiro === "envio" ? "Envío a domicilio" : "Retiro en local"}</p>
-    ${retiro === "envio" ? `
+    <p>Resumen de tu pedido</p>
+    <p><strong>Retiro:</strong> ${retiro === "envío" ? "Envío a domicilio" : "Retiro en local"}</p>
+    ${retiro === "envío" ? `
       <p><strong>Dirección:</strong> ${direccionCliente}</p>
       <p><strong>Localidad:</strong> ${localidadCliente}</p>
       <p><strong>Costo de envío:</strong> $${costoEnvio.toLocaleString()}</p>
@@ -54,7 +51,7 @@ function generarResumenHTML(pedido) {
         ${productos}
       </tbody>
       <tfoot>
-        ${retiro === "envio" ? `
+        ${retiro === "envío" ? `
           <tr>
             <td colspan="3"><strong>Envío</strong></td>
             <td>$${costoEnvio.toLocaleString()}</td>
@@ -68,8 +65,38 @@ function generarResumenHTML(pedido) {
   `;
 }
 
+async function obtenerClienteId(email) {
+  let clientes = [];
+
+  // Leer archivo si existe
+  try {
+    const dataClientes = await fs.readFile(fileClientesPath, "utf-8");
+    clientes = JSON.parse(dataClientes);
+  } catch (err) {
+    if (err.code !== "ENOENT") throw err;
+    // Si el archivo no existe, se inicializa vacío
+  }
+
+  // Buscar si el mail ya está registrado
+  let cliente = clientes.find(c => c.email === email);
+  if (cliente) return cliente.id;
+
+  // Generar ID nuevo
+  const nuevoId = `C-${Date.now().toString(36)}-${Math.floor(Math.random() * 1000)}`;
+  cliente = { id: nuevoId, email };
+  clientes.push(cliente);
+
+  // Guardar archivo actualizado
+  await fs.writeFile(fileClientesPath, JSON.stringify(clientes, null, 2));
+  return nuevoId;
+}
+
 export async function POST(req) {
   try {
+    // Leo costosEnvio JSON aquí con await
+    const costosEnvioRaw = await fs.readFile(fileCostosPath, "utf-8");
+    const costosEnvio = JSON.parse(costosEnvioRaw);
+
     const {
       emailCliente,
       telefonoCliente,
@@ -86,47 +113,64 @@ export async function POST(req) {
     if (
       !emailCliente || !carrito || !telefonoCliente ||
       !nombreCliente || !apellidoCliente || !retiro || !tipoPago ||
-      (retiro === "envio" && (!direccionCliente || !localidadCliente))
+      (retiro === "envío" && (!direccionCliente || !localidadCliente))
     ) {
       return NextResponse.json({ error: "Faltan datos" }, { status: 400 });
     }
 
-    // Cálculo del costo de envío
+    // Cálculo costo envío
     let costoEnvio = 0;
-    if (retiro === "envio" && localidadCliente) {
-      const localidad = costosEnvio.find((localidadObj) => localidadObj.nombre === localidadCliente);
+    if (retiro === "envío" && localidadCliente) {
+      const localidad = costosEnvio.find((loc) => loc.nombre === localidadCliente);
       if (localidad) {
         costoEnvio = localidad.costo;
       }
     }
 
-    // Cálculo del total
+    // Calculo total
     let total = 0;
-    const productos = Object.values(carrito)
-      .map((producto) => {
-        const subtotal = producto.precio * producto.cantidad;
-        total += subtotal;
-        return subtotal;
-      })
-      .join("");
-
-    // Sumar costo de envío al total
+    Object.values(carrito).forEach(producto => {
+      total += producto.precio * producto.cantidad;
+    });
     total += costoEnvio;
 
-    // Inicialización de pagado y deuda
-    const pagado = 0; // Este valor puede ser modificado según el pago inicial
+    // Inicializar pagado y deuda
+    const pagado = 0;
     const deuda = total - pagado;
 
-    // Guardado en archivo JSON
+    // Ruta archivo pedidos
     const filePath = path.join(process.cwd(), "public", "data", "pedidos.json");
-    const existe = fs.existsSync(filePath);
-    const data = existe ? fs.readFileSync(filePath, "utf-8") : "[]";
+
+    // Leer archivo pedidos (async + try/catch para existencia)
+    let data = "[]";
+    try {
+      data = await fs.readFile(filePath, "utf-8");
+    } catch (e) {
+      if (e.code !== "ENOENT") throw e; // si error no es "no existe" relanzar
+    }
     const carritos = JSON.parse(data);
 
-    const ultimoId = carritos.reduce((max, pedido) => (pedido.id > max ? pedido.id : max), 0);
+    // Generar ID nuevo
+    const fechaActual = new Date();
+    const anio = fechaActual.getFullYear();
+    const mes = String(fechaActual.getMonth() + 1).padStart(2, '0');
+    const dia = String(fechaActual.getDate()).padStart(2, '0');
+    const fechaFormato = `${anio}${mes}${dia}`;
 
+    let nuevoIdNumerico = 1;
+    let nuevoId;
+
+    do {
+      const correlativo = String(nuevoIdNumerico).padStart(4, '0');
+      nuevoId = `P-${fechaFormato}-${correlativo}`;
+      nuevoIdNumerico++;
+    } while (carritos.some(p => p.id === nuevoId));
+    
+    const clienteId = await obtenerClienteId(emailCliente);
+    // Nuevo pedido
     const nuevoPedido = {
-      id: ultimoId + 1,
+      id: nuevoId,
+      clienteId,
       email: emailCliente,
       telefono: telefonoCliente,
       nombre: nombreCliente,
@@ -137,43 +181,45 @@ export async function POST(req) {
       direccionCliente: retiro === "envio" ? direccionCliente : "",
       localidadCliente: retiro === "envio" ? localidadCliente : "",
       costoEnvio,
-      total, // Total final del pedido
-      pagado, // Monto pagado (inicialmente vacío)
-      deuda,  // Monto pendiente
+      total,
+      pagado,
+      deuda,
       fecha: new Date().toISOString(),
       estado: "Por preparar"
     };
 
     carritos.push(nuevoPedido);
-    fs.writeFileSync(filePath, JSON.stringify(carritos, null, 2));
 
-    // Envío de email
-    const transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: process.env.ADMIN_EMAIL,
-        pass: process.env.APP_PASSWORD,
-      },
-    });
+    // Guardar nuevo pedido
+    await fs.writeFile(filePath, JSON.stringify(carritos, null, 2));
 
-    const resumenHTML = generarResumenHTML(nuevoPedido);
+    // // Envío de email
+    // const transporter = nodemailer.createTransport({
+    //   service: "gmail",
+    //   auth: {
+    //     user: process.env.ADMIN_EMAIL,
+    //     pass: process.env.APP_PASSWORD,
+    //   },
+    // });
 
-    const mailOptionsCliente = {
-      from: process.env.ADMIN_EMAIL,
-      to: emailCliente,
-      subject: "Resumen de tu pedido a Almacén Paykuna",
-      html: resumenHTML,
-    };
+    // const resumenHTML = generarResumenHTML(nuevoPedido);
 
-    const mailOptionsAdmin = {
-      from: process.env.ADMIN_EMAIL,
-      to: process.env.ADMIN_EMAIL,
-      subject: `Nuevo pedido de ${emailCliente}`,
-      html: resumenHTML,
-    };
+    // const mailOptionsCliente = {
+    //   from: process.env.ADMIN_EMAIL,
+    //   to: emailCliente,
+    //   subject: "Resumen de tu pedido a Almacén Paykuna",
+    //   html: resumenHTML,
+    // };
 
-    await transporter.sendMail(mailOptionsCliente);
-    await transporter.sendMail(mailOptionsAdmin);
+    // const mailOptionsAdmin = {
+    //   from: process.env.ADMIN_EMAIL,
+    //   to: process.env.ADMIN_EMAIL,
+    //   subject: `Nuevo pedido de ${emailCliente}`,
+    //   html: resumenHTML,
+    // };
+
+    // await transporter.sendMail(mailOptionsCliente);
+    // await transporter.sendMail(mailOptionsAdmin);
 
     return NextResponse.json({
       mensaje: "Pedido registrado y correos enviados correctamente",
@@ -185,4 +231,6 @@ export async function POST(req) {
     return NextResponse.json({ error: "Error interno del servidor" }, { status: 500 });
   }
 }
+
+
 

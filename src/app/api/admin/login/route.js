@@ -1,4 +1,3 @@
-// src/app/api/admin/login/route.js
 import { NextResponse } from 'next/server';
 
 export async function POST(request) {
