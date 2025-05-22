@@ -1,7 +1,6 @@
 "use client";
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import novedades from "../../public/data/novedades.json";
 import { useCart } from "@/context/CartContext";
 
 const EXPIRATION_TIME = 1 * 60 * 60 * 1000; // 1 hora en milisegundos
@@ -11,8 +10,24 @@ const NavBar = () => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isPlaying, setIsPlaying] = useState(true);
     const [mounted, setMounted] = useState(false); // ← NUEVO
+    const [novedades, setNovedades] = useState([]);
 
     const { calcularTotalProductos } = useCart();
+
+    useEffect(() => {
+        const fetchNovedades = async () => {
+            try {
+                const res = await fetch("/api/novedades");
+                const data = await res.json();
+                setNovedades(data);
+            }
+            catch (error) {
+                console.error("Error al cargar novedades:", error);
+            }
+        };
+
+        fetchNovedades();
+    }, []);
 
     useEffect(() => {
         setMounted(true); // ← SE MONTA SOLO EN CLIENTE
@@ -77,7 +92,7 @@ const NavBar = () => {
                     <Link className="link" href="/nosotros">SOBRE NOSOTRES</Link>
                 </li>
                 <li>
-                    <Link className="link" href="/catalogo">CATÁLOGO</Link>
+                    <Link className="link" href="/products">CATÁLOGO</Link>
                 </li>
                 <li className="cart">
                     <Link className="cart_link" href="/cart">
@@ -89,7 +104,7 @@ const NavBar = () => {
                 </li>
             </ul>
 
-            {showGallery && (
+            {showGallery && novedades.length > 0 && (
                 <div className="overlay">
                     <div className="gallery">
                         <button className="prev-btn" onClick={prevImage}>{"<"}</button>
@@ -107,12 +122,13 @@ const NavBar = () => {
                             <div className="desc-container">
                                 <p className="newsDesc">{novedades[currentIndex].descripcion}</p>
                             </div>
-                            <Link className="goToChart" href={"/catalogo"} onClick={closeGallery} title="Ir al catálogo">Ver catálogo 🛒</Link>
+                            <Link className="goToChart" href={"/products"} onClick={closeGallery} title="Ir al catálogo">Ver catálogo 🛒</Link>
                         </div>
                         <button className="next-btn" onClick={nextImage}>{">"}</button>
                     </div>
                 </div>
             )}
+
         </div>
     );
 };

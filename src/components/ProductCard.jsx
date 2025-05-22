@@ -10,7 +10,7 @@ const ProductCard = ({ producto, cantidades, setCantidades, handleCantidadChange
             </div>
             <div className='product-info'>
                 <div className='product-title'>
-                    <a href={`/catalogo/${producto.id}`}>{producto.nombre}</a>
+                    <a href={`/products/${producto.id}`}>{producto.nombre}</a>
                     <p className='precio'>-</p>
                     <p className='precio'>${producto.precio} p/u</p>
                 </div>

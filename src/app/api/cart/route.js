@@ -1,69 +1,10 @@
 import { NextResponse } from "next/server";
 import fs from "fs/promises";
 import path from "path";
-import nodemailer from "nodemailer";
+import { enviarEmailsDePedido } from "../../../lib/sendMail.js"
 
 const fileCostosPath = path.join(process.cwd(), "public", "data", "costosEnvio.json");
 const fileClientesPath = path.join(process.cwd(), "public", "data", "clientes.json");
-
-function generarResumenHTML(pedido) {
-  const { carrito, retiro, direccionCliente, localidadCliente } = pedido;
-  let total = 0;
-
-  const productos = Object.values(carrito)
-    .map((producto) => {
-      const subtotal = producto.precio * producto.cantidad;
-      total += subtotal;
-      return `
-        <tr>
-          <td>${producto.nombre}</td>
-          <td>${producto.cantidad}</td>
-          <td>$${producto.precio.toLocaleString()}</td>
-          <td>$${subtotal.toLocaleString()}</td>
-        </tr>
-      `;
-    })
-    .join("");
-
-  let costoEnvio = 0;
-  if (retiro === "envío" && localidadCliente) {
-    // Si querés podés pasar costosEnvio como parámetro para no leer cada vez el archivo
-  }
-
-  return `
-    <p>Resumen de tu pedido</p>
-    <p><strong>Retiro:</strong> ${retiro === "envío" ? "Envío a domicilio" : "Retiro en local"}</p>
-    ${retiro === "envío" ? `
-      <p><strong>Dirección:</strong> ${direccionCliente}</p>
-      <p><strong>Localidad:</strong> ${localidadCliente}</p>
-      <p><strong>Costo de envío:</strong> $${costoEnvio.toLocaleString()}</p>
-    ` : ""}
-    <table border="1" cellpadding="5" cellspacing="0">
-      <thead>
-        <tr>
-          <th>Producto</th>
-          <th>Cantidad</th>
-          <th>Precio Unitario</th>
-          <th>Subtotal</th>
-        </tr>
-      </thead>
-      <tbody>
-        ${productos}
-      </tbody>
-      <tfoot>
-        ${retiro === "envío" ? `
-          <tr>
-            <td colspan="3"><strong>Envío</strong></td>
-            <td>$${costoEnvio.toLocaleString()}</td>
-          </tr>` : ""}
-        <tr>
-          <td colspan="3"><strong>Total</strong></td>
-          <td><strong>$${total.toLocaleString()}</strong></td>
-        </tr>
-      </tfoot>
-    </table>
-  `;
-}
 
 async function obtenerClienteId(email) {
   let clientes = [];
@@ -165,7 +106,7 @@ export async function POST(req) {
       nuevoId = `P-${fechaFormato}-${correlativo}`;
       nuevoIdNumerico++;
     } while (carritos.some(p => p.id === nuevoId));
-    
+
     const clienteId = await obtenerClienteId(emailCliente);
     // Nuevo pedido
     const nuevoPedido = {
@@ -178,8 +119,8 @@ export async function POST(req) {
       retiro,
       tipoPago,
       carrito,
-      direccionCliente: retiro === "envio" ? direccionCliente : "",
-      localidadCliente: retiro === "envio" ? localidadCliente : "",
+      direccionCliente: retiro === "envío" ? direccionCliente : "",
+      localidadCliente: retiro === "envío" ? localidadCliente : "",
       costoEnvio,
       total,
       pagado,
@@ -193,33 +134,8 @@ export async function POST(req) {
     // Guardar nuevo pedido
     await fs.writeFile(filePath, JSON.stringify(carritos, null, 2));
 
-    // // Envío de email
-    // const transporter = nodemailer.createTransport({
-    //   service: "gmail",
-    //   auth: {
-    //     user: process.env.ADMIN_EMAIL,
-    //     pass: process.env.APP_PASSWORD,
-    //   },
-    // });
-
-    // const resumenHTML = generarResumenHTML(nuevoPedido);
-
-    // const mailOptionsCliente = {
-    //   from: process.env.ADMIN_EMAIL,
-    //   to: emailCliente,
-    //   subject: "Resumen de tu pedido a Almacén Paykuna",
-    //   html: resumenHTML,
-    // };
-
-    // const mailOptionsAdmin = {
-    //   from: process.env.ADMIN_EMAIL,
-    //   to: process.env.ADMIN_EMAIL,
-    //   subject: `Nuevo pedido de ${emailCliente}`,
-    //   html: resumenHTML,
-    // };
-
-    // await transporter.sendMail(mailOptionsCliente);
-    // await transporter.sendMail(mailOptionsAdmin);
+    // Envío de email
+    await enviarEmailsDePedido(nuevoPedido);
 
     return NextResponse.json({
       mensaje: "Pedido registrado y correos enviados correctamente",

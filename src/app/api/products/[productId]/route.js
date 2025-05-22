@@ -4,14 +4,14 @@ import path from "path";
 const filePath = path.join(process.cwd(), "public", "data", "productos.json");
 
 // Leer productos (ahora async)
-const leerProductos = async () => {
+const leerProductoPorId = async () => {
   const data = await fs.readFile(filePath, "utf-8");
   return JSON.parse(data);
 };
 
 // ✅ GET: Obtener un producto por ID
 export async function GET(request, { params }) {
-  const { productId } = params; // params no es promesa, llega directo
+  const { productId } = await params; // params no es promesa, llega directo
 
   if (!productId) {
     return new Response(JSON.stringify({ error: "ID de producto no proporcionado" }), {
@@ -20,7 +20,7 @@ export async function GET(request, { params }) {
     });
   }
 
-  const productos = await leerProductos();
+  const productos = await leerProductoPorId();
 
   const producto = productos.find(p => p.id === parseInt(productId));
 

@@ -1,4 +1,4 @@
-'use client'; // Si estás en un componente de Next.js con App Router
+'use client';
 
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
@@ -9,7 +9,7 @@ export const Footer = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const res = await fetch('/data/redes.json'); // Cargar desde /public/
+                const res = await fetch('/api/redes');
                 const data = await res.json();
                 setRedes(data);
             } catch (error) {

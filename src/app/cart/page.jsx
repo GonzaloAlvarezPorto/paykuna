@@ -52,7 +52,7 @@ const CartPage = () => {
         <div className="cart_message">
           <span>
             <p>Tu carrito está vacío, volvé a nuestro catálogo para ver nuestros productos y precios.</p>
-            <a href="/catalogo"><strong>⬅ Ir al catálogo</strong></a>
+            <a href="/product"><strong>⬅ Ir al catálogo</strong></a>
           </span>
         </div>
       ) : (

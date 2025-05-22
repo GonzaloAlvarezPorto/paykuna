@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 
 const ProductoPage = () => {
-    const { catalogoId } = useParams();  // Asegúrate de que catalogoId esté siendo pasado aquí
+    const { productId } = useParams();
     const [producto, setProducto] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -17,11 +17,11 @@ const ProductoPage = () => {
     const { actualizarCarrito, calcularCantidadPorId } = useCart();
 
     useEffect(() => {
-        if (catalogoId) {
+        if (productId) {
             const fetchProducto = async () => {
                 try {
                     setLoading(true);
-                    const res = await fetch(`/api/products/${catalogoId}`);
+                    const res = await fetch(`/api/products/${productId}`);
 
                     if (!res.ok) throw new Error("Producto no encontrado");
 
@@ -37,10 +37,10 @@ const ProductoPage = () => {
 
             fetchProducto();
         }
-    }, [catalogoId]);
+    }, [productId]);
 
     // Obtener la cantidad del producto en el carrito al cargar la página
-    const cantidadEnCarrito = calcularCantidadPorId(Number(catalogoId));
+    const cantidadEnCarrito = calcularCantidadPorId(Number(productId));
 
     if (loading) return <div>Cargando...</div>;
     if (error) return <div>{error}</div>;
@@ -121,7 +121,7 @@ const ProductoPage = () => {
                 }}>
                     <strong>Agregar al carrito</strong>
                 </button>
-                <a href="/catalogo">⬅ Volver al catálogo</a>
+                <a href="/products">⬅ Volver al catálogo</a>
             </div>
         </div>
     );

@@ -10,7 +10,7 @@ const NosotrosPage = () => {
     const fetchData = async () => {
       try {
 
-        const res = await fetch('/data/nosotros.json');
+        const res = await fetch('/api/nosotros');
         const data = await res.json();
         setTextos(data);
       } catch (error) {

@@ -32,7 +32,7 @@ export default function ClientPage({ params }) {
         const pedidosData = await pedidosRes.json();
         const clientesData = await clientesRes.json();
 
-        const pedidosCliente = pedidosData.filter(p => p.clienteId === clientId);
+        const pedidosCliente = pedidosData.filter(p => p.clienteId === clientId).sort((a,b) => new Date(b.fecha) - new Date(a.fecha));
         const deuda = pedidosCliente.reduce(
           (acc, pedido) => acc + (Number(pedido.deuda) || 0),
           0

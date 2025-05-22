@@ -6,7 +6,7 @@ import { useCart } from "@/context/CartContext";
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 
-const CatalogoPage = () => {
+const ProductsPage = () => {
   const [productos, setProductos] = useState([]);
   const [categorias, setCategorias] = useState([]);
   const [categoriaSeleccionada, setCategoriaSeleccionada] = useState("Todos los productos");
@@ -102,4 +102,4 @@ const CatalogoPage = () => {
   );
 };
 
-export default CatalogoPage;
+export default ProductsPage;

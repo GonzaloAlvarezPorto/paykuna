@@ -4,7 +4,7 @@ import path from "path";
 const filePath = path.join(process.cwd(), "public", "data", "productos.json");
 
 // Leer productos (async)
-const leerProductos = async () => {
+const leerTodosProductos = async () => {
   const data = await fs.readFile(filePath, "utf-8");
   return JSON.parse(data);
 };
@@ -17,7 +17,7 @@ const escribirProductos = async (productos) => {
 // ✅ Método GET: Obtener productos
 export async function GET() {
   try {
-    const productos = await leerProductos();
+    const productos = await leerTodosProductos();
     return new Response(JSON.stringify(productos), {
       status: 200,
       headers: { "Content-Type": "application/json" },
@@ -43,7 +43,7 @@ export async function POST(req) {
       );
     }
 
-    const productos = await leerProductos();
+    const productos = await leerTodosProductos();
     const nuevoId = productos.length > 0 ? productos[productos.length - 1].id + 1 : 1;
     const nuevoProducto = { id: nuevoId, nombre, categoria, precio, imagen };
 

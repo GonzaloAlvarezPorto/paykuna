@@ -21,15 +21,13 @@ const CheckOutPage = () => {
   const router = useRouter();
 
   useEffect(() => {
-    fetch("/data/costosEnvio.json")
+    fetch("/api/costosEnvio")
       .then((res) => res.json())
       .then((data) => {
         setLocalidadesDisponibles(data); // Directamente setea el array de objetos
       })
       .catch((error) => console.error("Error al cargar las localidades:", error));
   }, []);
-
-
 
   useEffect(() => {
     if (typeof window !== "undefined") {
