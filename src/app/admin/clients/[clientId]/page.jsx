@@ -20,7 +20,7 @@ export default function ClientPage({ params }) {
       try {
         const [pedidosRes, clientesRes] = await Promise.all([
           fetch('/api/pedidos'),
-          fetch('/api/clientes')
+          fetch('/api/clients')
         ]);
 
         if (!pedidosRes.ok || !clientesRes.ok) {
@@ -32,7 +32,7 @@ export default function ClientPage({ params }) {
         const pedidosData = await pedidosRes.json();
         const clientesData = await clientesRes.json();
 
-        const pedidosCliente = pedidosData.filter(p => p.clienteId === clientId).sort((a,b) => new Date(b.fecha) - new Date(a.fecha));
+        const pedidosCliente = pedidosData.filter(p => p.clienteId === clientId).sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
         const deuda = pedidosCliente.reduce(
           (acc, pedido) => acc + (Number(pedido.deuda) || 0),
           0
@@ -53,6 +53,30 @@ export default function ClientPage({ params }) {
     fetchData();
   }, [clientId]);
 
+  const handleDelete = async () => {
+    const confirmacion = confirm("¿Estás seguro de que querés borrar este cliente? Esta acción no se puede deshacer.");
+    if (!confirmacion) return;
+
+    try {
+      const res = await fetch(`/api/clients/${clientId}`, {
+        method: 'DELETE'
+      });
+
+      if (!res.ok) {
+        const data = await res.json();
+        alert(`Error al eliminar cliente: ${data.error}`);
+        return;
+      }
+
+      alert('Cliente eliminado correctamente');
+      window.location.href = "/admin"; // Redireccionar
+    } catch (error) {
+      console.error("Error al eliminar cliente:", error);
+      alert("Ocurrió un error al eliminar el cliente");
+    }
+  };
+
+
   if (loading) return <p>Cargando ficha del cliente...</p>;
 
   return (
@@ -62,6 +86,15 @@ export default function ClientPage({ params }) {
         <div>
           <p><strong>Mail cliente: </strong>{cliente}</p>
           <p><strong>Id cliente: </strong>{clientId}</p>
+          <p>
+            <strong
+              onClick={handleDelete}
+              style={{ cursor: 'pointer', color: 'red' }}
+              title="Eliminar cliente"
+            >
+              🗑 Borrar usuario
+            </strong>
+          </p>
         </div>
       </div>
       <div className='client_pedidos'>

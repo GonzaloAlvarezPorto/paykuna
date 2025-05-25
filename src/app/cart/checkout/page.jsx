@@ -21,7 +21,7 @@ const CheckOutPage = () => {
   const router = useRouter();
 
   useEffect(() => {
-    fetch("/api/costosEnvio")
+    fetch("/api/deliveryCosts")
       .then((res) => res.json())
       .then((data) => {
         setLocalidadesDisponibles(data); // Directamente setea el array de objetos
@@ -138,16 +138,16 @@ const CheckOutPage = () => {
                     value={localidad}
                     onChange={(e) => {
                       const localidadSeleccionada = localidadesDisponibles.find(
-                        (localidad) => localidad.nombre === e.target.value
+                        (localidad) => localidad.localidad === e.target.value
                       );
-                      setLocalidad(localidadSeleccionada?.nombre || "");
-                      setCostoEnvio(localidadSeleccionada?.costo || 0);
+                      setLocalidad(localidadSeleccionada?.localidad || "");
+                      setCostoEnvio(localidadSeleccionada?.precio || 0);
                     }}
                   >
                     <option value="">Seleccionar localidad</option>
-                    {localidadesDisponibles.map(({ nombre, costo }) => (
-                      <option key={nombre} value={nombre}>
-                        {nombre} (+${costo})
+                    {localidadesDisponibles.map(({ localidad, precio }) => (
+                      <option key={localidad} value={localidad}>
+                        {localidad} (+${precio})
                       </option>
                     ))}
                   </select>

@@ -1,13 +1,13 @@
+//Login busca al usuario y su contraseña en el archivo .env
+
 import { NextResponse } from 'next/server';
 
 export async function POST(request) {
   const { email, password } = await request.json();
 
   // Comprobar las credenciales de administrador desde las variables de entorno
-  if (
-    email === process.env.ADMIN_EMAIL &&
-    password === process.env.ADMIN_PASSWORD
-  ) {
+  if (email === process.env.ADMIN_EMAIL && password === process.env.ADMIN_PASSWORD) {
+    
     // Si las credenciales son correctas, crear una respuesta positiva con la cookie de autenticación
     const response = NextResponse.json({ success: true });
 

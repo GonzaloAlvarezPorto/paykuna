@@ -1,21 +1,13 @@
 import EstadoButtons from '@/components/EstadoButtons';
 import PagadoInput from '@/components/PagadoInput';
-import fs from 'fs/promises';
+import { getPedidoById } from '@/lib/getPedido';
 import Link from 'next/link';
-import path from 'path';
 
 export default async function PedidoPage({ params }) {
     const { pedidoId } = await params;
+    const pedido = await getPedidoById(pedidoId);
 
-    const filePath = path.join(process.cwd(), 'public', 'data', 'pedidos.json');
-    const data = await fs.readFile(filePath, 'utf-8');
-    const pedidos = JSON.parse(data);
-
-    const pedido = pedidos.find(p => String(p.id) === String(pedidoId));
-
-    if (!pedido) {
-        return <div>Pedido no encontrado</div>;
-    }
+    if (!pedido) return <div>Pedido no encontrado</div>;
 
     return (
         <div className='order_form'>

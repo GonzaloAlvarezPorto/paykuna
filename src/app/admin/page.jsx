@@ -33,6 +33,8 @@ export default function AdminPage() {
 
   const hayMas = pedidos.length > cantidadVisible;
 
+  
+
   return (
     <div className='admin_dashboard'>
       <span className='title'>PANEL DE ADMINISTRACIÓN</span>
@@ -75,12 +77,13 @@ export default function AdminPage() {
                   <td>{pedido.estado}</td>
                   <td>{pedido.retiro.charAt(0).toUpperCase() + pedido.retiro.slice(1)}</td>
                   <td>${pedido.total}</td>
-                  <td>${pedido.pagado}</td>
+                  <td>${typeof pedido.pagado === 'number' ? pedido.pagado : 0}</td>
                   <td>${pedido.deuda}</td>
                 </tr>
               ))}
             </tbody>
           </table>
+          <Link href={"admin/deliveryCosts"}>Costos de envío</Link>
 
           {hayMas && (
             <div className='ver-mas-container'>

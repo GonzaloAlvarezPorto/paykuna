@@ -77,7 +77,7 @@
                     padding: 0.5rem;
                     color: white;
 
-                    &:first-child{
+                    &:first-child {
                         text-align: left;
                     }
                 }
@@ -337,7 +337,7 @@
         text-align: center;
         text-decoration: none;
 
-        &:hover{
+        &:hover {
             color: white;
         }
     }
@@ -456,8 +456,140 @@
         text-align: center;
         text-decoration: none;
 
-        &:hover{
+        &:hover {
             color: white;
+        }
+    }
+}
+
+.costs_form {
+    display: flex;
+    flex-direction: row;
+    margin: 1rem auto;
+
+    a {
+        display: flex;
+        flex-direction: column;
+        margin: 0 1rem;
+        background-color: var.$verde5;
+        padding: 1rem;
+        border: 1px solid var.$dorado1;
+        border-radius: 5px;
+        text-decoration: none;
+        color: var.$dorado1;
+        align-self: center;
+        font-weight: bold;
+    }
+
+    .form_addCost {
+        display: flex;
+        flex-direction: column;
+        margin: 0 1rem;
+        background-color: var.$verde5;
+        padding: 1rem;
+        border: 1px solid var.$dorado1;
+        border-radius: 5px;
+
+        p {
+            margin-bottom: 15px;
+            color: var.$dorado1;
+        }
+
+        input {
+            margin-bottom: 8px;
+            padding: 0.5rem;
+        }
+
+        input[type='number'] {
+            appearance: textfield; // Propiedad estándar
+
+            // Chrome, Safari, Edge
+            &::-webkit-inner-spin-button,
+            &::-webkit-outer-spin-button {
+                -webkit-appearance: none;
+                margin: 0;
+            }
+
+            // Firefox
+            -moz-appearance: textfield;
+        }
+
+        button {
+            background-color: var.$verde2;
+            color: var.$dorado1;
+            border: 1px solid var.$dorado1;
+            padding: 0.5rem;
+            align-self: center;
+        }
+    }
+
+    .form_editCost {
+        display: flex;
+        flex-direction: column;
+        margin: 0 1rem;
+        background-color: var.$verde5;
+        padding: 1rem;
+        border: 1px solid var.$dorado1;
+        border-radius: 5px;
+
+        p {
+            margin-bottom: 15px;
+            color: var.$dorado1;
+        }
+
+        div {
+            display: flex;
+            flex-direction: row;
+
+            div {
+                display: flex;
+                justify-content: space-between;
+                flex-direction: row;
+                width: 100%;
+                align-items: center;
+
+                strong {
+                    color: white;
+                    min-width: 150px;
+                }
+
+                span {
+                    color: white;
+                    min-width: 50px;
+                }
+
+                button {
+                    background-color: var.$verde2;
+                    color: var.$dorado1;
+                    border: 1px solid var.$dorado1;
+                    padding: 0.3rem;
+                    align-self: center;
+                    margin-left: 8px;
+                }
+
+                input {
+                    margin-right: 5px;
+                    padding: 0.3rem;
+                }
+
+                input[type='number'] {
+                    appearance: textfield; // Propiedad estándar
+
+                    // Chrome, Safari, Edge
+                    &::-webkit-inner-spin-button,
+                    &::-webkit-outer-spin-button {
+                        -webkit-appearance: none;
+                        margin: 0;
+                    }
+
+                    // Firefox
+                    -moz-appearance: textfield;
+                }
+            }
+
+            &:not(:last-child) {
+                padding-bottom: 0.3rem;
+            }
         }
     }
 }

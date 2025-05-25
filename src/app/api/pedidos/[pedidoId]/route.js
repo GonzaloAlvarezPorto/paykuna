@@ -1,55 +1,75 @@
-import { readFile, writeFile } from 'fs/promises';
-import path from 'path';
-
-const filePath = path.join(process.cwd(), "public", "data", "pedidos.json");
-
-// Leer pedidos (versión async)
-const leerPedidos = async () => {
-    const data = await readFile(filePath, "utf-8");
-    return JSON.parse(data);
-};
+import { db } from '../@/lib/firebase.js';
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
 
 export async function GET(request, { params }) {
-    const { pedidoId } = params;
+  const { pedidoId } = await params; 
 
-    if (!pedidoId) {
-        return new Response(JSON.stringify({ error: "ID de pedido no proporcionado" }), { status: 400 });
-    }
+  if (!pedidoId) {
+    return new Response(JSON.stringify({ error: 'ID de pedido no proporcionado' }), { status: 400 });
+  }
 
-    const pedidos = await leerPedidos();
-    const pedido = pedidos.find(p => p.id === parseInt(pedidoId));
-
-    if (!pedido) {
-        return new Response(JSON.stringify({ error: "Pedido no encontrado" }), { status: 404 });
-    }
-
-    return new Response(JSON.stringify(pedido), { status: 200 });
-}
-
-export async function PUT(request, { params }) {
   try {
-    const { pedidoId } = await params;
-    const { estado, pagado } = await request.json();
+    const docRef = doc(db, 'pedidos', pedidoId);
+    const docSnap = await getDoc(docRef);
 
-    const data = await readFile(filePath, 'utf-8');
-    const pedidos = JSON.parse(data);
-
-    const pedidoIndex = pedidos.findIndex(p => String(p.id) === String(pedidoId));
-    if (pedidoIndex === -1) {
+    if (!docSnap.exists()) {
       return new Response(JSON.stringify({ error: 'Pedido no encontrado' }), { status: 404 });
     }
 
-    if (estado !== undefined) {
-      pedidos[pedidoIndex].estado = estado;
-    }
-    if (pagado !== undefined) {
-      pedidos[pedidoIndex].pagado = pagado;
-      pedidos[pedidoIndex].deuda = pedidos[pedidoIndex].total - pagado;
+    const pedido = docSnap.data();
+
+    return new Response(JSON.stringify({ ...pedido, id: docSnap.id }), { status: 200 });
+  } catch (error) {
+    console.error('Error al obtener pedido:', error);
+    return new Response(JSON.stringify({ error: 'Error interno del servidor' }), { status: 500 });
+  }
+}
+
+export async function PUT(request, { params }) {
+  const { pedidoId } = await params;
+
+  if (!pedidoId) {
+    return new Response(JSON.stringify({ error: 'ID de pedido no proporcionado' }), { status: 400 });
+  }
+
+  try {
+    const updates = await request.json();
+
+    // Validaciones
+    if (updates.pagado !== undefined && (isNaN(updates.pagado) || Number(updates.pagado) < 0)) {
+      return new Response(JSON.stringify({ error: 'El campo "pagado" debe ser un número válido mayor o igual a 0' }), {
+        status: 400,
+      });
     }
 
-    await writeFile(filePath, JSON.stringify(pedidos, null, 2));
+    if (updates.estado !== undefined && typeof updates.estado !== 'string') {
+      return new Response(JSON.stringify({ error: 'El campo "estado" debe ser una cadena de texto' }), {
+        status: 400,
+      });
+    }
 
-    return new Response(JSON.stringify(pedidos[pedidoIndex]), { status: 200 });
+    const docRef = doc(db, 'pedidos', pedidoId);
+    const docSnap = await getDoc(docRef);
+
+    if (!docSnap.exists()) {
+      return new Response(JSON.stringify({ error: 'Pedido no encontrado' }), { status: 404 });
+    }
+
+    const pedidoActual = docSnap.data();
+
+    const nuevoEstado = {
+      ...(updates.estado !== undefined && { estado: updates.estado }),
+      ...(updates.pagado !== undefined && {
+        pagado: Number(updates.pagado),
+        deuda: Number(pedidoActual.total) - Number(updates.pagado),
+      }),
+    };
+
+    await updateDoc(docRef, nuevoEstado);
+
+    return new Response(JSON.stringify({ ...pedidoActual, ...nuevoEstado, id: docSnap.id }), {
+      status: 200,
+    });
   } catch (error) {
     console.error('Error al actualizar pedido:', error);
     return new Response(JSON.stringify({ error: 'Error interno del servidor' }), { status: 500 });
