@@ -64,69 +64,92 @@
     flex-direction: column;
     align-items: center;
     margin: 1rem auto;
-    padding: 15px;
     color: var.$dorado1;
-    border: 1px solid var.$dorado1;
-    border-radius: 5px;
+    width: 50%;
 
-    table {
-        thead {
-            tr {
-                th {
-                    border-bottom: 1px solid var.$dorado1;
-                    padding: 0.5rem;
-                    color: white;
-
-                    &:first-child {
-                        text-align: left;
-                    }
-                }
-            }
-        }
-
-        tbody {
-            tr {
-                td {
-                    padding: 0.5rem;
-                    vertical-align: top;
-                    color: white;
-
-                    a {
-                        text-decoration: none;
-
-                        span {
-                            color: var.$dorado1;
-                            font-weight: bold;
-
-                            &:hover {
-                                color: var.$verde5;
-                            }
-                        }
-                    }
-
-                    strong a {
-                        color: var.$dorado1;
-                        text-decoration: none;
-                    }
-                }
-            }
-        }
-    }
-
-    .ver-mas-container {
-        margin-top: 1rem;
-        text-align: center;
+    div {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        margin: 1rem auto;
+        padding: 15px;
         border: 1px solid var.$dorado1;
+        color: var.$dorado1;
+        border-radius: 5px;
+    
+        a {
+            border-radius: 5px;
+            color: var.$dorado1;
+            text-decoration: none;
+            border: 1px solid var.$dorado1;
+            background-color: var.$verde5;
+            padding: 0.5rem;
+            margin: 0.5rem;
 
-        .ver-mas-btn {
-            background-color: var.$verde2;
-            color: white;
-            padding: 0.5rem 1rem;
-            border: none;
-            cursor: pointer;
         }
     }
 }
+
+
+table {
+    thead {
+        tr {
+            th {
+                border-bottom: 1px solid var.$dorado1;
+                padding: 0.5rem;
+                color: white;
+
+                &:first-child {
+                    text-align: left;
+                }
+            }
+        }
+    }
+
+    tbody {
+        tr {
+            td {
+                padding: 0.5rem;
+                vertical-align: top;
+                color: white;
+
+                a {
+                    text-decoration: none;
+
+                    span {
+                        color: var.$dorado1;
+                        font-weight: bold;
+
+                        &:hover {
+                            color: var.$verde5;
+                        }
+                    }
+                }
+
+                strong a {
+                    color: var.$dorado1;
+                    text-decoration: none;
+                }
+            }
+        }
+    }
+}
+
+.ver-mas-container {
+    margin-top: 1rem;
+    text-align: center;
+    border: 1px solid var.$dorado1;
+
+    .ver-mas-btn {
+        background-color: var.$verde2;
+        color: white;
+        padding: 0.5rem 1rem;
+        border: none;
+        cursor: pointer;
+    }
+}
+
 
 .order_form {
     display: flex;
