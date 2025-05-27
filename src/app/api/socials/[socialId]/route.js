@@ -1,12 +1,12 @@
-import { deleteProduct, getProductById, updateProduct } from "@/services/products";
+import { deleteSocial, getSocialById, updateSocial } from "@/services/socials";
 
 export async function GET(req, { params }) {
     try {
+        const { socialId } = await params;
 
-        const { productId } = await params;
+        const social = await getSocialById(socialId);
 
-        const product = await getProductById(productId);
-        return new Response(JSON.stringify(product), {
+        return new Response(JSON.stringify(social), {
             status: 200,
             headers: { "Content-Type": "application/json" },
         });
@@ -18,11 +18,11 @@ export async function GET(req, { params }) {
 
 export async function PUT(req, { params }) {
     try {
-        const { productId } = await params;
+        const { socialId } = await params;
         const data = await req.json();
 
-        const updatedProduct = await updateProduct(productId, data);
-        return new Response(JSON.stringify(updatedProduct), {
+        const updatedSocial = await updateSocial(socialId, data);
+        return new Response(JSON.stringify(updatedSocial), {
             status: 200,
             headers: { "Content-Type": "application/json" },
         });
@@ -33,9 +33,9 @@ export async function PUT(req, { params }) {
 
 export async function DELETE(request, { params }) {
     try {
-        const { productId } = await params;
-        await deleteProduct(productId);
-        return new Response(JSON.stringify({ success: true, id: productId }), {
+        const { socialId } = await params;
+        await deleteSocial(socialId);
+        return new Response(JSON.stringify({ success: true, id: socialId }), {
             status: 200,
             headers: { "Content-Type": "application/json" },
         });

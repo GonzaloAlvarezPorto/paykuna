@@ -21,7 +21,7 @@ const CheckOutPage = () => {
   const router = useRouter();
 
   useEffect(() => {
-    fetch("/api/deliveryCosts")
+    fetch("/api/shipping")
       .then((res) => res.json())
       .then((data) => {
         setLocalidadesDisponibles(data); // Directamente setea el array de objetos

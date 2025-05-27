@@ -1,12 +1,12 @@
-import { deleteProduct, getProductById, updateProduct } from "@/services/products";
+import { deleteOrder, getOrderById, updateOrder } from "@/services/orders";
 
 export async function GET(req, { params }) {
     try {
 
-        const { productId } = await params;
+        const { orderId } = await params;
 
-        const product = await getProductById(productId);
-        return new Response(JSON.stringify(product), {
+        const order = await getOrderById(orderId);
+        return new Response(JSON.stringify(order), {
             status: 200,
             headers: { "Content-Type": "application/json" },
         });
@@ -18,11 +18,11 @@ export async function GET(req, { params }) {
 
 export async function PUT(req, { params }) {
     try {
-        const { productId } = await params;
+        const { orderId } = await params;
         const data = await req.json();
 
-        const updatedProduct = await updateProduct(productId, data);
-        return new Response(JSON.stringify(updatedProduct), {
+        const updatedOrder = await updateOrder(orderId, data);
+        return new Response(JSON.stringify(updatedOrder), {
             status: 200,
             headers: { "Content-Type": "application/json" },
         });
@@ -33,9 +33,9 @@ export async function PUT(req, { params }) {
 
 export async function DELETE(request, { params }) {
     try {
-        const { productId } = await params;
-        await deleteProduct(productId);
-        return new Response(JSON.stringify({ success: true, id: productId }), {
+        const { orderId } = await params;
+        await deleteOrder(orderId);
+        return new Response(JSON.stringify({ success: true, id: orderId }), {
             status: 200,
             headers: { "Content-Type": "application/json" },
         });

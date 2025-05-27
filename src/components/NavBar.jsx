@@ -17,7 +17,7 @@ const NavBar = () => {
     useEffect(() => {
         const fetchNovedades = async () => {
             try {
-                const res = await fetch("/api/novedades");
+                const res = await fetch("/api/announcements");
                 const data = await res.json();
                 setNovedades(data);
             }

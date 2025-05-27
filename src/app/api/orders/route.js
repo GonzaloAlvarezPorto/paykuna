@@ -1,10 +1,10 @@
-import { createClient, getClients } from "@/services/clients";
+import { createOrder, getOrders } from "@/services/orders";
 
 export async function GET() {
 
     try {
-        const clients = await getClients();
-        return new Response(JSON.stringify(clients));
+        const orders = await getOrders();
+        return new Response(JSON.stringify(orders));
     } catch (error) {
         return new Response(JSON.stringify({ error: error.message }), { status: 500 })
     }
@@ -14,9 +14,9 @@ export async function POST(request) {
     try {
         const body = await request.json();
 
-        const newClient = await createClient(body);
+        const newOrder = await createOrder(body);
 
-        return new Response(JSON.stringify(newClient), {
+        return new Response(JSON.stringify(newOrder), {
             headers: { "Content-Type": "application/json" },
             status: 201,
         })

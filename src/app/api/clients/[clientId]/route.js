@@ -1,35 +1,45 @@
-import { NextResponse } from "next/server";
-import { doc, getDoc } from "firebase/firestore";
-import { db } from "../@/lib/firebase";
-import { deleteClient } from "@/lib/clients";
+import { deleteClient, getClientById, updateClient } from "@/services/clients";
 
 export async function GET(req, { params }) {
-    const { clienteId } = await params;
-
     try {
-        const ref = doc(db, "clientes", clienteId);
-        const snap = await getDoc(ref);
 
-        if (!snap.exists()) {
-            return NextResponse.json({ error: "Cliente no encontrado" }, { status: 404 });
-        }
+        const { clientId } = await params;
 
-        return NextResponse.json({ id: snap.id, ...snap.data() });
+        const client = await getClientById(clientId);
+        return new Response(JSON.stringify(client), {
+            status: 200,
+            headers: { "Content-Type": "application/json" },
+        });
+
     } catch (error) {
-        console.error("Error al obtener cliente:", error);
-        return NextResponse.json({ error: "Error al obtener cliente" }, { status: 500 });
+        return new Response(JSON.stringify({ error: error.message }), { status: 500 });
     }
 }
 
-export async function DELETE(req,{params}) {
-    const { clientId } = await params;
+export async function PUT(req, { params }) {
+    try {
+        const { clientId } = await params;
+        const data = await req.json();
 
-    try{
-        const resultado = await deleteClient(clientId);
-        return NextResponse.json(resultado);
+        const updatedClient = await updateClient(clientId, data);
+        return new Response(JSON.stringify(updatedClient), {
+            status: 200,
+            headers: { "Content-Type": "application/json" },
+        });
+    } catch (error) {
+        return new Response(JSON.stringify({ error: error.message }), { status: 500 });
     }
-    catch (error){
-        console.error("Error al eliminar cliente:", error);
-        return NextResponse.json({error: "Error al eliminar cliente" }, {status: 500})
+}
+
+export async function DELETE(request, { params }) {
+    try {
+        const { clientId } = await params;
+        await deleteClient(clientId);
+        return new Response(JSON.stringify({ success: true, id: clientId }), {
+            status: 200,
+            headers: { "Content-Type": "application/json" },
+        });
+    } catch (error) {
+        return new Response(JSON.stringify({ error: error.message }), { status: 500 });
     }
 }

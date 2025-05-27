@@ -1,10 +1,17 @@
-import { createClient, getClients } from "@/services/clients";
+/*VACIOS:
+ABOUTUSID
+
+REPASAR O CORREGIR:
+ADMIN/LOGIN
+*/
+
+import { createAboutUs, getAboutUs } from "@/services/aboutus";
 
 export async function GET() {
 
     try {
-        const clients = await getClients();
-        return new Response(JSON.stringify(clients));
+        const aboutUs = await getAboutUs();
+        return new Response(JSON.stringify(aboutUs));
     } catch (error) {
         return new Response(JSON.stringify({ error: error.message }), { status: 500 })
     }
@@ -14,9 +21,9 @@ export async function POST(request) {
     try {
         const body = await request.json();
 
-        const newClient = await createClient(body);
+        const newAboutUs = await createAboutUs(body);
 
-        return new Response(JSON.stringify(newClient), {
+        return new Response(JSON.stringify(newAboutUs), {
             headers: { "Content-Type": "application/json" },
             status: 201,
         })

@@ -9,7 +9,7 @@ export const Footer = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const res = await fetch('/api/redes');
+                const res = await fetch('/api/socials');
                 const data = await res.json();
                 setRedes(data);
             } catch (error) {
