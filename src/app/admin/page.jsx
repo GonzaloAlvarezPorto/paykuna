@@ -11,17 +11,17 @@ export default function AdminPage() {
   };
 
   return (
-    <div className='admin_dashboard'>
-      <div>
-        <Link href={"/admin/clients"}>💃 Panel de clientes (FALTA POR EDITAR)</Link>
-        <Link href={"/admin/orders"}>🛒 Panel de pedidos (SALTA ERROR AL OBTENER LOS PEDIDOS)</Link>
-        <Link href={"/admin/shipping"}>🚚 Panel de tarifas de envío ✔</Link>
-        <Link href={"/admin/announcements"}>📰 Panel de novedades (NO HAY PAGINA SIQUIERA)</Link>
-        <Link href={"/admin/socials"}>🐦 Panel de redes sociales (NO HAY PAGINA SIQUIERA)</Link>
-        <Link href={"/admin/products"}>📦 Panel de productos (ALGO HAY)</Link>
-        <Link href={"/admin/aboutus"}>🤗 Panel de mensaje de bienvenida (NO HAY PAGINA SIQUIERA)</Link>
+    <div className='sctnPnl'>
+      <div className='pnlCol'>
+        <Link className='link pending' href={"/admin/clients"}>💃 Panel de clientes NO TIENE --{'>'} PAGE+SASS NI PAGEID+SASS</Link>
+        <Link className='link pending' href={"/admin/orders"}>🛒 Panel de pedidos NO TIENE --{'>'} PAGE+SASS NI PAGEID+SASS</Link>
+        <Link className='link done' href={"/admin/shipping"}>🚚 Panel de tarifas de envío</Link>
+        <Link className='link pending' href={"/admin/announcements"}>📰 Panel de novedades NO TIENE --{'>'} PAGE+SASS NI PAGEID+SASS</Link>
+        <Link className='link pending' href={"/admin/socials"}>🐦 Panel de redes sociales NO TIENE --{'>'} PAGE+SASS NI PAGEID+SASS</Link>
+        <Link className='link pending' href={"/admin/products"}>📦 Panel de productos NO TIENE --{'>'} PAGE+SASS NI PAGEID+SASS</Link>
+        <Link className='link done' href={"/admin/aboutus"}>🤗 Panel de mensaje de bienvenida</Link>
       </div>
-      <button onClick={handleLogout} style={{ marginTop: '20px' }}>
+      <button className='boxBtnA' onClick={handleLogout}>
         Cerrar sesión
       </button>
     </div>

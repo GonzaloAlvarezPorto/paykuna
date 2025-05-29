@@ -10,20 +10,20 @@ export default async function OrderPage({ params }) {
     if (!pedido) return <div>Pedido no encontrado</div>;
 
     return (
-        <div className='order_form'>
-            <div className='form_header'>
+        <div>
+            <div>
                 <div>
                     <img src="/favicon.ico" alt="logo paykuna" />
                 </div>
-                <div className='shop_data'>
-                    <span className='title'>Almacén Paykuna | Almacén Orgánico</span>
+                <div>
+                    <span>Almacén Paykuna | Almacén Orgánico</span>
                     <p><strong>Dirección:</strong> Carlos Croce 385</p>
                     <p><strong>Localidad:</strong> Lomas de Zamora</p>
                     <p><strong>Teléfono:</strong> 15-5928-0540</p>
                     <p><strong>Mail:</strong> paykunaalmacen@gmail.com</p>
                 </div>
-                <div className='order_data'>
-                    <span className='title'>ORDEN</span>
+                <div>
+                    <span>ORDEN</span>
                     <p><strong>Pedido:</strong> {pedido.id}</p>
                     <p><strong>Fecha:</strong> {new Date(pedido.fecha).toLocaleString()}</p>
                     <p>{pedido.retiro === "envío" ? (
@@ -32,11 +32,11 @@ export default async function OrderPage({ params }) {
                         <strong>Retira por almacén</strong>
                     )}
                     </p>
-                    <p className='state'><strong>Estado: </strong>{pedido.estado}</p>
+                    <p><strong>Estado: </strong>{pedido.estado}</p>
                 </div>
             </div>
-            <div className='form_client'>
-                <span className='title'>DATOS DEL CLIENTE</span>
+            <div>
+                <span>DATOS DEL CLIENTE</span>
                 <p><strong>Nombre: </strong>{pedido.nombre} {pedido.apellido}</p>
                 <p><strong>Contacto: </strong>{pedido.telefono}</p>
                 {pedido.retiro === "envío" && (
@@ -66,7 +66,7 @@ export default async function OrderPage({ params }) {
                         </tr>
                     ))}
                     {pedido.retiro === "envío" && pedido.costoEnvio && (
-                        <tr className='envio'>
+                        <tr>
                             <td>📦 Envío</td>
                             <td></td>
                             <td></td>
@@ -88,13 +88,7 @@ export default async function OrderPage({ params }) {
                         <td></td>
                         <td>${pedido.pagado ?? 0}</td>
                     </tr>
-                    <tr
-                        className={
-                            (pedido.deuda !== 0 && (pedido.deuda != null || (pedido.total - (pedido.pagado ?? 0)) !== 0))
-                                ? 'deuda-row'
-                                : ''
-                        }
-                    >
+                    <tr>
                         <td><strong>{(pedido.deuda === 0 || (pedido.deuda == null && (pedido.total - (pedido.pagado ?? 0)) === 0)) ? 'SIN DEUDA' : 'DEUDA'}</strong></td>
                         <td></td>
                         <td></td>
@@ -102,12 +96,12 @@ export default async function OrderPage({ params }) {
                     </tr>
                 </tfoot>
             </table>
-            <div className='form_btns'>
-                <div className='btns_update'>
+            <div>
+                <div>
                     <p><strong>Actualizar monto pagado: </strong></p>
                     <PagadoInput totalPedido={pedido.total} pagadoInicial={pedido.pagado ?? 0} orderId={pedido.id} />
                 </div>
-                <div className='btns_state'>
+                <div>
                     <p><strong>Modificar estado: </strong></p>
                     <EstadoButtons totalPedido={pedido.total} estadoActual={pedido.estado} orderId={pedido.id} />
                 </div>

@@ -77,13 +77,13 @@ const ProductsPage = () => {
     : productos.filter(producto => producto.categoria === categoriaSeleccionada);
 
   return (
-    <div className="catalogo">
+    <div>
       <Sidebar categorias={categorias} setCategoriaSeleccionada={setCategoriaSeleccionada}></Sidebar>
-      <div className="products-container">
+      <div>
         {productosFiltrados.length === 0 ? (
           <p>No hay productos disponibles.</p>
         ) : (
-          <div className="products">
+         <div>
             {productosFiltrados.map((producto) => (
               <ProductCard key={producto.id}
                 producto={producto}

@@ -10,7 +10,7 @@ const NosotrosPage = () => {
     const fetchData = async () => {
       try {
 
-        const res = await fetch('/api/nosotros');
+        const res = await fetch('/api/aboutus');
         const data = await res.json();
         setTextos(data);
       } catch (error) {
@@ -21,8 +21,8 @@ const NosotrosPage = () => {
     fetchData();
   }, []);
   return (
-    <div className='aboutus'>
-      <h2>¡Hola comunidad Payku!</h2>
+    <div>
+      <h2>¡Hola comunidad Payku, bienvenidxs!</h2>
       {textos.length > 0 ? (
         textos.map((texto, index) => (
           <p key={index}>

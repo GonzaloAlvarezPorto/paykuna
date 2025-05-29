@@ -76,9 +76,9 @@ const CheckOutPage = () => {
   if (!cartLoaded) return <p>Cargando...</p>;
 
   return (
-    <div className="checkout">
+<div>
       <div>
-        <p className="checkout_title">Ya falta poco...</p>
+        <p>Ya falta poco...</p>
         <form onSubmit={handleSubmit}>
           <span>
             <div>

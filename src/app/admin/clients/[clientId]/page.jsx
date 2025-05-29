@@ -80,24 +80,20 @@ export default function ClientPage({ params }) {
   if (loading) return <p>Cargando ficha del cliente...</p>;
 
   return (
-    <div className='client_form'>
-      <div className="client_header">
-        <span className='title'>DATOS DEL CLIENTE</span>
+    <div>
+      <div>
+        <span>DATOS DEL CLIENTE</span>
         <div>
           <p><strong>Mail cliente: </strong>{cliente}</p>
           <p><strong>Id cliente: </strong>{clientId}</p>
           <p>
-            <strong
-              onClick={handleDelete}
-              style={{ cursor: 'pointer', color: 'red' }}
-              title="Eliminar cliente"
-            >
+            <strong onClick={handleDelete} title="Eliminar cliente">
               🗑 Borrar usuario
             </strong>
           </p>
         </div>
       </div>
-      <div className='client_pedidos'>
+      <div>
         {pedidos.length === 0 ? (
           <p>Este cliente no tiene pedidos.</p>
         ) : (

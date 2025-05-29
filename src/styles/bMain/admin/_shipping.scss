@@ -1,0 +1,55 @@
+@use "../../dOtros/variables" as var;
+
+//FORM AGREGAR TARIFA
+.divCol {
+    flex-direction: column;
+
+    input {
+        padding: 0.5rem;
+
+        &:not(:last-child) {
+            margin-bottom: 0.5rem;
+        }
+    }
+
+    div {
+        display: flex;
+        flex-direction: row;
+
+        button:not(:last-child) {
+            margin-right: 0.3rem;
+        }
+    }
+
+    .boxBtnB{
+        margin-top: 2rem;
+    }
+}
+
+
+//LISTADO DE TARIFAS
+.divRow {
+    flex-direction: row;
+    align-items: center;
+
+    span {
+        margin-left: 2rem;
+        margin-bottom: 0.5rem;
+        color: white;
+    }
+    
+    //A PARTIR DE AQUÍ INCLUYE A SHIPPINGID
+    p {
+        margin-left: 2rem;
+        color: white;
+    }
+
+    strong {
+        color: var.$dorado1;
+        font-weight: bold;
+    }
+
+    .boxBtnB {
+        margin-left: 0.5rem;
+    }
+}

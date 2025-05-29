@@ -1,0 +1,131 @@
+@use "../../dOtros/variables" as var;
+
+.sctnPnl {
+    display: flex;
+    flex-direction: column;
+    margin: 1rem auto;
+    align-items: center;
+}
+
+.subPnl {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.pnlCol,
+.pnlRow {
+    border-radius: 5px;
+    border: 1px solid var.$dorado1;
+    background-color: var.$verde5;
+    display: flex;
+    padding: 1rem;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.pnlCol {
+    flex-direction: column;
+}
+
+.pnlRow {
+    flex-direction: row;
+
+    &:not(:last-child) {
+        margin-bottom: 1rem;
+    }
+}
+
+.rightSpace {
+    margin-right: 0.5rem;
+}
+
+.btmSpace {
+    margin-bottom: 0.5rem;
+}
+
+.noMargin {
+    margin: 0;
+}
+
+.backMenu {
+    border: 1px solid var.$dorado1;
+    color: var.$dorado1;
+    padding: 0.5rem 1rem;
+    margin: 0 auto;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    background-color: var.$verde5;
+    text-decoration: none;
+}
+
+.link {
+    text-decoration: none;
+    color: var.$dorado1;
+    font-weight: bold;
+    cursor: pointer;
+
+    &:not(:last-child) {
+        margin-bottom: 0.5rem;
+    }
+}
+
+.title {
+    color: var.$dorado1;
+    font-weight: bold;
+    font-size: 18px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.boxBtnA,
+.boxBtnB {
+    border: 1px solid var.$dorado1;
+    color: var.$dorado1;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.boxBtnA {
+    background-color: var.$verde5;
+}
+
+.boxBtnB {
+    background-color: var.$verde2;
+}
+
+.divRow,
+.divCol {
+    display: flex;
+    justify-content: space-between;
+}
+
+.addText {
+    padding: 0.5rem;
+    height: 150px;
+    width: 350px;
+    margin-bottom: 2rem;
+    margin-top: 0.5rem;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+// input[type="number"] {
+//     -moz-appearance: textfield;
+//     /* Firefox */
+// }
+
+.done{
+    color: green;
+}
+
+.pending{
+    color: red;
+}

@@ -27,7 +27,7 @@ export default function AdminLoginPage() {
     };
 
     return (
-        <div className='login'>
+        <div>
             <form onSubmit={handleSubmit}>
                 <p>Login Admin</p>
                 <div>

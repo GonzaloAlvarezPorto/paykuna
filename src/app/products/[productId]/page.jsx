@@ -82,11 +82,11 @@ const ProductoPage = () => {
     };
 
     return (
-        <div className="producto-detail">
-            <div className="img_container">
+        <div>
+            <div>
                 <img src={producto.imagen} alt={producto.nombre} />
             </div>
-            <div className="info_container">
+            <div>
                 <div>
                     <p>{producto.nombre} - {producto.descripcion}</p>
                 </div>
@@ -101,7 +101,7 @@ const ProductoPage = () => {
                 {/* Mostrar la cantidad de productos en el carrito con ese ID */}
                 <p>🛒 <strong>Cantidad en el <Link href="/cart">carrito</Link>:</strong> {cantidadEnCarrito}</p>
 
-                <div className='count-btns'>
+              <div>
                     <button onClick={() => handleCantidadChange(producto.id, -1)}>-</button>
                     <input
                         type="number"
@@ -113,7 +113,7 @@ const ProductoPage = () => {
                         }} />
                     <button onClick={() => handleCantidadChange(producto.id, 1)}>+</button>
                 </div>
-                <button className='add-btn' onClick={() => {
+                <button onClick={() => {
                     const cantidad = cantidades[producto.id] || 0;
                     if (cantidad > 0) {
                         handleAgregarAlCarrito(producto, cantidad);

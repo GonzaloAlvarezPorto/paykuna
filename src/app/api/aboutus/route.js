@@ -1,10 +1,3 @@
-/*VACIOS:
-ABOUTUSID
-
-REPASAR O CORREGIR:
-ADMIN/LOGIN
-*/
-
 import { createAboutUs, getAboutUs } from "@/services/aboutus";
 
 export async function GET() {

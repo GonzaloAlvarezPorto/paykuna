@@ -47,51 +47,51 @@ const CartPage = () => {
   if (!isClient) return null; // ⚠️ Evita render hasta que estés en el cliente
 
   return (
-    <div className="cart">
+    <div>
       {Object.keys(carrito).length === 0 ? (
-        <div className="cart_message">
+     <div>
           <span>
             <p>Tu carrito está vacío, volvé a nuestro catálogo para ver nuestros productos y precios.</p>
             <a href="/product"><strong>⬅ Ir al catálogo</strong></a>
           </span>
         </div>
       ) : (
-        <div className="cart_resume">
+        <div>
           <ul>
             {Object.values(carrito).map((producto) => (
               <li key={producto.id}>
-                <div className="img_container">
+                <div>
                   <img src={producto.imagen} alt={producto.nombre} />
                 </div>
-                <div className="resume_info">
-                  <div className="info_header">
+                <div>
+                  <div>
                     <strong>{producto.nombre}</strong>
                     <p>- Precio unitario: ${producto.precio}</p>
                   </div>
-                  <div className="resume_btn">
+                  <div>
                     <button onClick={() => handleCambiar(producto.id, -1)}>➖</button>
                     <span>Cantidad pedida: </span>
                     <p>{producto.cantidad}</p>
                     <button onClick={() => handleCambiar(producto.id, 1)}>➕</button>
                   </div>
-                  <span className="info_total"><strong>Total del producto: </strong>${producto.precio * producto.cantidad}</span>
+                  <span><strong>Total del producto: </strong>${producto.precio * producto.cantidad}</span>
                 </div>
               </li>
             ))}
           </ul>
 
-          <div className="btns_resume">
+          <div>
             <div>
               <span>
                 <p>Total a pagar por la compra:</p>
-                <p className="mount">${calcularTotal()}</p>
+                <p>${calcularTotal()}</p>
               </span>
               <span>
                 <p>Total de productos comprados:</p>
-                <p className="mount">{calcularTotalProductos()}</p>
+                <p>{calcularTotalProductos()}</p>
               </span>
               <button onClick={vaciarCarrito}>🗑 Vaciar Carrito</button>
-              <Link className="cerrar_link" href="/cart/checkout"><button>✅ Confirmar pedido</button></Link>
+              <Link href="/cart/checkout"><button>✅ Confirmar pedido</button></Link>
             </div>
           </div>
         </div>

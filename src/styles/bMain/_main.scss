@@ -1,20 +1,5 @@
 @use "../dOtros/variables" as var;
-@use "../bMain/mainCatalogo";
-@use "../bMain/mainAboutUs";
-@use "../bMain/mainCart";
-@use "../bMain/mainProducto";
-@use "../bMain/mainCheckOut";
-@use "../bMain/mainAdmin";
 
-.home {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-
-    h1 {
-        color: white;
-        margin: 1rem 0;
-    }
-}
-
+@use "../bMain/admin/dashboard.scss";
+@use "../bMain/admin/shipping.scss";
+@use "../bMain/admin/aboutus.scss";

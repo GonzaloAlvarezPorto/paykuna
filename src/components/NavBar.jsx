@@ -89,7 +89,7 @@ const NavBar = () => {
                     </button>
                 </li>
                 <li>
-                    <Link className="link" href="/nosotros">SOBRE NOSOTRES</Link>
+                    <Link className="link" href="/aboutUs">SOBRE NOSOTRES</Link>
                 </li>
                 <li>
                     <Link className="link" href="/products">CATÁLOGO</Link>

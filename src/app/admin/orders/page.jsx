@@ -34,7 +34,7 @@ const OrdersPage = () => {
     const hayMas = pedidos.length > cantidadVisible;
     return (
         <div>
-            <span className='title'>PANEL DE ADMINISTRACIÓN</span>
+            <span>PANEL DE ADMINISTRACIÓN</span>
             {loading ? (
                 <p>Cargando pedidos...</p>
             ) : pedidos.length === 0 ? (
@@ -82,8 +82,8 @@ const OrdersPage = () => {
                     <Link href={"admin/shipping"}>Costos de envío</Link>
 
                     {hayMas && (
-                        <div className='ver-mas-container'>
-                            <button onClick={verMas} className='ver-mas-btn'>Ver más</button>
+                        <div>
+                            <button onClick={verMas}>Ver más</button>
                         </div>
                     )}
                 </>
