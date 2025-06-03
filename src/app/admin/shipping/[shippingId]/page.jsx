@@ -68,18 +68,20 @@ const ShippingIndividualPage = () => {
     };
 
     return (
-        <div className='sctnPnl'>
+        <div className='sctnPnlShipping'>
             <div className='pnlCol'>
                 <p className='title'>Editar o eliminar tarifa</p>
                 {editando ? (
                     <div className='divCol'>
                         <input
+                            className='createInput'
                             type="text"
                             name="localidad"
                             value={form.localidad}
                             onChange={handleInputChange}
                         />
                         <input
+                            className='createInput'
                             type="number"
                             name="precio"
                             value={form.precio}
@@ -93,7 +95,7 @@ const ShippingIndividualPage = () => {
                 ) : (
                     <div className='divRow'>
                         <strong>{localidad.localidad}</strong>
-                        <p>${localidad.precio}</p>
+                        <p className='txt'>${localidad.precio}</p>
                         <button className='boxBtnB' title='Editar' onClick={handleEditarClick}>🖋</button>
                         <button className='boxBtnB' title='Eliminar' onClick={handlerEliminarLocalidad}>🗑</button>
                     </div>

@@ -1,16 +1,9 @@
 @use "../../dOtros/variables" as var;
 
+.sctnPnlShipping{
+    
 //FORM AGREGAR TARIFA
 .divCol {
-    flex-direction: column;
-
-    input {
-        padding: 0.5rem;
-
-        &:not(:last-child) {
-            margin-bottom: 0.5rem;
-        }
-    }
 
     div {
         display: flex;
@@ -35,13 +28,11 @@
     span {
         margin-left: 2rem;
         margin-bottom: 0.5rem;
-        color: white;
     }
     
     //A PARTIR DE AQUÍ INCLUYE A SHIPPINGID
     p {
         margin-left: 2rem;
-        color: white;
     }
 
     strong {
@@ -52,4 +43,5 @@
     .boxBtnB {
         margin-left: 0.5rem;
     }
+}
 }

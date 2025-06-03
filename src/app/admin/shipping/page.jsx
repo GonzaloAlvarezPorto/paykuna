@@ -57,12 +57,13 @@ const ShippingPage = () => {
 
     return (
 
-        <div className='sctnPnl'>
+        <div className='sctnPnlShipping'>
             <div className='subPnl'>
                 <div className='pnlCol rightSpace'>
                     <div className='divCol'>
                         <p className='title'>Agregar nueva tarifa</p>
                         <input
+                        className='createInput'
                             type="text"
                             name="localidad"
                             value={nuevaLocalidad.localidad}
@@ -70,6 +71,7 @@ const ShippingPage = () => {
                             placeholder="Localidad"
                         />
                         <input
+                        className='createInput'
                             type="number"
                             name="precio"
                             value={nuevaLocalidad.precio}
@@ -85,7 +87,7 @@ const ShippingPage = () => {
                     {loading ? <p className='title'>Cargando tarifas...</p> : localidadesOrdenadas.map((loc) => (
                         <div className='divRow' key={loc.id}>
                             <Link className='link' href={`/admin/shipping/${loc.id}`}>{loc.localidad}</Link>
-                            <span>${loc.precio}</span>
+                            <span className='txt'>${loc.precio}</span>
                         </div>
                     )
                     )}

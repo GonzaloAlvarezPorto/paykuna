@@ -85,7 +85,7 @@ const NavBar = () => {
                 <li>
                     <button className="link news" onClick={toggleGallery}>
                         <span>NOVEDADES</span>
-                        <span className="news__btn">CLICK PARA VER</span>
+                        <span className="news__btn txt">CLICK PARA VER</span>
                     </button>
                 </li>
                 <li>
@@ -97,7 +97,7 @@ const NavBar = () => {
                 <li className="cart">
                     <Link className="cart_link" href="/cart">
                         <span>🛒</span>
-                        <span className="counter">
+                        <span className="counter txt">
                             {mounted ? calcularTotalProductos() : null}
                         </span>
                     </Link>
@@ -107,24 +107,24 @@ const NavBar = () => {
             {showGallery && novedades.length > 0 && (
                 <div className="overlay">
                     <div className="gallery">
-                        <button className="prev-btn" onClick={prevImage}>{"<"}</button>
+                        <button className="prev-btn txt" onClick={prevImage}>{"<"}</button>
                         <div className="carousel-content">
                             <div className="carousel-header">
-                                <button className="playPause-btn" onClick={() => setIsPlaying(!isPlaying)}>
+                                <button className="playPause-btn txt" onClick={() => setIsPlaying(!isPlaying)}>
                                     {isPlaying ? "⏸" : "▶"}
                                 </button>
-                                <p className="newsTitle">NOVEDADES</p>
-                                <button className="close-btn" onClick={closeGallery} title="Cerrar">X</button>
+                                <p className="newsTitle txt">NOVEDADES</p>
+                                <button className="close-btn txt" onClick={closeGallery} title="Cerrar">X</button>
                             </div>
                             <div className="img-container">
                                 <img src={novedades[currentIndex].image} alt={`Imagen ${currentIndex + 1}`} />
                             </div>
                             <div className="desc-container">
-                                <p className="newsDesc">{novedades[currentIndex].descripcion}</p>
+                                <p className="newsDesc txt">{novedades[currentIndex].descripcion}</p>
                             </div>
-                            <Link className="goToChart" href={"/products"} onClick={closeGallery} title="Ir al catálogo">Ver catálogo 🛒</Link>
+                            <Link className="goToChart txt" href={"/products"} onClick={closeGallery} title="Ir al catálogo">Ver catálogo 🛒</Link>
                         </div>
-                        <button className="next-btn" onClick={nextImage}>{">"}</button>
+                        <button className="next-btn txt" onClick={nextImage}>{">"}</button>
                     </div>
                 </div>
             )}

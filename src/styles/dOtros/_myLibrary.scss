@@ -1,6 +1,11 @@
-@use "../../dOtros/variables" as var;
+@use "../dOtros/variables" as var;
 
-.sctnPnl {
+.sctnPnlAdmin,
+.sctnPnlAboutUs,
+.sctnPnlShipping,
+.sctnPnlSocials,
+.sctnPnlAnnouncements,
+.sctnPnlPrdcts {
     display: flex;
     flex-direction: column;
     margin: 1rem auto;
@@ -103,12 +108,23 @@
     justify-content: space-between;
 }
 
+.divCol {
+    flex-direction: column;
+}
+
 .addText {
     padding: 0.5rem;
     height: 150px;
     width: 350px;
     margin-bottom: 2rem;
-    margin-top: 0.5rem;
+}
+
+.createInput {
+    padding: 0.5rem;
+
+    &:not(:last-child) {
+        margin-bottom: 0.5rem;
+    }
 }
 
 input[type="number"]::-webkit-inner-spin-button,
@@ -117,15 +133,73 @@ input[type="number"]::-webkit-outer-spin-button {
     margin: 0;
 }
 
+.imgMuestra{
+    width: 15vw;
+}
+
+.imgSize {
+    width: 30px;
+    height: 30px;
+    background-color: var.$dorado1;
+    border-radius: 100px;
+}
+
 // input[type="number"] {
 //     -moz-appearance: textfield;
 //     /* Firefox */
 // }
 
-.done{
+.done {
     color: green;
 }
 
-.pending{
+.pending {
     color: red;
 }
+
+.loading{
+    color: yellow
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+}
+
+.alngItmsCntr{
+    align-items: center;
+}
+
+.jstfCntCntr {
+    justify-content: center;
+}
+
+.jstfCntSpcBtw {
+    justify-content: space-between;
+}
+
+.jstfCntFlxStrt {
+    justify-content: flex-start;
+}
+
+.entero {
+    width: 100%;
+}
+
+.tresCuartos {
+    width: 75%;
+}
+
+.medio {
+    width: 50%;
+}
+
+.cuarto {
+    width: 25%;
+}
+

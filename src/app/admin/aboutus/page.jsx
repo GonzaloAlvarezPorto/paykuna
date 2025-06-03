@@ -49,7 +49,7 @@ const AboutUsAdminPage = () => {
     };
 
     return (
-        <div className='sctnPnl'>
+        <div className='sctnPnlAboutUs'>
             <div className='subPnl'>
                 <div className='pnlCol rightSpace'>
                     <p className='title'>Agregar párrafo</p>
@@ -74,7 +74,7 @@ const AboutUsAdminPage = () => {
                                 .map((p) => (
                                     <li className='pnlRow' key={p.id}>
                                         <Link className='link' title={`Panel del texto ${p.order}`} href={`/admin/aboutus/${p.id}`}>{p.order}</Link>
-                                        <span>{p.parrafo}</span>
+                                        <span className='txt'>{p.parrafo}</span>
                                     </li>
                                 ))}
                         </ul>

@@ -1,0 +1,50 @@
+@use "../../dOtros/variables" as var;
+
+.sctnPnlPrdcts {
+
+    thead {
+        background-color: var.$verde4;
+
+        th {
+            padding: 0 0.5rem;
+            border-bottom: 1px solid var.$dorado1;
+        }
+    }
+
+    td {
+        padding: 0.5rem;
+        border-bottom: 1px solid grey;
+
+        &:last-child {
+            text-align: end;
+        }
+    }
+
+    .pnlCol {
+        .divRow {
+            align-items: center;
+
+            .title {
+                margin: unset;
+                margin-right: 1rem;
+            }
+
+            .txt {
+                &:not(:last-child) {
+                    margin-right: 1rem;
+                }
+            }
+        }
+
+        .divCol{
+            .title{
+                text-align: left;
+                margin-bottom: 0.3rem;
+            }
+
+            .createInput{
+                margin-bottom: 1.5rem;
+            }
+        }
+    }
+}

@@ -68,7 +68,6 @@
                 .news__btn {
                     background-color: red;
                     font-size: 10px;
-                    color: white;
                     padding: 0 3px;
                     margin: 0;
                     animation: blink 1s infinite alternate;
@@ -107,7 +106,6 @@
                     background-color: red;
                     padding: 1px 8px;
                     border-radius: 100px;
-                    color: white;
                     position: relative;
                     right: 10px;
                     bottom: 10px;
@@ -156,14 +154,12 @@
                     padding: 6px 0;
 
                     .newsTitle {
-                        color: white;
                         margin: 0 20px;
                     }
 
                     .playPause-btn,
                     .close-btn {
                         background: var.$verde1;
-                        color: white;
                         border: none;
                         font-size: 14px;
                         cursor: pointer;
@@ -182,7 +178,6 @@
                     cursor: pointer;
                     padding: 5px 0;
                     text-decoration: none;
-                    color: white;
                     width: 100%;
                     justify-content: center;
                 }
@@ -213,7 +208,6 @@
                     .newsDesc {
                         text-align: center;
                         margin: 15px;
-                        color: white;
                     }
                 }
             }
@@ -221,7 +215,6 @@
             .prev-btn,
             .next-btn {
                 background: rgba(0, 0, 0, 0.6);
-                color: white;
                 border: none;
                 font-size: 15px;
                 cursor: pointer;

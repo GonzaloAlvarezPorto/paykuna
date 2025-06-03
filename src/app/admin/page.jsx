@@ -11,15 +11,21 @@ export default function AdminPage() {
   };
 
   return (
-    <div className='sctnPnl'>
-      <div className='pnlCol'>
-        <Link className='link pending' href={"/admin/clients"}>💃 Panel de clientes NO TIENE --{'>'} PAGE+SASS NI PAGEID+SASS</Link>
-        <Link className='link pending' href={"/admin/orders"}>🛒 Panel de pedidos NO TIENE --{'>'} PAGE+SASS NI PAGEID+SASS</Link>
-        <Link className='link done' href={"/admin/shipping"}>🚚 Panel de tarifas de envío</Link>
-        <Link className='link pending' href={"/admin/announcements"}>📰 Panel de novedades NO TIENE --{'>'} PAGE+SASS NI PAGEID+SASS</Link>
-        <Link className='link pending' href={"/admin/socials"}>🐦 Panel de redes sociales NO TIENE --{'>'} PAGE+SASS NI PAGEID+SASS</Link>
-        <Link className='link pending' href={"/admin/products"}>📦 Panel de productos NO TIENE --{'>'} PAGE+SASS NI PAGEID+SASS</Link>
-        <Link className='link done' href={"/admin/aboutus"}>🤗 Panel de mensaje de bienvenida</Link>
+    <div className='sctnPnlAdmin'>
+      <div className="subPnl">
+        <div className='pnlCol rightSpace'>
+          <Link className='link pending' href={"/admin/clients"}>💃 Panel de clientes</Link>
+          <Link className='link pending' href={"/admin/orders"}>🛒 Panel de pedidos</Link>
+        </div>
+        <div className='pnlCol rightSpace'>
+        </div>
+        <div className="pnlCol">
+          <Link className='link done' href={"/admin/announcements"}>📰 Panel de novedades</Link>
+          <Link className='link done' href={"/admin/products"}>📦 Panel de productos</Link>
+          <Link className='link done' href={"/admin/shipping"}>🚚 Panel de tarifas de envío</Link>
+          <Link className='link done' href={"/admin/aboutus"}>🤗 Panel de mensaje de bienvenida</Link>
+          <Link className='link done' href={"/admin/socials"}>🐦 Panel de redes sociales</Link>
+        </div>
       </div>
       <button className='boxBtnA' onClick={handleLogout}>
         Cerrar sesión

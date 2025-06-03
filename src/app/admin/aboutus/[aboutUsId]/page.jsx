@@ -24,6 +24,8 @@ const AboutUsIndividualAdminPage = () => {
       .catch((err) => console.error("Error cargando el párrafo:", err));
   }, [aboutUsId]);
 
+  // Función: Actualiza el estado parrafo mientras el usuario edita los campos del formulario (order o parrafo).
+  // Uso: Permite edición en tiempo real de los inputs
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setParrafo((prev) => ({
@@ -32,6 +34,14 @@ const AboutUsIndividualAdminPage = () => {
     }));
   };
 
+  // Función: Verifica si el número de order ya está siendo usado por otro párrafo.
+  // Si no hay conflicto, hace un PUT para actualizar los datos del párrafo.
+
+  // Validaciones: Asegura que order sea único (excepto el del propio párrafo actual).
+  // Convierte order a número.
+
+  // Alertas: Informa si hay error o si la actualización fue exitosa.
+  // Desactiva botón mientras se guarda (loading).
   const handleGuardar = async () => {
     setLoading(true);
     try {
@@ -78,6 +88,8 @@ const AboutUsIndividualAdminPage = () => {
     }
   };
 
+  //   Función: Elimina el párrafo actual mediante un DELETE a la API.
+  // Redirección: Una vez eliminado, redirige al panel general de "Sobre Nosotros".
   const handleEliminarParrafo = async () => {
     try {
       await fetch(`/api/aboutus/${aboutUsId}`, {
@@ -91,7 +103,7 @@ const AboutUsIndividualAdminPage = () => {
   };
 
   return (
-    <div className='sctnPnl'>
+    <div className='sctnPnlAboutUs'>
       <div className='subPnl'>
         <div className='pnlRow rightSpace'>
           <label className='title'>Orden:</label>
