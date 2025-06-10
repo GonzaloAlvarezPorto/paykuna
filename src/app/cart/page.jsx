@@ -49,10 +49,10 @@ const CartPage = () => {
   return (
     <div>
       {Object.keys(carrito).length === 0 ? (
-     <div>
+        <div>
           <span>
             <p>Tu carrito está vacío, volvé a nuestro catálogo para ver nuestros productos y precios.</p>
-            <a href="/product"><strong>⬅ Ir al catálogo</strong></a>
+            <a href="/products"><strong>⬅ Ir al catálogo</strong></a>
           </span>
         </div>
       ) : (
@@ -60,9 +60,9 @@ const CartPage = () => {
           <ul>
             {Object.values(carrito).map((producto) => (
               <li key={producto.id}>
-                <div>
+                {/* <div>
                   <img src={producto.imagen} alt={producto.nombre} />
-                </div>
+                </div> */}
                 <div>
                   <div>
                     <strong>{producto.nombre}</strong>

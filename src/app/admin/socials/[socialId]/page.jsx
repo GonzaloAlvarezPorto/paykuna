@@ -80,12 +80,12 @@ const SocialPage = () => {
   };
 
   return (
-    <div className='sctnPnlSocials'>
+    <div className='sctnPnl'>
       <div className='subPnl column'>
         <div className="pnlCol">
           {editMode ? (
             <div className='divCol'>
-              <p className="title">Cambiar nombre de red:</p>
+              <p className="title txtAlgnStrt">Cambiar nombre de red:</p>
               <input
                 className='createInput'
                 type="text"
@@ -94,16 +94,16 @@ const SocialPage = () => {
                 placeholder="Nombre Red"
                 onChange={handleChange}
               />
-              <p className="title">Cambiar descripción de red:</p>
+              <p className="title txtAlgnStrt">Cambiar descripción de red:</p>
               <textarea
-                className='addText'
+                className='addText hAuto btmSpace'
                 type="text"
                 name="descripcion"
                 value={social.descripcion}
                 placeholder="Descripción"
                 onChange={handleChange}
               />
-              <p className="title">Cambiar enlace de la red:</p>
+              <p className="title txtAlgnStrt">Cambiar enlace de la red:</p>
               <input
                 className='createInput'
                 type="text"
@@ -112,7 +112,7 @@ const SocialPage = () => {
                 placeholder="Enlace (https://...)"
                 onChange={handleChange}
               />
-              <p className="title">Cambiar logo de la red:</p>
+              <p className="title txtAlgnStrt">Cambiar logo de la red:</p>
               <input
                 className='createInput'
                 type="text"
@@ -127,19 +127,19 @@ const SocialPage = () => {
             </div>
           ) : (
             <div className='divCol'>
-              <div className="divRow">
-                <span className='title'>Red Social: </span>
+              <div className="divRow alngItmsCntr btmSpace">
+                <span className='title rightSpace1rem noBtmMrgn'>Red Social: </span>
                 <p className='txt'>{social.nombreRed}</p>
               </div>
-              <div className="divRow">
-                <span className='title'>Descripción:</span>
+              <div className="divRow alngItmsCntr btmSpace">
+                <span className='title rightSpace1rem noBtmMrgn'>Descripción:</span>
                 <p className='txt'>{social.descripcion}</p>
               </div>
-              <div className="divRow">
-                <span className='title'>Enlace:</span>
+              <div className="divRow alngItmsCntr btmSpace">
+                <span className='title rightSpace1rem noBtmMrgn'>Enlace:</span>
                 <a className='link' href={social.enlaceRed} target="_blank">{social.enlaceRed}</a>
               </div>
-              <div className="divRow jstfCntCntr">
+              <div className="divRow jstfCntCntr alngItmsCntr">
                 <button className='boxBtnB rightSpace' onClick={() => setEditMode(true)}>Editar</button>
                 <button className='boxBtnB' disabled={loading} onClick={handleDelete}>
                   {loading ? "Eliminando..." : "Eliminar red social"}

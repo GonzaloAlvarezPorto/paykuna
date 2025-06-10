@@ -11,15 +11,14 @@ const ProductsPage = () => {
   const [categorias, setCategorias] = useState([]);
   const [categoriaSeleccionada, setCategoriaSeleccionada] = useState("Todos los productos");
   const [cantidades, setCantidades] = useState({});
-  const [carrito, setCarrito] = useState({});
 
-  const { actualizarCarrito, calcularCantidadPorId } = useCart();
+  const { carrito, actualizarCarrito, calcularCantidadPorId } = useCart();
 
   useEffect(() => {
     // Acceder a localStorage solo en el cliente
     const carritoGuardado = localStorage.getItem("carrito");
     if (carritoGuardado) {
-      setCarrito(JSON.parse(carritoGuardado));
+      actualizarCarrito(() => JSON.parse(carritoGuardado));
     }
 
     const fetchProductos = async () => {
@@ -83,7 +82,7 @@ const ProductsPage = () => {
         {productosFiltrados.length === 0 ? (
           <p>No hay productos disponibles.</p>
         ) : (
-         <div>
+          <div>
             {productosFiltrados.map((producto) => (
               <ProductCard key={producto.id}
                 producto={producto}

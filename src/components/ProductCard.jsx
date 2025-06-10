@@ -1,13 +1,13 @@
 import Link from 'next/link';
 import React from 'react';
 
-const ProductCard = ({ producto, cantidades, setCantidades, handleCantidadChange, handleAgregarAlCarrito,calcularCantidadPorId }) => {
+const ProductCard = ({ producto, cantidades, setCantidades, handleCantidadChange, handleAgregarAlCarrito, calcularCantidadPorId }) => {
 
     return (
         <div className="product-card" key={producto.id}>
-            <div className='product-img'>
+            {/* <div className='product-img'>
                 <img src={producto.imagen} alt={producto.nombre} />
-            </div>
+            </div> */}
             <div className='product-info'>
                 <div className='product-title'>
                     <a href={`/products/${producto.id}`}>{producto.nombre}</a>

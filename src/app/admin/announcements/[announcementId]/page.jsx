@@ -83,14 +83,14 @@ const AnnouncementIndividualAdminPage = () => {
     };
 
     return (
-        <div className='sctnPnlAnnouncements'>
+        <div className='sctnPnl'>
             <div className="subPnl">
                 <div className="pnlCol">
                     {editMode ? (
                         <div className='divCol'>
                             <p className='title'>Cambiar descripción:</p>
                             <textarea
-                                className='addText'
+                                className='addText hAuto'
                                 type="text"
                                 name="descripcion"
                                 value={announcement.descripcion}
@@ -113,17 +113,19 @@ const AnnouncementIndividualAdminPage = () => {
                     ) : (
                         <div className="divCol">
                             <div className="row">
-                                <span className='title'>Descripción oferta: </span><p className='txt'>{announcement.descripcion}</p>
+                                <span className='title rightSpace1rem'>Descripción oferta: </span>
+                                <p className='txt btmSpace10px'>{announcement.descripcion}</p>
                             </div>
                             <div className="row">
-                                <span className='title'>Ruta imagen: </span><p className='txt'>{announcement.image}</p>
+                                <span className='title rightSpace1rem'>Ruta imagen: </span>
+                                <p className='txt btmSpace10px'>{announcement.image}</p>
                             </div>
                             {announcement.image ? (
-                                <div className="row">
+                                <div className="row jstfCntCntr btmSpace2rem">
                                     <img className='imgMuestra' src={announcement.image} alt="Vista previa" />
                                 </div>
                             ) : null}
-                            <div className="row">
+                            <div className="row jstfCntCntr">
                                 <button className="boxBtnB rightSpace" onClick={() => setEditMode(true)}>🖋 Editar</button>
                                 <button className='boxBtnB' disabled={loading} onClick={handleDelete}>
                                     {loading ? "Eliminando..." : "Eliminar red social"}

@@ -28,7 +28,6 @@ export const CartProvider = ({ children }) => {
         });
     };
 
-
     const calcularTotalProductos = () => {
         return Object.values(carrito).reduce((total, producto) => total + producto.cantidad, 0);
     };
@@ -48,7 +47,6 @@ export const CartProvider = ({ children }) => {
             return total;
         }, 0);
     };
-
 
     return (
         <CartContext.Provider value={{ carrito, calcularTotalProductos, actualizarCarrito, calcularTotal, calcularCantidadPorId }}>

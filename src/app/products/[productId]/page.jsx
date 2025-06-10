@@ -11,43 +11,32 @@ const ProductoPage = () => {
     const [producto, setProducto] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-
-    const [cantidades, setCantidades] = useState(0);
+    const [cantidades, setCantidades] = useState({});
 
     const { actualizarCarrito, calcularCantidadPorId } = useCart();
 
     useEffect(() => {
-        if (productId) {
-            const fetchProducto = async () => {
-                try {
-                    setLoading(true);
-                    const res = await fetch(`/api/products/${productId}`);
+        if (!productId) return;
 
-                    if (!res.ok) throw new Error("Producto no encontrado");
+        const fetchProducto = async () => {
+            try {
+                setLoading(true);
+                const res = await fetch(`/api/products/${productId}`);
+                if (!res.ok) throw new Error("Producto no encontrado");
 
-                    const data = await res.json();
-                    setProducto(data);
-                } catch (error) {
-                    console.error("Error al obtener el producto:", error);
-                    setError(error.message);
-                } finally {
-                    setLoading(false);
-                }
-            };
+                const data = await res.json();
+                setProducto(data);
+            } catch (error) {
+                setError(error.message);
+            } finally {
+                setLoading(false);
+            }
+        };
 
-            fetchProducto();
-        }
+        fetchProducto();
     }, [productId]);
 
-    // Obtener la cantidad del producto en el carrito al cargar la página
-    const cantidadEnCarrito = calcularCantidadPorId(Number(productId));
-
-    if (loading) return <div>Cargando...</div>;
-    if (error) return <div>{error}</div>;
-    if (!producto) return <div>No se encontró el producto.</div>;
-
-    // Solo mostrar el origen si existe y tiene datos
-    const mostrarOrigen = producto.origen && producto.origen.localidad && producto.origen.provincia;
+    const mostrarOrigen = producto?.origen?.localidad && producto?.origen?.provincia;
 
     const handleCantidadChange = (id, cambio) => {
         setCantidades(prev => ({
@@ -56,7 +45,14 @@ const ProductoPage = () => {
         }));
     };
 
+    const handleInputChange = (e, id) => {
+        const nuevaCantidad = e.target.value === "" ? 0 : Math.max(parseInt(e.target.value), 0);
+        setCantidades(prev => ({ ...prev, [id]: nuevaCantidad }));
+    };
+
     const handleAgregarAlCarrito = (producto, cantidad) => {
+        if (cantidad <= 0) return;
+
         actualizarCarrito(prev => {
             const actualizado = { ...prev };
             const cantidadActual = actualizado[producto.id]?.cantidad || 0;
@@ -81,48 +77,50 @@ const ProductoPage = () => {
         setCantidades(prev => ({ ...prev, [producto.id]: 0 }));
     };
 
+    if (loading) return <p>Cargando...</p>;
+    if (error) return <p>{error}</p>;
+    if (!producto) return <p>No se encontró el producto.</p>;
+
     return (
         <div>
+            {/* <div>
+        <img src={producto.imagen} alt={producto.nombre} />
+      </div> */}
+
+            <h2>{producto.nombre}</h2>
+            <p>{producto.descripcion}</p>
+
+            <p><strong>Categoría:</strong> {producto.categoria}</p>
+            <p><strong>Precio:</strong> ${producto.precio}</p>
+
+            {mostrarOrigen && (
+                <p><strong>Origen:</strong> {producto.origen.localidad}, {producto.origen.provincia}</p>
+            )}
+
+            <p><strong>Stock:</strong> disponible</p>
+            <p>
+                <strong>En carrito:</strong> {calcularCantidadPorId(producto.id)}
+                <Link href="/cart">(ver carrito)</Link>
+            </p>
+
             <div>
-                <img src={producto.imagen} alt={producto.nombre} />
+                <button onClick={() => handleCantidadChange(producto.id, -1)}>-</button>
+                <input
+                    type="number"
+                    value={cantidades[producto.id] || 0}
+                    min="0"
+                    onChange={(e) => handleInputChange(e, producto.id)}
+                />
+                <button onClick={() => handleCantidadChange(producto.id, 1)}>+</button>
             </div>
-            <div>
-                <div>
-                    <p>{producto.nombre} - {producto.descripcion}</p>
-                </div>
-                <p>📋 <strong>Donde encontrarlo: </strong>{producto.categoria}</p>
-                <p>💸 <strong>Precio: </strong>${producto.precio}</p>
 
-                {mostrarOrigen && (
-                    <p>🚩 <strong>Origen: </strong>{producto.origen.localidad}, {producto.origen.provincia}</p>
-                )}
-                <p>📦 <strong>Stock: </strong>disponible</p>
+            <button onClick={() => handleAgregarAlCarrito(producto, cantidades[producto.id] || 0)}>
+                Agregar al carrito
+            </button>
 
-                {/* Mostrar la cantidad de productos en el carrito con ese ID */}
-                <p>🛒 <strong>Cantidad en el <Link href="/cart">carrito</Link>:</strong> {cantidadEnCarrito}</p>
-
-              <div>
-                    <button onClick={() => handleCantidadChange(producto.id, -1)}>-</button>
-                    <input
-                        type="number"
-                        value={cantidades[producto.id] || 0}
-                        min="0"
-                        onChange={(e) => {
-                            const nuevaCantidad = e.target.value === "" ? 0 : Math.max(parseInt(e.target.value), 0);
-                            setCantidades(prev => ({ ...prev, [producto.id]: nuevaCantidad }));
-                        }} />
-                    <button onClick={() => handleCantidadChange(producto.id, 1)}>+</button>
-                </div>
-                <button onClick={() => {
-                    const cantidad = cantidades[producto.id] || 0;
-                    if (cantidad > 0) {
-                        handleAgregarAlCarrito(producto, cantidad);
-                    }
-                }}>
-                    <strong>Agregar al carrito</strong>
-                </button>
-                <a href="/products">⬅ Volver al catálogo</a>
-            </div>
+            <p>
+                <Link href="/products">⬅ Volver al catálogo</Link>
+            </p>
         </div>
     );
 };

@@ -62,7 +62,7 @@ const SocialsAdminPage = () => {
     };
 
     return (
-        <div className='sctnPnlSocials'>
+        <div className='sctnPnl'>
             <div className='subPnl'>
                 <div className='pnlCol rightSpace'>
                     <p className='title'>Agregar red social</p>
@@ -101,12 +101,12 @@ const SocialsAdminPage = () => {
                     <button className='boxBtnB' onClick={handleSubmit}>Crear</button>
                 </div>
 
-                <div className='pnlCol'>
+                <div className='pnlCol jstfCntFlxStrt'>
                     <p className="title">Listado de redes sociales</p>
                     {
                         socials.map((social) => (
-                            <div className='divRow btmSpace' key={social.id}>
-                                <Link className="link" href={`/admin/socials/${social.id}`}>{social.nombreRed}</Link>
+                            <div className='divRow btmSpace alngItmsCntr' key={social.id}>
+                                <Link className="link noBtmMrgn" href={`/admin/socials/${social.id}`}>{social.nombreRed}</Link>
                                 {social.imagenRed && <img className='imgSize' src={social.imagenRed} alt={social.nombreRed} />}
                             </div>
                         ))

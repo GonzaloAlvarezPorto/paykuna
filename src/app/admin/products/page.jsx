@@ -59,7 +59,7 @@ const AdminProductsPage = () => {
     };
 
     return (
-        <div className='sctnPnlPrdcts'>
+        <div className='sctnPnl'>
             <div className="subPnl">
                 <div className="pnlCol rightSpace">
                     <div className="divCol">
@@ -73,8 +73,8 @@ const AdminProductsPage = () => {
                     </div>
                 </div>
                 <div className="pnlCol">
-                    <table className="tblPrds">
-                        <thead className='title'>
+                    <table>
+                        <thead className='title bckGClr2'>
                             <tr>
                                 <th>Categoría</th>
                                 <th>Nombre</th>

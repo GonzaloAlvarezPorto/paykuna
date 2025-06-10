@@ -103,11 +103,11 @@ const AboutUsIndividualAdminPage = () => {
   };
 
   return (
-    <div className='sctnPnlAboutUs'>
+    <div className='sctnPnl'>
       <div className='subPnl'>
-        <div className='pnlRow rightSpace'>
-          <label className='title'>Orden:</label>
-          <input
+        <div className='pnlRow alngItmsCntr rightSpace'>
+          <label className='title noBtmMrgn rightSpace1rem'>Orden:</label>
+          <input className='orderInput txtAlgnCntr'
             type="number"
             name="order"
             value={parrafo.order}
@@ -115,17 +115,17 @@ const AboutUsIndividualAdminPage = () => {
           />
         </div>
 
-        <div className='pnlRow rightSpace'>
-          <label className='title'>Párrafo:</label>
+        <div className='pnlRow alngItmsCntr rightSpace'>
+          <label className='title rightSpace1rem'>Párrafo:</label>
           <textarea
-            className='addText rightSpace'
+            className='addText rightSpace noBtmMrgn hAuto'
             name="parrafo"
             rows={6}
             value={parrafo.parrafo}
             onChange={handleInputChange}
           />
-          <div className='pnlCol'>
-            <button className='boxBtnB' onClick={handleGuardar} disabled={loading}>
+          <div className='divCol jstfCntCntr'>
+            <button className='boxBtnB btmSpace' onClick={handleGuardar} disabled={loading}>
               {loading ? "Guardando..." : "💾 Guardar"}
             </button>
             <button className='boxBtnB' onClick={handleEliminarParrafo}>

@@ -1,5 +1,6 @@
 "use client"
 
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
 const ClientsPage = () => {
@@ -30,19 +31,36 @@ const ClientsPage = () => {
   if (error) return <div>{error}</div>;
 
   return (
-    <div>
-      <h1>Clientes</h1>
+    <div className="sctnPnl">
       {clients.length === 0 ? (
         <p>No hay clientes.</p>
       ) : (
-        <ul>
-          {clients.map((client) => (
-            <li key={client.id}>
-              <strong>ID:</strong> {client.id} — <strong>Email:</strong> {client.email}
-            </li>
-          ))}
-        </ul>
+        <div className="pnlCol">
+          <p className="title">Listado de clientes</p>
+          <table>
+            <thead className="title">
+              <tr>
+                <th>Email</th>
+                <th>Nombre completo</th>
+              </tr>
+            </thead>
+            <tbody>
+              {clients.map((client) => (
+                <tr key={client.id}>
+                  <td>
+                    <Link className="link" href={`/admin/clients/${client.id}`}>
+                      {client.email}
+                    </Link>
+                  </td>
+                  <td className="txt">{client.nombre} {client.apellido}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        
       )}
+      <Link className='backMenu' href="/admin">⬅ Volver al panel de control</Link>
     </div>
   );
 };

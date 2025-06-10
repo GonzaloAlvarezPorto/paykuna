@@ -1,136 +1,77 @@
 'use client';
 
 import Link from 'next/link';
-import { use, useEffect, useState } from 'react';
+import { useParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
-export default function ClientPage({ params }) {
+export default function ClientPage() {
 
-  const resolvedParams = use(params);
-  const { clientId } = resolvedParams;
+  const params = useParams();
+  const clientId = params.clientId;
 
-  const [pedidos, setPedidos] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [deudaTotal, setDeudaTotal] = useState(0);
-  const [cliente, setCliente] = useState("")
+  const [client, setClient] = useState({
+    email: '',
+    nombre: '',
+    apellido: ''
+  });
 
   useEffect(() => {
     if (!clientId) return;
 
-    const fetchData = async () => {
-      try {
-        const [pedidosRes, clientesRes] = await Promise.all([
-          fetch('/api/pedidos'),
-          fetch('/api/clients')
-        ]);
-
-        if (!pedidosRes.ok || !clientesRes.ok) {
-          console.error('Error en fetch');
-          setLoading(false);
-          return;
-        }
-
-        const pedidosData = await pedidosRes.json();
-        const clientesData = await clientesRes.json();
-
-        const pedidosCliente = pedidosData.filter(p => p.clienteId === clientId).sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
-        const deuda = pedidosCliente.reduce(
-          (acc, pedido) => acc + (Number(pedido.deuda) || 0),
-          0
-        );
-
-        const clienteInfo = clientesData.find(c => c.id === clientId);
-
-        setPedidos(pedidosCliente);
-        setDeudaTotal(deuda);
-        setCliente(clienteInfo?.email || 'No encontrado');
-      } catch (error) {
-        console.error('Error al cargar datos:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, [clientId]);
-
-  const handleDelete = async () => {
-    const confirmacion = confirm("¿Estás seguro de que querés borrar este cliente? Esta acción no se puede deshacer.");
-    if (!confirmacion) return;
-
-    try {
-      const res = await fetch(`/api/clients/${clientId}`, {
-        method: 'DELETE'
-      });
-
-      if (!res.ok) {
-        const data = await res.json();
-        alert(`Error al eliminar cliente: ${data.error}`);
-        return;
-      }
-
-      alert('Cliente eliminado correctamente');
-      window.location.href = "/admin"; // Redireccionar
-    } catch (error) {
-      console.error("Error al eliminar cliente:", error);
-      alert("Ocurrió un error al eliminar el cliente");
-    }
-  };
-
-
-  if (loading) return <p>Cargando ficha del cliente...</p>;
+    fetch(`/api/clients/${clientId}`)
+      .then((res) => res.json())
+      .then((data) => setClient(data))
+      .catch((err) => console.error("Error cargando al cliente: ", err));
+  }, [clientId])
 
   return (
-    <div>
-      <div>
-        <span>DATOS DEL CLIENTE</span>
-        <div>
-          <p><strong>Mail cliente: </strong>{cliente}</p>
-          <p><strong>Id cliente: </strong>{clientId}</p>
-          <p>
-            <strong onClick={handleDelete} title="Eliminar cliente">
-              🗑 Borrar usuario
-            </strong>
-          </p>
+    <div className='sctnPnl'>
+      {/*Este pnlCol es sobre el cliente, 
+      acá se editan datos o se eliminaría de ser necesario*/}
+      <div className='pnlCol'>
+        <span className='title'>DATOS DEL CLIENTE</span>
+        <div className='divRow'>
+          <p className='title rightSpace'>Email: </p>
+          <p className='txt'>{client.email}</p>
+        </div>
+        <div className='divRow'>
+          <p className="title rightSpace">Nombre completo: </p>
+          <p className='txt'>{client.nombre} {client.apellido}</p>
+        </div>
+        <div className='divRow jstfCntCntr'>
+          <button className="boxBtnB rightSpace">Editar</button>
+          <button className="boxBtnB">Eliminar</button>
         </div>
       </div>
-      <div>
-        {pedidos.length === 0 ? (
-          <p>Este cliente no tiene pedidos.</p>
-        ) : (
-          <table>
-            <thead>
-              <tr>
-                <th>ID Pedido</th>
-                <th>Fecha</th>
-                <th>Estado</th>
-                <th>Deuda</th>
-              </tr>
-            </thead>
-            <tbody>
-              {pedidos.map((pedido) => (
-                <tr key={pedido.pedidoId}>
-                  <td><Link href={`/admin/pedidos/${pedido.pedidoId}`}>
-                    <span title='Ver pedido'>{pedido.pedidoId}</span>
-                  </Link></td>
-                  <td>{new Date(pedido.fecha).toLocaleDateString()}</td>
-                  <td>{pedido.estado}</td>
-                  <td>${pedido.deuda}</td>
-                </tr>
-              ))}
-            </tbody>
-            <tfoot>
-              <tr>
-                <td><strong>TOTAL ADEUDADO</strong></td>
-                <td></td>
-                <td></td>
-                <td>${deudaTotal}</td>
-              </tr>
-            </tfoot>
-          </table>
-        )}
-
+      {/*Este pnlCol es sobre los pedidos del cliente, 
+      para ver el listado de pedidos que tiene, 
+      se debería hacer un fetch al pedido para 
+      entrar en cada uno de querer editarlo*/}
+      <div className='pnlCol'>
+        <table>
+          <thead className='title'>
+            <tr>
+              <th>ID Pedido</th>
+              <th>Fecha</th>
+              <th>Estado</th>
+              <th>Deuda</th>
+            </tr>
+          </thead>
+          <tbody>
+            {/* aca tengo que hacer el fetch para obtener 
+            los pedidos? */}
+          </tbody>
+          <tfoot>
+            <tr>
+              <td><strong>TOTAL ADEUDADO</strong></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+          </tfoot>
+        </table>
       </div>
-      <Link href="/admin"><strong>⬅ Volver al panel de control</strong></Link>
+      <Link className='backMenu' href="/admin/clients">⬅ Volver al panel de control</Link>
     </div>
   );
 }

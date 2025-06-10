@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 
 const CheckOutPage = () => {
+
   const [email, setEmail] = useState("");
   const [telefono, setTelefono] = useState("");
   const [nombre, setNombre] = useState("");
@@ -38,8 +39,10 @@ const CheckOutPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const carritoArray = Array.isArray(carrito) ? carrito : Object.values(carrito);
+
     try {
-      const response = await fetch("/api/cart", {
+      const response = await fetch("/api/orders", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -49,12 +52,12 @@ const CheckOutPage = () => {
           apellidoCliente: apellido,
           retiro,
           tipoPago,
-          ...(retiro === "envío" && {
+          ...(retiro === "envio" && {
             direccionCliente: direccion,
             localidadCliente: localidad,
             costoEnvio,
           }),
-          carrito,
+          carrito: carritoArray,
         }),
       });
 

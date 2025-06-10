@@ -60,7 +60,7 @@ const AnnouncementsAdminPage = () => {
     };
 
     return (
-        <div className='sctnPnlAnnouncements'>
+        <div className='sctnPnl'>
             <div className='subPnl'>
                 <div className='pnlCol jstfCntFlxStrt rightSpace'>
                     <p className='title'>Agregar Novedad</p>
@@ -87,7 +87,7 @@ const AnnouncementsAdminPage = () => {
                     <p className="title">Listado de novedades</p>
                     {
                         announcements.map((announcement) => (
-                            <div className='divRow' key={announcement.id}>
+                            <div className='divRow alngItmsCntr btmSpace' key={announcement.id}>
                                 <Link className="link tresCuartos" href={`/admin/announcements/${announcement.id}`}>{announcement.descripcion}</Link>
                                 {announcement.image && (
                                     <img

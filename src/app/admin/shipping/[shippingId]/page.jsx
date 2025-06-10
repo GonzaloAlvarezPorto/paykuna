@@ -68,7 +68,7 @@ const ShippingIndividualPage = () => {
     };
 
     return (
-        <div className='sctnPnlShipping'>
+        <div className='sctnPnl'>
             <div className='pnlCol'>
                 <p className='title'>Editar o eliminar tarifa</p>
                 {editando ? (
@@ -87,16 +87,16 @@ const ShippingIndividualPage = () => {
                             value={form.precio}
                             onChange={handleInputChange}
                         />
-                        <div>
-                            <button className='boxBtnB' onClick={handleGuardar}>💾 Guardar</button>
+                        <div className='divRow'>
+                            <button className='boxBtnB rightSpace' onClick={handleGuardar}>💾 Guardar</button>
                             <button className='boxBtnB' onClick={() => setEditando(false)}>✖ Cancelar</button>
                         </div>
                     </div>
                 ) : (
-                    <div className='divRow'>
-                        <strong>{localidad.localidad}</strong>
-                        <p className='txt'>${localidad.precio}</p>
-                        <button className='boxBtnB' title='Editar' onClick={handleEditarClick}>🖋</button>
+                    <div className='divRow alngItmsCntr'>
+                        <strong className='link noMargin rightSpace1rem'>{localidad.localidad}</strong>
+                        <p className='txt leftSpace1rem rightSpace1rem'>${localidad.precio}</p>
+                        <button className='boxBtnB rightSpace' title='Editar' onClick={handleEditarClick}>🖋</button>
                         <button className='boxBtnB' title='Eliminar' onClick={handlerEliminarLocalidad}>🗑</button>
                     </div>
                 )}

@@ -11,13 +11,13 @@ export default function AdminPage() {
   };
 
   return (
-    <div className='sctnPnlAdmin'>
+    <div className='sctnPnl'>
       <div className="subPnl">
         <div className='pnlCol rightSpace'>
-          <Link className='link pending' href={"/admin/clients"}>💃 Panel de clientes</Link>
-          <Link className='link pending' href={"/admin/orders"}>🛒 Panel de pedidos</Link>
         </div>
         <div className='pnlCol rightSpace'>
+          <Link className='link loading' href={"/admin/orders"}>🛒 Panel de pedidos</Link>
+          <Link className='link loading' href={"/admin/clients"}>💃 Panel de clientes</Link>
         </div>
         <div className="pnlCol">
           <Link className='link done' href={"/admin/announcements"}>📰 Panel de novedades</Link>

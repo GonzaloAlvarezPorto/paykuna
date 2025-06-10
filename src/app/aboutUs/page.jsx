@@ -21,15 +21,22 @@ const NosotrosPage = () => {
     fetchData();
   }, []);
   return (
-    <div>
-      <h2>¡Hola comunidad Payku, bienvenidxs!</h2>
+    <div className='sctnPnl'>
+      <h1>¡Hola comunidad Payku!</h1>
       {textos.length > 0 ? (
         textos.map((texto, index) => (
-          <p key={index}>
+          <p className='txt padd1rem' key={index}>
             {texto.parrafo}
           </p>
         ))
       ) : (<p>No hay nada que mostrar</p>)}
+
+      <p className='padd1rem tnks'>
+        Gracias por estar del otro lado. Caminemos juntxs.
+      </p>
+      <p className='padd1rem team'>
+        El equipo de Almacén Paykuna
+      </p>
     </div>
   )
 }

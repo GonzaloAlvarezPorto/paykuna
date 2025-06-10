@@ -24,9 +24,61 @@ export async function getOrderById(orderId) {
 
 export async function createOrder(data) {
   if (!data || typeof data !== "object") {
-        throw new Error("Datos inválidos");
-    }
-  const nuevoOrder = data;
+    throw new Error("Datos inválidos");
+  }
+
+  const {
+    emailCliente,
+    telefonoCliente,
+    nombreCliente,
+    apellidoCliente,
+    retiro,
+    tipoPago,
+    direccionCliente,
+    localidadCliente,
+    costoEnvio = 0,
+    carrito = [],
+    pagado = 0,
+    estado = 'Por preparar'
+  } = data;
+
+  const hoy = new Date();
+
+  const fechaClave = hoy.toISOString().split("T")[0]; // yyyy-mm-dd
+  const fechaIngreso = hoy.toLocaleDateString("es-AR"); // dd/mm/yyyy
+
+  // Obtener todas las órdenes para contar las del día
+  const snapshot = await getDocs(ordersRef);
+  const pedidos = snapshot.docs.map(doc => doc.data());
+
+  const pedidosHoy = pedidos.filter(p => p.fechaClave === fechaClave);
+  const correlativo = String(pedidosHoy.length + 1).padStart(4, "0");
+
+  const numeroOrden = `${hoy.getFullYear()}${String(hoy.getMonth() + 1).padStart(2, "0")}${String(hoy.getDate()).padStart(2, "0")}-${correlativo}`;
+
+  const totalProductos = carrito.reduce((acc, item) => acc + item.precio * item.cantidad, 0);
+  const totalCompra = totalProductos + (retiro === "envio" ? costoEnvio : 0);
+
+  const nuevoOrder = {
+    numeroOrden,
+    fechaIngreso,
+    fechaClave,
+    emailCliente,
+    telefonoCliente,
+    nombreCliente,
+    apellidoCliente,
+    retiro,
+    tipoPago,
+    direccionCliente: retiro === "envio" ? direccionCliente : null,
+    localidadCliente: retiro === "envio" ? localidadCliente : null,
+    costoEnvio: retiro === "envio" ? costoEnvio : 0,
+    carrito,
+    totalProductos,
+    totalCompra,
+    pagado,
+    estado
+  };
+
   const docRef = await addDoc(ordersRef, nuevoOrder);
   const orderCreado = { id: docRef.id, ...nuevoOrder };
   return orderCreado;

@@ -10,11 +10,12 @@
 }
 
 html {
+    scrollbar-width: none;
     background-color: black
 }
 
 main {
-    min-height: 200px;
+    min-height: 67vh;
     background-color: var.$verde3;
     display: flex;
 }
@@ -30,8 +31,9 @@ header {
     justify-content: space-between;
     align-items: center;
     z-index: 1;
+    height: 16vh;
 }
 
-.txt{
-    color: white;
+footer {
+    height: 17vh;
 }

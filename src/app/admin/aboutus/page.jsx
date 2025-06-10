@@ -49,12 +49,12 @@ const AboutUsAdminPage = () => {
     };
 
     return (
-        <div className='sctnPnlAboutUs'>
+        <div className='sctnPnl tresCuartos'>
             <div className='subPnl'>
-                <div className='pnlCol rightSpace'>
+                <div className='pnlCol rightSpace jstfCntFlxStrt'>
                     <p className='title'>Agregar párrafo</p>
                     <input
-                        className='addText'
+                        className='addText wAuto'
                         type="text"
                         name="parrafo"
                         value={nuevoParrafo.parrafo}
@@ -72,9 +72,9 @@ const AboutUsAdminPage = () => {
                             {parrafos
                                 .sort((a, b) => a.order - b.order)
                                 .map((p) => (
-                                    <li className='pnlRow' key={p.id}>
-                                        <Link className='link' title={`Panel del texto ${p.order}`} href={`/admin/aboutus/${p.id}`}>{p.order}</Link>
-                                        <span className='txt'>{p.parrafo}</span>
+                                    <li className='divRow alngItmsCntr btmSpace2rem' key={p.id}>
+                                        <Link className='link linkW50H50 bckGClr1' title={`Panel del texto ${p.order}`} href={`/admin/aboutus/${p.id}`}>{p.order}</Link>
+                                        <span className='txt tresCuartos dsplFlx jstfCntFlxNd txtAlgnEnd'>{p.parrafo}</span>
                                     </li>
                                 ))}
                         </ul>

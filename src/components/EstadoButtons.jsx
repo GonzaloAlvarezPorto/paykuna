@@ -2,25 +2,25 @@
 
 import { useState } from 'react';
 
-const estados = ['Por preparar', 'Preparando', 'Entregado', 'Pagado'];
+const estados = ['Por preparar', 'Preparando', 'Entregado'];
 
-export default function EstadoButtons({ estadoActual, pedidoId, totalPedido }) {
+export default function EstadoButtons({ estadoActual, orderId, onEstadoChange  }) {
   const [estado, setEstado] = useState(estadoActual);
   const [loading, setLoading] = useState(false);
 
   async function cambiarEstado(nuevoEstado) {
     setLoading(true);
-    const res = await fetch(`/api/pedidos/${pedidoId}`, {
+    const res = await fetch(`/api/orders/${orderId}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         estado: nuevoEstado,
-        ...(nuevoEstado === 'Pagado' && { pagado: totalPedido }), // señal al backend
       }),
     });
 
     if (res.ok) {
       setEstado(nuevoEstado);
+      if (onEstadoChange) onEstadoChange(nuevoEstado); // 🔁 Notifica al padre
     } else {
       alert('Error al actualizar estado');
     }
@@ -34,7 +34,6 @@ export default function EstadoButtons({ estadoActual, pedidoId, totalPedido }) {
           key={e}
           disabled={loading || e === estado}
           onClick={() => cambiarEstado(e)}
-          style={{ fontWeight: e === estado ? 'bold' : 'normal' }}
         >
           {e}
         </button>

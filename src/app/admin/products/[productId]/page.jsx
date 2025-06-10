@@ -84,11 +84,11 @@ const ProductIndividualAdminPage = () => {
 
 
   return (
-    <div className='sctnPnlPrdcts'>
+    <div className='sctnPnl'>
       {editMode ? (
         <div className='pnlCol'>
           <div className='divCol'>
-            <p className="title">Cambiar nombre del producto:</p>
+            <p className="title txtAlgnStrt noMargin">Cambiar nombre del producto:</p>
             <input
               className='createInput'
               type="text"
@@ -97,7 +97,7 @@ const ProductIndividualAdminPage = () => {
               placeholder="Nombre producto"
               onChange={handleChange}
             />
-            <p className="title">Cambiar categoría del producto:</p>
+            <p className="title txtAlgnStrt noMargin">Cambiar categoría del producto:</p>
             <input
               className='createInput'
               type="text"
@@ -106,7 +106,7 @@ const ProductIndividualAdminPage = () => {
               placeholder="Categoría producto"
               onChange={handleChange}
             />
-            <p className="title">Cambiar descripción del producto:</p>
+            <p className="title txtAlgnStrt noMargin">Cambiar descripción del producto:</p>
             <input
               className='createInput'
               type="text"
@@ -115,7 +115,7 @@ const ProductIndividualAdminPage = () => {
               placeholder="Descripción"
               onChange={handleChange}
             />
-            <p className="title">Cambiar precio del producto:</p>
+            <p className="title txtAlgnStrt noMargin">Cambiar precio del producto:</p>
             <input
               className='createInput'
               type="number"
@@ -124,7 +124,7 @@ const ProductIndividualAdminPage = () => {
               placeholder="Precio"
               onChange={handleChange}
             />
-            <p className="title">Cambiar foto del producto:</p>
+            <p className="title txtAlgnStrt noMargin">Cambiar foto del producto:</p>
             <input
               className='createInput'
               type="text"
@@ -133,7 +133,7 @@ const ProductIndividualAdminPage = () => {
               placeholder="URL de la imagen"
               onChange={handleChange}
             />
-            <button className='boxBtnB' disabled={loading} onClick={handleUpdate}>
+            <button className='boxBtnB tpSpace' disabled={loading} onClick={handleUpdate}>
               {loading ? "Guardando..." : "Guardar cambios"}
             </button>
           </div>
@@ -141,12 +141,12 @@ const ProductIndividualAdminPage = () => {
       ) : (
         <div className='pnlCol'>
           <p className="title">Editar o eliminar producto</p>
-          <div className='divRow'>
-            <p className='title'>{product.nombre}</p>
-            <p className='txt'>{product.categoria}</p>
-            <p className='txt'>{product.descripcion}</p>
-            <p className='txt'>${product.precio}</p>
-            <button className='boxBtnB rightSpace' onClick={() => setEditMode(true)}>🖋 Editar</button>
+          <div className='divRow alngItmsCntr'>
+            <p className='title noMargin'>{product.nombre}</p>
+            <p className='txt leftSpace1rem'>{product.categoria}</p>
+            <p className='txt leftSpace1rem'>{product.descripcion}</p>
+            <p className='txt leftSpace1rem'>${product.precio}</p>
+            <button className='boxBtnB leftSpace1rem rightSpace' onClick={() => setEditMode(true)}>🖋 Editar</button>
             <button className='boxBtnB' disabled={loading} onClick={handleDelete}>
               {loading ? "Eliminando..." : "🗑 Eliminar"}
             </button>
